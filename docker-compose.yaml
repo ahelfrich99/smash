@@ -1,13 +1,21 @@
-# volumes:
+volumes:
+  postgres-db:
+    external: true
+  bangerz:
+    external: true
+
 services:
   fastapi:
     build:
-      context: sample_service
-      dockerfile: Dockerfile.dev
+      context: ./bangerz
+      dockerfile: ./Dockerfile.dev
     ports:
       - 8000:8000
     volumes:
-      - ./sample_service:/app
+      - ./bangerz:/app
+    environment:
+      SIGNING_KEY: bangerz
+      DATABASE_URL: postgresql://bangerz:bangerz@db/bangerz
 
   ghi:
     image: node:lts-bullseye
@@ -22,4 +30,15 @@ services:
       NODE_ENV: development
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
-      REACT_APP_SAMPLE_SERVICE_API_HOST: ${REACT_APP_SAMPLE_SERVICE_API_HOST}
+      REACT_APP_SAMPLE_SERVICE_API_HOST: http://localhost:8000
+
+  db:
+    image: postgres:latest
+    volumes:
+      - bangerz:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: bangerz
+      POSTGRES_USER: bangerz
+      POSTGRES_DB: bangerz
+    ports:
+      - 15432:5432
