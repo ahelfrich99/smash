@@ -2,37 +2,37 @@ steps = [
     [
         # "Up" SQL statement
         """
-        CREATE TABLE dummy (
+        CREATE TABLE posts (
             id SERIAL PRIMARY KEY NOT NULL,
-            required_limited_text VARCHAR(1000) NOT NULL,
-            required_unlimited_text TEXT NOT NULL,
-            required_date_time TIMESTAMP NOT NULL,
-            automatically_set_date_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            required_integer INTEGER NOT NULL,
-            required_money MONEY NOT NULL
+            username VARCHAR(200) NOT NULL,
+            avatar_img TEXT NOT NULL,
+            text TEXT NOT NULL,
+            song VARCHAR(200) NOT NULL,
+            artist VARCHAR(200) NOT NULL,
+            album_img VARCHAR(200) NOT NULL,
+            likes INT NOT NULL,
         );
         """,
         # "Down" SQL statement
         """
-        DROP TABLE dummy;
+        DROP TABLE posts;
         """
     ],
     [
         # "Up" SQL statement
         """
-        CREATE TABLE big_dummy (
+        CREATE TABLE comments (
             id SERIAL PRIMARY KEY NOT NULL,
-            required_limited_text VARCHAR(1000) NOT NULL,
-            required_unlimited_text TEXT NOT NULL,
-            required_date_time TIMESTAMP NOT NULL,
-            automatically_set_date_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            required_integer INTEGER NOT NULL,
-            required_money MONEY NOT NULL
+            post_id INT NOT NULL,
+            username VARCHAR(200) NOT NULL,
+            profile_img VARCHAR(200) NOT NULL,
+            comment TEXT NOT NULL,
+            FOREIGN KEY (post_id) REFERENCES posts (id)
         );
         """,
         # "Down" SQL statement
         """
-        DROP TABLE big_dummy;
+        DROP TABLE comments;
         """
     ]
 ]
