@@ -14,7 +14,7 @@ services:
     volumes:
       - ./bangerz:/app
     environment:
-      SIGNING_KEY: bangerz
+      SIGNING_KEY: 6gYA0hf8n5YlmuoklG1SD8ixEuCsCTyn
       DATABASE_URL: postgresql://bangerz:bangerz@db/bangerz
 
   ghi:
