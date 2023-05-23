@@ -2,6 +2,25 @@ steps = [
     [
         # "Up" SQL statement
         """
+        CREATE TABLE users (
+            id SERIAL PRIMARY KEY NOT NULL,
+            username VARCHAR(15) NOT NULL,
+            password VARCHAR(20) NOT NULL,
+            first_name VARCHAR(50) NOT NULL,
+            last_name VARCHAR(50) NOT NULL,
+            email VARCHAR(50) NOT NULL,
+            profile_img VARCHAR(500) NOT NULL
+
+        );
+        """,
+        # "Down" SQL statement
+        """
+        DROP TABLE users;
+        """,
+    ],
+    [
+        # "Up" SQL statement
+        """
         CREATE TABLE bangerz (
             id SERIAL PRIMARY KEY NOT NULL,
             user_id SERIAL NOT NULL,
@@ -15,6 +34,23 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE bangerz;
+        """,
+    ],
+        [
+        # "Up" SQL statement
+        """
+        CREATE TABLE posts (
+            id SERIAL PRIMARY KEY NOT NULL,
+            user_id SERIAL NOT NULL REFERENCES USERS(ID),
+            banger_id SERIAL REFERENCES BANGERZ(ID),
+            text TEXT NOT NULL,
+            like_count INT DEFAULT 0
+
+        );
+        """,
+        # "Down" SQL statement
+        """
+        DROP TABLE posts;
         """,
     ],
     [
@@ -37,19 +73,17 @@ steps = [
     [
         # "Up" SQL statement
         """
-        CREATE TABLE group_comments (
+        CREATE TABLE groups (
             id SERIAL PRIMARY KEY NOT NULL,
-            group_id SERIAL NOT NULL REFERENCES GROUPS(ID),
-            user_id SERIAL NOT NULL REFERENCES USERS(ID)
-            post_id SERIAL NOT NULL REFERENCES POSTS(ID),
-            content TEXT NOT NULL,
-            date DATE NOT NULL,
-            like_count INT DEFAULT 0
+            group_name VARCHAR(50) NOT NULL,
+            group_size INT NOT NULL,
+            picture_url VARCHAR(500) NOT NULL,
+            description TEXT NOT NULL
         );
         """,
         # "Down" SQL statement
         """
-        DROP TABLE group_comments;
+        DROP TABLE groups;
         """,
     ],
     [
@@ -73,19 +107,22 @@ steps = [
     [
         # "Up" SQL statement
         """
-        CREATE TABLE groups (
+        CREATE TABLE group_comments (
             id SERIAL PRIMARY KEY NOT NULL,
-            group_name VARCHAR(50) NOT NULL,
-            group_size INT NOT NULL,
-            picture_url VARCHAR(500) NOT NULL,
-            description TEXT NOT NULL
+            group_id SERIAL NOT NULL REFERENCES GROUPS(ID),
+            user_id SERIAL NOT NULL REFERENCES USERS(ID),
+            post_id SERIAL NOT NULL REFERENCES POSTS(ID),
+            content TEXT NOT NULL,
+            date DATE NOT NULL,
+            like_count INT DEFAULT 0
         );
         """,
         # "Down" SQL statement
         """
-        DROP TABLE groups;
+        DROP TABLE group_comments;
         """,
     ],
+
     [
         # "Up" SQL statement
         """
@@ -100,41 +137,7 @@ steps = [
         """
         DROP TABLE homies;
         """,
-    ],
-    [
-        # "Up" SQL statement
-        """
-        CREATE TABLE posts (
-            id SERIAL PRIMARY KEY NOT NULL,
-            user_id SERIAL NOT NULL REFERENCES USERS(ID),
-            banger_id SERIAL REFERENCES BANGERZ(ID),
-            text TEXT NOT NULL,
-            like_count INT DEFAULT 0
+    ]
 
-        );
-        """,
-        # "Down" SQL statement
-        """
-        DROP TABLE posts;
-        """,
-    ],
-    [
-        # "Up" SQL statement
-        """
-        CREATE TABLE users (
-            id SERIAL PRIMARY KEY NOT NULL,
-            username VARCHAR(15) NOT NULL,
-            password VARCHAR(20) NOT NULL,
-            first_name VARCHAR(50) NOT NULL,
-            last_name VARCHAR(50) NOT NULL,
-            email VARCHAR(50) NOT NULL,
-            profile_img VARCHAR(500) NOT NULL
 
-        );
-        """,
-        # "Down" SQL statement
-        """
-        DROP TABLE users;
-        """,
-    ],
 ]
