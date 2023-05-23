@@ -3,7 +3,10 @@ from authenticator import authenticator
 from fastapi.middleware.cors import CORSMiddleware
 import os
 # Router imports
-from routers import accounts
+from routers import (
+    accounts,
+    groups
+)
 
 app = FastAPI()
 app.include_router(authenticator.router)
@@ -18,6 +21,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# imported routers
+app.include_router(groups.router)
 
 
 @app.get("/api/launch-details")
