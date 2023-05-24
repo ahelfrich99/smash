@@ -12,7 +12,7 @@ class MyAuthenticator(Authenticator):
     ):
         # Use your repo to get the account based on the
         # username (which could be an email)
-        return accounts.get(username)
+        return accounts.get_by_username(username)
 
     def get_account_getter(
         self,
@@ -24,10 +24,11 @@ class MyAuthenticator(Authenticator):
     def get_hashed_password(self, account: AccountOutWithPassword):
         # Return the encrypted password value from your
         # account object
-        return account["hashed_password"]
+        return account.hashed_password
 
     def get_account_data_for_cookie(self, account: AccountOut):
-        return account["username"], AccountOut(**account)
+        print(account)
+        return account.username, AccountOut(**account.dict())
 
 
 authenticator = MyAuthenticator(os.environ["SIGNING_KEY"])
