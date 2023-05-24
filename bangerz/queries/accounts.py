@@ -1,5 +1,10 @@
 from pydantic import BaseModel
 from queries.pool import pool
+from typing import List, Optional
+
+
+class Error(BaseModel):
+    message: str
 
 
 class DuplicateAccountError(ValueError):
@@ -12,14 +17,16 @@ class AccountIn(BaseModel):
     first_name: str
     last_name: str
     email: str
+    profile_img: str
 
 
 class AccountOut(BaseModel):
-    id: str
+    id: int
     username: str
     first_name: str
     last_name: str
     email: str
+    profile_img: Optional[str]
 
 
 class AccountOutWithPassword(AccountOut):
@@ -27,40 +34,6 @@ class AccountOutWithPassword(AccountOut):
 
 
 class AccountQueries(BaseModel):
-    def get(self, username: str) -> AccountOutWithPassword:
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    result = db.execute(
-                        """
-                        SELECT id,
-                            username,
-                            password,
-                            first_name,
-                            last_name,
-                            email
-                        FROM users
-                        WHERE username = %s
-                        """,
-                        [username]
-                    )
-                    records = result.fetchone()
-                    if records is None:
-                        return None
-                    dict = {
-                        "id": records[0],
-                        "email": records[5],
-                        "username": records[1],
-                        "hashed_password": records[2],
-                        "first_name": records[3],
-                        "last_name": records[4],
-                    }
-                    return dict
-
-        except Exception as e:
-            print(e)
-            return {"message": "Could not get accounts"}
-
     def create(
         self,
         info: AccountIn,
@@ -76,9 +49,10 @@ class AccountQueries(BaseModel):
                             password,
                             first_name,
                             last_name,
-                            email
+                            email,
+                            profile_img
                             )
-                        VALUES (%s, %s, %s, %s, %s)
+                        VALUES (%s, %s, %s, %s, %s, %s)
                         RETURNING id;
                         """,
                         [
@@ -86,7 +60,8 @@ class AccountQueries(BaseModel):
                             hashed_password,
                             info.first_name,
                             info.last_name,
-                            info.email
+                            info.email,
+                            info.profile_img,
                         ]
                     )
                     id = result.fetchone()[0]
@@ -96,9 +71,147 @@ class AccountQueries(BaseModel):
                         username=info.username,
                         hashed_password=hashed_password,
                         first_name=info.first_name,
-                        last_name=info.last_name
+                        last_name=info.last_name,
+                        profile_img=info.profile_img,
                     )
+
+        except Exception:
+            return {"message": "Could not create account!"}
+
+    def get_all(
+        self
+    ) -> List[AccountOutWithPassword] | Error:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        SELECT id,
+                            username,
+                            password,
+                            first_name,
+                            last_name,
+                            email,
+                            profile_img
+                        FROM users
+                        ORDER BY username
+                        """
+                    )
+                    result = db.fetchall()
+
+                    return [
+                        AccountOutWithPassword(
+                            id=res[0],
+                            username=res[1],
+                            hashed_password=res[2],
+                            first_name=res[3],
+                            last_name=res[4],
+                            email=res[5],
+                            profile_img=res[6],
+                        ) for res in result
+                    ]
 
         except Exception as e:
             print(e)
-            return {"message": "Could not create account!"}
+            return {"message": "Could not get list of users"}
+
+    def get_one(
+        self,
+        user_id: int
+    ) -> AccountOutWithPassword | Error:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        SELECT id,
+                            username,
+                            password,
+                            first_name,
+                            last_name,
+                            email,
+                            profile_img
+                        FROM users
+                        WHERE id = %s
+                        """,
+                        [user_id]
+                    )
+                    data = db.fetchone()
+                    if data:
+                        return AccountOutWithPassword(
+                            id=data[0],
+                            username=data[1],
+                            hashed_password=data[2],
+                            first_name=data[3],
+                            last_name=data[4],
+                            email=data[5],
+                            profile_img=data[6],
+                        )
+                    else:
+                        return Error(message="Could not find user")
+
+        except Exception:
+            return {"message": "Could not retrieve user info"}
+
+    def delete(
+        self,
+        user_id: int,
+        username: str
+    ) -> bool | Error:
+        target_group = self.get_one(user_id)
+        if target_group.id:
+            try:
+                with pool.connection() as conn:
+                    with conn.cursor() as db:
+                        db.execute(
+                            """
+                            DELETE FROM users
+                            WHERE id = %s;
+                            """,
+                            [
+                                user_id
+                            ]
+                        ),
+                        return True
+
+            except Exception:
+                return False
+
+        return None
+
+    def get_by_username(
+        self,
+        username: str
+    ) -> Optional[AccountOutWithPassword]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        SELECT id,
+                            username,
+                            password,
+                            first_name,
+                            last_name,
+                            email,
+                            profile_img
+                        FROM users
+                        WHERE username = %s;
+                        """,
+                        [username]
+                    )
+                    data = db.fetchone()
+                    if data:
+                        return AccountOutWithPassword(
+                            id=data[0],
+                            username=data[1],
+                            hashed_password=data[2],
+                            first_name=data[3],
+                            last_name=data[4],
+                            email=data[5],
+                            profile_img=data[6],
+                        )
+        except Exception:
+            return Error(message="Could not find user")
+
+        return None
