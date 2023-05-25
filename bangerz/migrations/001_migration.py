@@ -45,7 +45,6 @@ steps = [
             banger_id SERIAL REFERENCES BANGERZ(ID),
             text TEXT NOT NULL,
             like_count INT DEFAULT 0
-
         );
         """,
         # "Down" SQL statement
@@ -122,7 +121,6 @@ steps = [
         DROP TABLE group_comments;
         """,
     ],
-
     [
         # "Up" SQL statement
         """
@@ -137,7 +135,5 @@ steps = [
         """
         DROP TABLE homies;
         """,
-    ]
-
-
+    ],
 ]
