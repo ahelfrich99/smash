@@ -83,6 +83,36 @@ async def get_one(
     return result
 
 
+# @router.put("/accounts/{user_id}", response_model=AccountOut | Error)
+# async def update(
+#     user_id: int,
+#     account: AccountIn,
+#     response: Response,
+#     repo: AccountQueries = Depends(),
+#     users: dict = Depends(authenticator.try_get_current_account_data)
+# ) -> AccountOut | Error:
+#     if users is None:
+#         response.status_code = 401
+#         return Error(message="Sign in to access feature")
+#     hashed_password = authenticator.hash_password(account.password)
+#     account_id = users.get("id")
+#     updated_account = AccountIn(
+#         username=account.username,
+#         password=hashed_password,
+#         first_name=account.first_name,
+#         last_name=account.last_name,
+#         email=account.email,
+#         profile_img=account.profile_img
+#     )
+#     result = repo.update(user_id, updated_account, account_id)
+#     if result is None:
+#         response.status_code = 404
+#         result = Error(message="Unable to update user")
+#     else:
+#         response.status_code = 200
+#         return result
+
+
 @router.delete("/accounts/{user_id}", response_model=bool | Error)
 async def delete(
     user_id: int,

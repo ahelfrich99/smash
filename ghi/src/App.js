@@ -1,35 +1,37 @@
-import { useEffect, useState } from "react";
-import Construct from "./Construct.js";
-import ErrorNotification from "./ErrorNotification";
+// import { useEffect, useState } from "react";
+// import Construct from "./Construct.js";
+// import ErrorNotification from "./ErrorNotification";
+
+import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "./App.css";
 
+import { Main } from "./Main";
+import LoginForm from "./login-signup/LoginForm";
+import Navbar from "./Navbar";
+import SignupForm from "./login-signup/SignupForm";
+
+
 function App() {
-  const [launchInfo, setLaunchInfo] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function getData() {
-      let url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/api/launch-details`;
-      console.log("fastapi url: ", url);
-      let response = await fetch(url);
-      console.log("------- hello? -------");
-      let data = await response.json();
-
-      if (response.ok) {
-        console.log("got launch data!");
-        setLaunchInfo(data.launch_details);
-      } else {
-        console.log("drat! something happened");
-        setError(data.message);
-      }
-    }
-    getData();
-  }, []);
+  // const basename = 'localhost:3000';
 
   return (
-    <div>
-      <ErrorNotification error={error} />
-      <Construct info={launchInfo} />
+    <div className="container">
+      <BrowserRouter>
+        <AuthProvider>
+          <Navbar />
+          <Routes>
+            <Route exact path="/" element={<Main />} />
+
+            <Route exact path="/signup" element={<SignupForm />} />
+            <Route exact path="/login" element={<LoginForm />} />
+            <Route exact path="/home" element={<Main />} />
+          </Routes>
+        </AuthProvider>
+      </BrowserRouter>
     </div>
   );
 }
