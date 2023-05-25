@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, Response
 from typing import List
+from authenticator import authenticator
 
 from queries.homies import (
     Error,
@@ -14,7 +15,8 @@ router = APIRouter()
 async def create(
     homie: HomieIn,
     response: Response,
-    repo: HomieRepository = Depends()
+    repo: HomieRepository = Depends(),
+    account: dict = Depends(authenticator.try_get_current_account_data),
 ):
     #response.status_code = 400
     return repo.create(homie)
@@ -24,7 +26,8 @@ def delete(
     user_id: int,
     homie_id: int,
     response: Response,
-    repo: HomieRepository = Depends()
+    repo: HomieRepository = Depends(),
+    account: dict = Depends(authenticator.try_get_current_account_data),
 ) -> bool:
     homie = HomieIn(user_id=user_id, homie_id=homie_id)
     result = repo.delete(homie)

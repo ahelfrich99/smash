@@ -78,7 +78,7 @@ class HomieRepository:
                     )
                     # fetch all records
                     records = db.fetchall()
-                    print(records)
+
                     result = []
                     for record in records:
                         homie = HomieOut(
@@ -120,4 +120,4 @@ class HomieRepository:
 
         except Exception as e:
             print(e)
-            return {"message": "Could not get all homies"}
+            return {"message": "Could not get homie"}
