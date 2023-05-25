@@ -215,3 +215,48 @@ class AccountQueries(BaseModel):
             return Error(message="Could not find user")
 
         return None
+
+    # def update(
+    #     self,
+    #     user_id: int,
+    #     account: AccountIn,
+    #     account_id: int
+    # ) -> AccountOutWithPassword | Error:
+    #     target_group = self.get_one(user_id)
+    #     if target_group.id:
+    #         try:
+    #             with pool.connection() as conn:
+    #                 with conn.cursor() as db:
+    #                     db.execute(
+    #                         """
+    #                         UPDATE users
+    #                         SET
+    #                             username = %s,
+    #                             password = %s,
+    #                             first_name = %s,
+    #                             last_name = %s,
+    #                             email = %s,
+    #                             profile_img = %s
+    #                         WHERE id = %s
+    #                         """,
+    #                         [
+    #                             account.username,
+    #                             account.password,
+    #                             account.first_name,
+    #                             account.last_name,
+    #                             account.email,
+    #                             account.profile_img,
+    #                             account_id
+
+    #                         ]
+    #                     )
+    #                     return AccountOutWithPassword(
+    #                         id=user_id,
+    #                         **account.dict()
+    #                     )
+
+    #         except Exception as e:
+    #             print(e)
+    #             return Error(message="Could not update user")
+    #     else:
+    #         return Error(message="User not found or username mismatch")
