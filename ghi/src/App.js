@@ -13,6 +13,7 @@ import { Main } from "./Main";
 import LoginForm from "./login-signup/LoginForm";
 import Navbar from "./Navbar";
 import SignupForm from "./login-signup/SignupForm";
+import Example from "./mock-pages/Example";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             <Route exact path="/signup" element={<SignupForm />} />
             <Route exact path="/login" element={<LoginForm />} />
             <Route exact path="/home" element={<Main />} />
+            <Route exact path="/mock" element={<Example />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

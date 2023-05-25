@@ -9,10 +9,9 @@ const SignupForm = () => {
     const [lastname, setLastname] = useState('');
     const [email, setEmail] = useState('');
     const [profileImg, setProfileImg] = useState('');
-    const { register } = useToken();
     const navigate = useNavigate();
 
-    const handleRegistration = (e) => {
+    const handleRegistration = async (e) => {
         e.preventDefault();
         const accountData = {
             username: username,
@@ -22,12 +21,26 @@ const SignupForm = () => {
             email: email,
             profile_img: profileImg,
         };
-        register(
-            accountData,
-            `${process.env.REACT_APP_USER_SERVICE_API_HOST}/bangerz/users`
-        );
-        e.target.reset();
-        navigate('/');
+        try {
+            const url = 'http://localhost:8000/accounts'
+            const fetchUrl = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(accountData),
+            };
+            const response = await fetch(url, fetchUrl)
+
+            if (response.ok) {
+                e.target.reset();
+                navigate('/');
+            } else {
+                console.error('User creation failed.');
+            }
+        } catch (error) {
+            console.error('Error creating user', error);
+        }
     };
 
     return (
