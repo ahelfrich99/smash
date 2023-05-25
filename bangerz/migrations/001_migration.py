@@ -4,12 +4,12 @@ steps = [
         """
         CREATE TABLE users (
             id SERIAL PRIMARY KEY NOT NULL,
-            username VARCHAR(15) NOT NULL,
-            password VARCHAR(20) NOT NULL,
-            first_name VARCHAR(50) NOT NULL,
-            last_name VARCHAR(50) NOT NULL,
-            email VARCHAR(50) NOT NULL,
-            profile_img VARCHAR(500) NOT NULL
+            username VARCHAR(300) NOT NULL,
+            password VARCHAR(300) NOT NULL,
+            first_name VARCHAR(300) NOT NULL,
+            last_name VARCHAR(300) NOT NULL,
+            email VARCHAR(300) NOT NULL,
+            profile_img VARCHAR(500)
 
         );
         """,
@@ -127,11 +127,11 @@ steps = [
         # "Up" SQL statement
         """
         CREATE TABLE homies (
-            id SERIAL PRIMARY KEY NOT NULL,
-            user_id SERIAL NOT NULL REFERENCES USERS(ID),
-            online BOOLEAN NOT NULL
-
-        );
+        user_id INT,
+        homie_id INT,
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        FOREIGN KEY (homie_id) REFERENCES users(id)
+);
         """,
         # "Down" SQL statement
         """

@@ -5,12 +5,14 @@ import os
 # Router imports
 from routers import (
     accounts,
-    groups
+    groups,
+    homies,
 )
 
 app = FastAPI()
 app.include_router(authenticator.router)
 app.include_router(accounts.router)
+app.include_router(homies.router)
 
 app.add_middleware(
     CORSMiddleware,
