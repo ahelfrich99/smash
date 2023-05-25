@@ -1,6 +1,4 @@
 volumes:
-  postgres-db:
-    external: true
   bangerz:
     external: true
 
@@ -16,6 +14,7 @@ services:
     environment:
       SIGNING_KEY: 6gYA0hf8n5YlmuoklG1SD8ixEuCsCTyn
       DATABASE_URL: postgresql://bangerz:bangerz@db/bangerz
+      WAIT_HOSTS: db:5432
 
   ghi:
     image: node:lts-bullseye

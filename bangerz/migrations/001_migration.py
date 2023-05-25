@@ -36,7 +36,7 @@ steps = [
         DROP TABLE bangerz;
         """,
     ],
-        [
+    [
         # "Up" SQL statement
         """
         CREATE TABLE posts (
