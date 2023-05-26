@@ -17,11 +17,8 @@ from routers import (
 app = FastAPI()
 app.include_router(authenticator.router)
 app.include_router(accounts.router)
-<<<<<<< HEAD
 app.include_router(homies.router)
-=======
 app.include_router(bangerz.router)
->>>>>>> main
 app.include_router(posts.router)
 
 app.add_middleware(

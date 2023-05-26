@@ -17,11 +17,20 @@ async def create(
     response: Response,
     repo: HomieRepository = Depends(),
     account: dict = Depends(authenticator.try_get_current_account_data),
-):
-    #response.status_code = 400
-    return repo.create(homie)
+) -> HomieOut:
+    if account is None:
+        response.status_code = 401
+        return Error(message="Sign in to add a homie")
 
-@router.delete("/homies/{user_id}/{homie_id}", response_model=bool)
+    result = repo.create(homie)
+
+    if result is None:
+        response.status_code = 404
+        result = Error(message="Could not create homie")
+
+    return result
+
+@router.delete("/homies/{user_id}/{homie_id}", response_model=bool | Error)
 def delete(
     user_id: int,
     homie_id: int,
@@ -29,11 +38,17 @@ def delete(
     repo: HomieRepository = Depends(),
     account: dict = Depends(authenticator.try_get_current_account_data),
 ) -> bool:
+
+    if account is None:
+        response.status_code = 401
+        return Error(message="Sign in to delete a homie")
+
     homie = HomieIn(user_id=user_id, homie_id=homie_id)
     result = repo.delete(homie)
-    ##if isinstance(result, Error):
-       ## response.status_code = 400
-        ##return result
+
+    if result is None:
+        response.status_code = 404
+        result = Error(message="Could not delete homie")
     return result
 
 
