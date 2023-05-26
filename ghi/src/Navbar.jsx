@@ -4,7 +4,10 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
     const { logout } = useToken();
     const navigate = useNavigate();
-    const handleClick = () => navigate('/signup');
+    const handleSignupClick = () => navigate('/signup');
+    const handleLogoutClick = () => {
+        logout({ returnTo: '/login' });
+    };
 
     return (
         <div className="mt-3">
@@ -15,14 +18,14 @@ const Navbar = () => {
             <div className="btn-toolbar" role="toolbar">
                 <div className="btn-group me-2 mb-3" role="group">
                 <div className="btn-group mb-3" role="group">
-                    <button className="btn btn-danger" onClick={logout}>
+                    <button className="btn btn-danger" onClick={handleLogoutClick}>
                     Logout <i className="bi bi-skip-backward-fill"></i>
                     </button>
 
                     <button
                     type="button"
                     className="btn btn-success"
-                    onClick={handleClick}
+                    onClick={handleSignupClick}
                     >
                     Signup <i className="bi bi-music-note-list"></i>
                     </button>
