@@ -8,6 +8,7 @@ import os
 from routers import (
     accounts,
     groups,
+    homies,
     bangerz,
     posts,
 )
@@ -16,6 +17,7 @@ from routers import (
 app = FastAPI()
 app.include_router(authenticator.router)
 app.include_router(accounts.router)
+app.include_router(homies.router)
 app.include_router(bangerz.router)
 app.include_router(posts.router)
 
