@@ -10,7 +10,7 @@ class Error(BaseModel):
 class GroupIn(BaseModel):
     group_name: str
     group_size: int
-    group_img: Optional[bytes]
+    group_img: bytes
     description: str
 
 
@@ -108,7 +108,7 @@ class GroupRepository(BaseModel):
         except Exception:
             return {"message": "Could not retrieve group info"}
 
-    def delete(self, group_id: int, group_name: str) -> bool | Error:
+    def delete(self, group_id: int) -> bool | Error:
         target_group = self.get_one(group_id)
         if target_group.id:
             try:
