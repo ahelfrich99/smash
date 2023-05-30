@@ -14,6 +14,7 @@ class PostIn(BaseModel):
     banger_id: Optional[int]
     text: str
     like_count: Optional[int]
+    date: date
 
 
 # Data being returned by the app
@@ -23,6 +24,7 @@ class PostOut(BaseModel):
     banger_id: Optional[int]
     text: str
     like_count: Optional[int]
+    date: date
 
 
 class PostRepository(BaseModel):
@@ -36,9 +38,9 @@ class PostRepository(BaseModel):
                     result = db.execute(
                         """
                         INSERT INTO posts
-                            (user_id, banger_id, text, like_count)
+                            (user_id, banger_id, text, like_count, date)
                         VALUES
-                            (%s, %s, %s, %s)
+                            (%s, %s, %s, %s, %s)
                         RETURNING id
                         """,
                         [
@@ -46,6 +48,7 @@ class PostRepository(BaseModel):
                             post.banger_id,
                             post.text,
                             post.like_count,
+                            post.date,
                         ],
                     )
                     id = result.fetchone()[0]
@@ -63,20 +66,21 @@ class PostRepository(BaseModel):
                     # one because we are just getting all of them at once
                     result = db.execute(
                         """
-                        SELECT id, user_id, banger_id, text, like_count
+                        SELECT id, user_id, banger_id, text, like_count, date
                         FROM posts
                         ORDER BY id;
                         """
                     )
                     return [
                         PostOut(
-                            id=record[0],
-                            user_id=record[1],
-                            banger_id=record[2],
-                            text=record[3],
-                            like_count=record[4],
+                            id=data[0],
+                            user_id=data[1],
+                            banger_id=data[2],
+                            text=data[3],
+                            like_count=data[4],
+                            date=data[5],
                         )
-                        for record in result
+                        for data in result
                     ]
 
         except Exception:
@@ -88,7 +92,7 @@ class PostRepository(BaseModel):
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT id, user_id, banger_id, text, like_count
+                        SELECT id, user_id, banger_id, text, like_count, date
                         FROM posts
                         WHERE id = %s
                         """,
@@ -103,6 +107,7 @@ class PostRepository(BaseModel):
                             banger_id=data[2],
                             text=data[3],
                             like_count=data[4],
+                            date=data[5],
                         )
                     else:
                         return Error(message="could not find post")
@@ -123,6 +128,7 @@ class PostRepository(BaseModel):
                                 , banger_id = %s
                                 , text = %s
                                 , like_count = %s
+                                , date = %s
                             WHERE id = %s
                             """,
                             [
@@ -130,6 +136,7 @@ class PostRepository(BaseModel):
                                 post.banger_id,
                                 post.text,
                                 post.like_count,
+                                post.date,
                                 post_id,
                             ],
                         )
