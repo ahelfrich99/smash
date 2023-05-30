@@ -24,110 +24,68 @@ class GroupCommentOut(BaseModel):
     like_count: int
 
 class GroupCommentRepository:
-    def create(self, groupComment: GroupCommentIn) -> Union[HomieOut, Error]:
+    def create(self, group_comment: GroupCommentIn) -> Union[GroupCommentOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
                         """
                         INSERT INTO homies
-                            (user_id, homie_id)
+                            (group_id, user_id, post_id, content, like_count )
                         VALUES
-                            (%s, %s)
+                            (%s, %s, %s, %s, %s)
                         RETURNING user_id, homie_id;
                         """,
                         [
-                            homie.user_id,
-                            homie.homie_id
+                            group_comment.group_id,
+                            group_comment.user_id,
+                            group_comment.post_id,
+                            group_comment.content,
+                            group_comment.like_count,
                         ]
                     )
                     result = db.fetchone()
                     if result:
-                        return HomieOut(
-                            user_id=result[0],
-                            homie_id=result[1]
+                        return GroupCommentOut(
+                            group_id=result[0],
+                            user_id=result[1],
+                            post_id=result[2],
+                            content=result[3],
+                            date_id=result[4],
+                            like_count=result[5],
                         )
                     else:
-                        return Error(message="Could not create homie")
+                        return Error(message="Could not create comment")
 
         except Exception:
-            return {"message: COuld not create homie"}
+            return {"message: COuld not create comment"}
 
 
 
-    def delete(self, homie: HomieIn) -> bool:
+    def increment_like_count(self, group_id: int, user_id: int, post_id: int) -> Union[GroupCommentOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        DELETE FROM homies
-                        WHERE user_id = %s AND homie_id = %s
+                        UPDATE group_comments
+                        SET like_count = like_count + 1
+                        WHERE group_id = %s AND user_id = %s AND post_id = %s
+                        RETURNING group_id, user_id, post_id, content, date, like_count;
                         """,
-                        [
-                            homie.user_id,
-                            homie.homie_id
-                        ]
+                        [group_id, user_id, post_id]
                     )
-                    return True
-
-        except Exception as e:
-            print(e)
-            return False
-
-    def get_all(self) -> Union[Error, List[HomieOut]]:
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    db.execute(
-                        """
-                        SELECT user_id, homie_id
-                        FROM homies
-                        ORDER BY user_id;
-                        """
-                    )
-                    # fetch all records
-                    records = db.fetchall()
-
-                    result = []
-                    for record in records:
-                        homie = HomieOut(
-                            user_id=record[0],
-                            homie_id=record[1],
+                    result = db.fetchone()
+                    if result:
+                        return GroupCommentOut(
+                            group_id=result[0],
+                            user_id=result[1],
+                            post_id=result[2],
+                            content=result[3],
+                            date=result[4],
+                            like_count=result[5],
                         )
-                        result.append(homie)
-                    return result
-
+                    else:
+                        return Error(message="Could not increment like count")
         except Exception as e:
-            print(e)
-            return {"message": "Could not get all homies"}
-
-
-
-    def get_one(self, user_id:int) -> Union[Error, List[HomieOut]]:
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    db.execute(
-                        """
-                        SELECT user_id, homie_id
-                        FROM homies
-                        WHERE user_id = %s
-                        """,
-                        [user_id]
-                    )
-                    # fetch all records
-                    records = db.fetchall()
-                    print(records)
-                    result = []
-                    for record in records:
-                        homie = HomieOut(
-                            user_id=record[0],
-                            homie_id=record[1],
-                        )
-                        result.append(homie)
-                    return result
-
-        except Exception as e:
-            print(e)
-            return {"message": "Could not get homie"}
+            return Error(message=f"Could not increment like count, error: {str(e)}")

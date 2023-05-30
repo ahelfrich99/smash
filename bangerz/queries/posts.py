@@ -14,6 +14,7 @@ class PostIn(BaseModel):
     banger_id: Optional[int]
     text: str
     like_count: Optional[int]
+    date: date
 
 
 # Data being returned by the app
@@ -23,7 +24,7 @@ class PostOut(BaseModel):
     banger_id: Optional[int]
     text: str
     like_count: Optional[int]
-
+    date: date
 
 class PostRepository(BaseModel):
     def create(self, post: PostIn) -> PostOut:
@@ -36,14 +37,14 @@ class PostRepository(BaseModel):
                     result = db.execute(
                         """
                         INSERT INTO posts
-                            (user_id, banger_id, text, like_count)
+                            (user_id, text, like_count)
                         VALUES
-                            (%s, %s, %s, %s)
+                            (%s, %s, %s)
                         RETURNING id
                         """,
                         [
                             post.user_id,
-                            post.banger_id,
+                           ## post.banger_id,
                             post.text,
                             post.like_count,
                         ],

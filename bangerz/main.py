@@ -11,6 +11,7 @@ from routers import (
     homies,
     bangerz,
     posts,
+    group_comments,
 )
 
 
@@ -20,6 +21,7 @@ app.include_router(accounts.router)
 app.include_router(homies.router)
 app.include_router(bangerz.router)
 app.include_router(posts.router)
+app.include_router(group_comments.router)
 
 app.add_middleware(
     CORSMiddleware,

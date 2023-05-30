@@ -10,7 +10,7 @@ class Error(BaseModel):
 class GroupIn(BaseModel):
     group_name: str
     group_size: int
-    picture_url: str
+    group_img: Optional[bytes]
     description: str
 
 
@@ -18,7 +18,7 @@ class GroupOut(BaseModel):
     id: int
     group_name: str
     group_size: int
-    picture_url: Optional[str]
+    group_img: Optional[bytes]
     description: str
 
 
@@ -30,7 +30,7 @@ class GroupRepository(BaseModel):
                     db.execute(
                         """
                         INSERT INTO groups
-                        (group_name, group_size, picture_url, description)
+                        (group_name, group_size, group_img, description)
                         VALUES
                         (%s, %s, %s, %s)
                         RETURNING id
@@ -38,7 +38,7 @@ class GroupRepository(BaseModel):
                         [
                             group.group_name,
                             group.group_size,
-                            group.picture_url,
+                            group.group_img,
                             group.description
                         ]
                     )
@@ -62,7 +62,7 @@ class GroupRepository(BaseModel):
                     result = db.execute(
                         """
                         SELECT
-                        id, group_name, group_size, picture_url, description
+                        id, group_name, group_size, group_img, description
                         FROM groups
                         ORDER BY group_name
                         """
@@ -72,7 +72,7 @@ class GroupRepository(BaseModel):
                             id=res[0],
                             group_name=res[1],
                             group_size=res[2],
-                            picture_url=res[3],
+                            group_img=res[3],
                             description=res[4]
                         ) for res in result
                     ]
@@ -87,7 +87,7 @@ class GroupRepository(BaseModel):
                     db.execute(
                         """
                         SELECT
-                        id, group_name, group_size, picture_url, description
+                        id, group_name, group_size, group_img, description
                         FROM groups
                         WHERE id = %s
                         """,
@@ -99,7 +99,7 @@ class GroupRepository(BaseModel):
                             id=data[0],
                             group_name=data[1],
                             group_size=data[2],
-                            picture_url=data[3],
+                            group_img=data[3],
                             description=data[4]
                         )
                     else:
@@ -147,14 +147,14 @@ class GroupRepository(BaseModel):
                             SET
                                 group_name = %s,
                                 group_size = %s,
-                                picture_url = %s,
+                                group_img = %s,
                                 description = %s
                             WHERE id = %s
                             """,
                             [
                                 group.group_name,
                                 group.group_size,
-                                group.picture_url,
+                                group.group_img,
                                 group.description,
                                 group_id
                             ]
