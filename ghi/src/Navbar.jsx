@@ -1,5 +1,5 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Navbar = () => {
     const { logout } = useToken();
@@ -10,29 +10,26 @@ const Navbar = () => {
     };
 
     return (
-        <div className="mt-3">
-            <span className="d-flex">
-            <h1 className="flex-fill" style={{ fontSize: '2rem' }}>
-                <strong>S.M.A.S.H</strong>
+        <div className="mt-3 d-flex justify-content-between align-items-center">
+            <h1 style={{ fontSize: "2rem" }}>
+            <strong>S.M.A.S.H</strong>
             </h1>
-            <div className="btn-toolbar" role="toolbar">
-                <div className="btn-group me-2 mb-3" role="group">
-                <div className="btn-group mb-3" role="group">
-                    <button className="btn btn-danger" onClick={handleLogoutClick}>
-                    Logout <i className="bi bi-skip-backward-fill"></i>
-                    </button>
-
-                    <button
-                    type="button"
-                    className="btn btn-success"
-                    onClick={handleSignupClick}
-                    >
-                    Signup <i className="bi bi-music-note-list"></i>
-                    </button>
-                </div>
-                </div>
+            <div className="d-flex align-items-center">
+            <Link to="/groups" className="text-decoration-none">
+                <button className="btn btn-outline-dark mx-2">Group Page</button>
+            </Link>
+            <div className="btn-group" role="group">
+                <button className="btn btn-danger" onClick={handleLogoutClick}>
+                Logout <i className="bi bi-box-arrow-left"></i>
+                </button>
+                <button
+                className="btn btn-success ms-2"
+                onClick={handleSignupClick}
+                >
+                Signup <i className="bi bi-person-plus"></i>
+                </button>
             </div>
-            </span>
+            </div>
         </div>
     );
 }

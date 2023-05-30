@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import './styles1.css';
+import './styles/styles2.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +15,7 @@ root.render(
 
 const styleElement = document.createElement('style');
 
-styleElement.textContent = require('./styles1.css');
+styleElement.textContent = require('./styles/styles2.css');
 
 document.head.appendChild(styleElement);
 // If you want to start measuring performance in your app, pass a function
