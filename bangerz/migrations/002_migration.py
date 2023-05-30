@@ -9,7 +9,7 @@ steps = [
         """
         ALTER TABLE users
         ALTER COLUMN profile_img TYPE VARCHAR(500) USING encode(profile_img, 'escape');
-        """
+        """,
     ],
     [
         # "Up" SQL statement
@@ -21,7 +21,7 @@ steps = [
         """
         ALTER TABLE bangerz
         ALTER COLUMN song_img TYPE VARCHAR(500) USING encode(song_img, 'escape');
-        """
+        """,
     ],
     [
         # "Up" SQL statement
@@ -33,7 +33,7 @@ steps = [
         """
         ALTER TABLE bangerz
         DROP COLUMN song_upload;
-        """
+        """,
     ],
     [
         # "Up" SQL statement
@@ -45,7 +45,7 @@ steps = [
         """
         ALTER TABLE posts
         DROP COLUMN date;
-        """
+        """,
     ],
     [
         # "Up" SQL statement
@@ -57,7 +57,7 @@ steps = [
         """
         ALTER TABLE groups
         ALTER COLUMN picture_url TYPE VARCHAR(500) USING encode(picture_url, 'escape');
-        """
+        """,
     ],
     [
         # "Up" SQL statement
@@ -69,6 +69,6 @@ steps = [
         """
         ALTER TABLE groups
         RENAME COLUMN group_img TO picture_url;
-        """
+        """,
     ],
 ]
