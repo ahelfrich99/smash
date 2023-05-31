@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from authenticator import authenticator
 from fastapi.middleware.cors import CORSMiddleware
-from authenticator import authenticator
 import os
 
 # Router imports
@@ -11,6 +10,7 @@ from routers import (
     homies,
     bangerz,
     posts,
+    group_posts
 )
 
 
@@ -20,6 +20,7 @@ app.include_router(accounts.router)
 app.include_router(homies.router)
 app.include_router(bangerz.router)
 app.include_router(posts.router)
+app.include_router(group_posts.router)
 
 app.add_middleware(
     CORSMiddleware,
