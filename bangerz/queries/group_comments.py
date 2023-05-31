@@ -11,6 +11,7 @@ class GroupCommentIn(BaseModel):
     user_id: int
     post_id: int
     content: str
+    date: date
     like_count: Optional[int]
 
 
@@ -24,24 +25,25 @@ class GroupCommentOut(BaseModel):
     like_count: int
 
 class GroupCommentRepository:
-    def create(self, group_comment: GroupCommentIn) -> Union[GroupCommentOut, Error]:
+    def create(self, g_comment: GroupCommentIn) -> Union[GroupCommentOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
                         """
                         INSERT INTO homies
-                            (group_id, user_id, post_id, content, like_count )
+                            (group_id, user_id, post_id, content, date, like_count )
                         VALUES
-                            (%s, %s, %s, %s, %s)
-                        RETURNING user_id, homie_id;
+                            (%s, %s, %s, %s, %s, %s)
+                        RETURNING id;
                         """,
                         [
-                            group_comment.group_id,
-                            group_comment.user_id,
-                            group_comment.post_id,
-                            group_comment.content,
-                            group_comment.like_count,
+                            g_comment.group_id,
+                            g_comment.user_id,
+                            g_comment.post_id,
+                            g_comment.content,
+                            g_comment.date,
+                            g_comment.like_count,
                         ]
                     )
                     result = db.fetchone()
