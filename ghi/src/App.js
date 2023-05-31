@@ -8,8 +8,10 @@ import "./App.css";
 import { Main } from "./Main";
 import LoginForm from "./login-signup/LoginForm";
 import Navbar from "./Navbar";
+// import { Footer } from "./Footer";
 import SignupForm from "./login-signup/SignupForm";
 import Groups from "./groups/GroupPage";
+import GroupPosts from "./group_posts/GroupPostPage";
 
 // example imports
 import Example from "./mock-pages/Example";
@@ -32,7 +34,10 @@ function App() {
             <Route exact path="/mock" element={<Example />} />
 
             <Route exact path="/groups" element={<Groups />} />
+            <Route exact path="/group_posts" element={<GroupPosts />} />
           </Routes>
+          <br />
+          {/* <Footer /> */}
         </AuthProvider>
         <br />
       </BrowserRouter>

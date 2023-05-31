@@ -48,10 +48,10 @@ const CreateGroup = ({ onGroupCreated, onClose }) => {
     }
 
     const handleCancel = () => {
-        setGroupName("");
-        setGroupSize("");
-        setDescription("");
-        setGroupImg("");
+        setGroupName('');
+        setGroupSize('');
+        setDescription('');
+        setGroupImg('');
 
         onClose();
     };
@@ -83,7 +83,7 @@ const CreateGroup = ({ onGroupCreated, onClose }) => {
                     <label htmlFor="groupsize" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Group Size</label>
                     <input
                         id="groupsize"
-                        className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-16 text-sm border-gray-300 rounded border"
+                        className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                         type="number"
                         value={groupSize}
                         onChange={handleGroupSizeChange}

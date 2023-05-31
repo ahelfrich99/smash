@@ -18,6 +18,10 @@ const Navbar = () => {
             <Link to="/groups" className="text-decoration-none">
                 <button className="btn btn-outline-dark mx-2">Group Page</button>
             </Link>
+            <div className="d-flex align-items-center">
+            <Link to="/group_posts" className="text-decoration-none">
+                <button className="btn btn-outline-dark mx-2">Group Posts</button>
+            </Link>
             <div className="btn-group" role="group">
                 <button className="btn btn-danger" onClick={handleLogoutClick}>
                 Logout <i className="bi bi-box-arrow-left"></i>
@@ -28,6 +32,7 @@ const Navbar = () => {
                 >
                 Signup <i className="bi bi-person-plus"></i>
                 </button>
+            </div>
             </div>
             </div>
         </div>

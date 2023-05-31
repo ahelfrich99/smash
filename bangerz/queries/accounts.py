@@ -17,7 +17,7 @@ class AccountIn(BaseModel):
     first_name: str
     last_name: str
     email: str
-    profile_img: str
+    profile_img: bytes
 
 
 class AccountOut(BaseModel):
@@ -26,7 +26,7 @@ class AccountOut(BaseModel):
     first_name: str
     last_name: str
     email: str
-    profile_img: Optional[str]
+    profile_img: Optional[bytes]
 
 
 class AccountOutWithPassword(AccountOut):

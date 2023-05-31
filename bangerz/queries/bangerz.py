@@ -11,7 +11,7 @@ class BangerIn(BaseModel):
     song_title: str
     artist: str
     album: Optional[str]
-    song_img: Optional[str]
+    song_img: Optional[bytes]
     date: date
 
 class BangerOut(BaseModel):
@@ -20,7 +20,7 @@ class BangerOut(BaseModel):
     song_title: str
     artist: str
     album: Optional[str]
-    song_img: Optional[str]
+    song_img: Optional[bytes]
     date: date
 
 class BangerRepository:
