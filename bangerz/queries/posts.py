@@ -26,6 +26,7 @@ class PostOut(BaseModel):
     like_count: Optional[int]
     date: date
 
+
 class PostRepository(BaseModel):
     def create(self, post: PostIn) -> PostOut:
         try:
@@ -44,7 +45,7 @@ class PostRepository(BaseModel):
                         """,
                         [
                             post.user_id,
-                           ## post.banger_id,
+                            post.banger_id,
                             post.text,
                             post.like_count,
                             post.date,
