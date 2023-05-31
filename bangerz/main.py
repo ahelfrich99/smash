@@ -17,14 +17,7 @@ from routers import (
 
 
 app = FastAPI()
-app.include_router(authenticator.router)
-app.include_router(accounts.router)
-app.include_router(homies.router)
-app.include_router(bangerz.router)
-app.include_router(posts.router)
-app.include_router(group_comments.router)
-app.include_router(group_posts.router)
-app.include_router(comments.router)
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -43,6 +36,7 @@ app.include_router(bangerz.router)
 app.include_router(posts.router)
 app.include_router(comments.router)
 app.include_router(group_posts.router)
+app.include_router(group_comments.router)
 
 
 @app.get("/api/launch-details")
