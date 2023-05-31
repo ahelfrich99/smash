@@ -17,6 +17,7 @@ class GroupCommentIn(BaseModel):
 
 
 class GroupCommentOut(BaseModel):
+    id: int
     group_id: int
     user_id: int
     post_id: int

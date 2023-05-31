@@ -64,7 +64,12 @@ def update_post(
     post: PostIn,
     response: Response,
     repo: PostRepository = Depends(),
+    account: dict = Depends(authenticator.try_get_current_account_data),
 ) -> Union[PostOut, Error]:
+    if account is None:
+        response.status_code = 401
+        return Error(message="Sign in to access")
+
     result = repo.update_post(post_id, post)
 
     if result is None:
