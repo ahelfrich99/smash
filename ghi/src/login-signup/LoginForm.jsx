@@ -1,33 +1,30 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const LoginForm = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const { login, token } = useToken();
-    const navigate = useNavigate();
+    const { login } = useToken();
 
     const BannerAlert = () => {
-    return (
-        <div className="alert alert-info mt-3 mb-3" role="alert">
-            <i className="bi bi-info-circle-fill"></i> Log in with username and password.
-        </div>
-    );
-};
+        return (
+            <div className="alert alert-info mt-3 mb-3" role="alert">
+                <i className="bi bi-info-circle-fill"></i> Log in with username and password.
+            </div>
+        );
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await login(username, password);
-        e.target.reset();
-    };
-
-    useEffect(() => {
-        // console.log(login);
-        if (login) {
-            navigate("/login");
+        console.log(`username: ${username} password: ${password}`);
+        try {
+            await login(username, password);
+            console.log("Logged in successfully!");
+            e.target.reset();
+        } catch (error) {
+            console.error("Error during login", error);
         }
-    }, [login])
+    };
 
     return (
         <div className="relative flex h-full w-full">
@@ -55,7 +52,7 @@ const LoginForm = () => {
                 </fieldset>
                 </div>
                 <div className="mt-10">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={(e) => handleSubmit(e)}>
                     <div>
                     <label className="mb-2.5 block font-extrabold" htmlFor="email">
                         Username

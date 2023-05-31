@@ -17,14 +17,15 @@ import GroupPosts from "./group_posts/GroupPostPage";
 import Example from "./mock-pages/Example";
 
 function App() {
-  // const basename = 'localhost:3000';
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, "");
 
   return (
     <div className="container">
-      <BrowserRouter>
-        <AuthProvider baseUrl="http://localhost:8000">
-          <Navbar />
-          <br />
+      <BrowserRouter basename={basename}>
+        <Navbar />
+        <br />
+        <AuthProvider baseUrl={process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}>
           <Routes>
             <Route exact path="/" element={<Main />} />
             <Route exact path="/signup" element={<SignupForm />} />

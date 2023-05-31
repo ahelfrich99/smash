@@ -5,8 +5,11 @@ const Navbar = () => {
     const { logout } = useToken();
     const navigate = useNavigate();
     const handleSignupClick = () => navigate('/signup');
-    const handleLogoutClick = () => {
-        logout({ returnTo: '/login' });
+    
+    const handleLogout = (e) => {
+        e.preventDefault();
+        logout(`${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/token`);
+        navigate("/login")
     };
 
     return (
@@ -23,7 +26,7 @@ const Navbar = () => {
                 <button className="btn btn-outline-dark mx-2">Group Posts</button>
             </Link>
             <div className="btn-group" role="group">
-                <button className="btn btn-danger" onClick={handleLogoutClick}>
+                <button className="btn btn-danger" onClick={(e) => handleLogout(e)}>
                 Logout <i className="bi bi-box-arrow-left"></i>
                 </button>
                 <button

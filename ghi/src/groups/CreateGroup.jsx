@@ -75,7 +75,7 @@ const CreateGroup = ({ onGroupCreated, onClose }) => {
                     <input
                         id="groupname"
                         className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                        placeholder="B JUN"
+                        placeholder="B JUN, MEIMEI, etc."
                         type="text"
                         value={groupName}
                         onChange={handleGroupNameChange}
@@ -85,15 +85,15 @@ const CreateGroup = ({ onGroupCreated, onClose }) => {
                         id="groupsize"
                         className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                         type="number"
+                        placeholder="10,100,1000, etc."
                         value={groupSize}
                         onChange={handleGroupSizeChange}
                     />
                     <label htmlFor="description" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Description</label>
-                    <input
+                    <textarea
                         id="description"
                         className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                         placeholder="Tell us about your group!"
-                        type="text"
                         value={description}
                         onChange={handleDescriptionChange}
                     />
