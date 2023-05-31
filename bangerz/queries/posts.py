@@ -110,7 +110,7 @@ class PostRepository(BaseModel):
                             date=data[5],
                         )
                     else:
-                        return Error(message="could not find post")
+                        return Error(message="Could not find post")
 
         except Exception:
             Error(message="Could not retrieve post information")
