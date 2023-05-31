@@ -1,4 +1,4 @@
-import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
+import { AuthProvider, useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,6 +20,8 @@ function App() {
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
 
+  const { token } = useAuthContext();
+
   return (
     <div className="container">
       <BrowserRouter basename={basename}>
@@ -31,7 +33,7 @@ function App() {
             <Route exact path="/signup" element={<SignupForm />} />
             <Route exact path="/login" element={<LoginForm />} />
 
-            <Route exact path="/home" element={<Main />} />
+            <Route exact path="/home" element={<Main token={token} />} />
             <Route exact path="/mock" element={<Example />} />
 
             <Route exact path="/groups" element={<Groups />} />

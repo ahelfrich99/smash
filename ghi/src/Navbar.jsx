@@ -2,13 +2,14 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate, Link } from "react-router-dom";
 
 const Navbar = () => {
-    const { logout } = useToken();
+    const { logout, token } = useToken();
     const navigate = useNavigate();
     const handleSignupClick = () => navigate('/signup');
-    
+
     const handleLogout = (e) => {
         e.preventDefault();
-        logout(`${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/token`);
+        logout();
+        console.log(token)
         navigate("/login")
     };
 

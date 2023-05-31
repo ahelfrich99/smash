@@ -4,30 +4,16 @@ const GroupPostCard = ({ groupPosts }) => {
     const [users, setUsers] = useState([]);
     const [bangerz, setBangerz] = useState([]);
 
-    const fetchUserData = async (userIds) => {
+    const fetchUserData = async () => {
         const url = "http://localhost:8000/accounts/"
-        const fetchConfig = {
-            method: "post",
-            body: JSON.stringify({userIds}),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }
-        const response = await fetch(url, fetchConfig);
+        const response = await fetch(url);
         const data = await response.json();
         return data;
     }
 
     const fetchBangerData = async () => {
         const url = "http://localhost:8000/bangerz/"
-        const fetchConfig = {
-            method: "post",
-            body: JSON.stringify(),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }
-        const response = await fetch(url, fetchConfig);
+        const response = await fetch(url);
         const data = await response.json();
         return data;
     }
@@ -69,7 +55,7 @@ const GroupPostCard = ({ groupPosts }) => {
                                 </div>
                                 <div className="flex items-center space-x-4 justify-between">
                                     <div className="flex gap-3 space-y-1">
-                                        <img  src={user.profile_img}  className="rounded-full h-8 w-8" />
+                                        <img  src={user.profile_img}  className="rounded-full h-8 w-8" alt="" />
                                         <span className="text-sm">{user.username}</span>
                                     </div>
                                 </div>

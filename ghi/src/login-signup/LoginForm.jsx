@@ -1,10 +1,12 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const { login } = useToken();
+    const navigate = useNavigate();
 
     const BannerAlert = () => {
         return (
@@ -20,7 +22,7 @@ const LoginForm = () => {
         try {
             await login(username, password);
             console.log("Logged in successfully!");
-            e.target.reset();
+            navigate("/mock");
         } catch (error) {
             console.error("Error during login", error);
         }
@@ -40,6 +42,7 @@ const LoginForm = () => {
                     <img
                     src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg"
                     className="mr-2 w-6 object-fill"
+                    alt=""
                     />
                     Sign in with Spotify
                 </button>
@@ -88,7 +91,7 @@ const LoginForm = () => {
                     </div>
                     {/* Forgot password */}
                     <div>
-                        <a href="#" className="text-sm hover:text-gray-200">
+                        <a href="/mock" className="text-sm hover:text-gray-200">
                         Forgot password
                         </a>
                     </div>
@@ -109,6 +112,7 @@ const LoginForm = () => {
             <img
                 src="https://cdn.discordapp.com/attachments/1054958023698825266/1111058735599734844/Ando_Katsuhiro_Otomo_style_Futurism_style_a_quaint_flying_food__dbee15aa-b403-4be5-9e09-afc3907042cb-1.png"
                 className="h-full w-full object-cover"
+                alt=""
             />
             </div>
         </div>

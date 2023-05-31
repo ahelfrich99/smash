@@ -1,6 +1,9 @@
 import { useState } from "react";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
 const CreateGroup = ({ onGroupCreated, onClose }) => {
+    const { token } = useToken();
+
     const [groupName, setGroupName] = useState("");
     const handleGroupNameChange = (e) => {
         setGroupName(e.target.value);
@@ -32,7 +35,8 @@ const CreateGroup = ({ onGroupCreated, onClose }) => {
             method: "post",
             body: JSON.stringify(data),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
         }
         const response = await fetch(groupUrl, fetchConfigUrl);

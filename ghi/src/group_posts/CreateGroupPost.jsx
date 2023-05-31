@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
+import useToken from '@galvanize-inc/jwtdown-for-react';
 
 const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
+    const { token } = useToken();
+
     const [groups, setGroups] = useState([])
     const [group, setGroup] = useState('')
     const handleGroupChange = (e) => {
@@ -44,6 +47,7 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
             body: JSON.stringify(postData),
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             };
 
@@ -146,7 +150,7 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
                         <option value="">Select a group</option>
                         {groups?.map(group => {
                             return (
-                                <option value={group.group_name} key={group.id}>{group.group_name}</option>
+                                <option value={group.id} key={group.id}>{group.group_name}</option>
                         )
                         })}
                     </select>
@@ -160,7 +164,7 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
                         <option value="">Select a user</option>
                         {users?.map(user => {
                             return (
-                                <option value={user.username} key={user.id}>{user.username}</option>
+                                <option value={user.id} key={user.id}>{user.username}</option>
                             )
                         })}
                     </select>
@@ -174,7 +178,7 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
                         <option value="">Select a banger</option>
                         {bangerz?.map(banger => {
                             return (
-                                <option value={banger.song_title} key={banger.id}>{banger.song_title}</option>
+                                <option value={banger.id} key={banger.id}>{banger.song_title}</option>
                             )
                         })}
                     </select>
