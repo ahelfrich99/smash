@@ -146,8 +146,11 @@ class BangerRepository:
                     )
                     record = result.fetchone()
                     if record:
-                        song_img_str = jsonable_encoder(record[5], custom_encoder={
-                            bytes: lambda v: base64.b64encode(v).decode('utf-8')})
+                        song_img_str = jsonable_encoder(
+                            record[5],
+                            custom_encoder={
+                                bytes: lambda
+                                v: base64.b64encode(v).decode('utf-8')})
 
                     if record is None:
                         return Error(message="Banger not found")

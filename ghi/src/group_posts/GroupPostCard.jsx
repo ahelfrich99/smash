@@ -45,7 +45,7 @@ const GroupPostCard = ({ groupPosts }) => {
                 return (
                     <div className='flex items-center justify-center min-h-screen from-red-100 via-red-300 to-blue-500 bg-gradient-to-br'>
                     <div className="p-4 items-center justify-center w-[680px] rounded-xl group sm:flex space-x-6 bg-white bg-opacity-50 shadow-xl hover:rounded-2xl">
-                        <img  className="mx-auto w-full block w-4/12 h-40 rounded-lg"  alt="art cover" loading="lazy" src={banger.song_img} />
+                        <img src={banger.song_img} />
                         <div className="sm:w-8/12 pl-0 p-5">
                             <div className="space-y-2">
                                 <div className="space-y-4">

@@ -11,7 +11,8 @@ const GroupPosts = () => {
         const response = await fetch(url);
         if (response.ok) {
             const data = await response.json();
-            setGroupPosts(data.group_posts);
+            setGroupPosts(data);
+            console.log(data)
         }
     }
 
