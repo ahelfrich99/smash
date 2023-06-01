@@ -2,11 +2,15 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate, Link } from "react-router-dom";
 
 const Navbar = () => {
-    const { logout } = useToken();
+    const { logout, token } = useToken();
     const navigate = useNavigate();
     const handleSignupClick = () => navigate('/signup');
-    const handleLogoutClick = () => {
-        logout({ returnTo: '/login' });
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        logout();
+        console.log(token)
+        navigate("/login")
     };
 
     return (
@@ -18,8 +22,12 @@ const Navbar = () => {
             <Link to="/groups" className="text-decoration-none">
                 <button className="btn btn-outline-dark mx-2">Group Page</button>
             </Link>
+            <div className="d-flex align-items-center">
+            <Link to="/group_posts" className="text-decoration-none">
+                <button className="btn btn-outline-dark mx-2">Group Posts</button>
+            </Link>
             <div className="btn-group" role="group">
-                <button className="btn btn-danger" onClick={handleLogoutClick}>
+                <button className="btn btn-danger" onClick={(e) => handleLogout(e)}>
                 Logout <i className="bi bi-box-arrow-left"></i>
                 </button>
                 <button
@@ -28,6 +36,7 @@ const Navbar = () => {
                 >
                 Signup <i className="bi bi-person-plus"></i>
                 </button>
+            </div>
             </div>
             </div>
         </div>

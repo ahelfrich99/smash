@@ -1,33 +1,32 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const { login, token } = useToken();
+    const { login } = useToken();
     const navigate = useNavigate();
 
     const BannerAlert = () => {
-    return (
-        <div className="alert alert-info mt-3 mb-3" role="alert">
-            <i className="bi bi-info-circle-fill"></i> Log in with username and password.
-        </div>
-    );
-};
+        return (
+            <div className="alert alert-info mt-3 mb-3" role="alert">
+                <i className="bi bi-info-circle-fill"></i> Log in with username and password.
+            </div>
+        );
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await login(username, password);
-        e.target.reset();
-    };
-
-    useEffect(() => {
-        // console.log(login);
-        if (login) {
-            navigate("/login");
+        console.log(`username: ${username} password: ${password}`);
+        try {
+            await login(username, password);
+            console.log("Logged in successfully!");
+            navigate("/mock");
+        } catch (error) {
+            console.error("Error during login", error);
         }
-    }, [login])
+    };
 
     return (
         <div className="relative flex h-full w-full">
@@ -43,6 +42,7 @@ const LoginForm = () => {
                     <img
                     src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg"
                     className="mr-2 w-6 object-fill"
+                    alt=""
                     />
                     Sign in with Spotify
                 </button>
@@ -55,7 +55,7 @@ const LoginForm = () => {
                 </fieldset>
                 </div>
                 <div className="mt-10">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={(e) => handleSubmit(e)}>
                     <div>
                     <label className="mb-2.5 block font-extrabold" htmlFor="email">
                         Username
@@ -91,7 +91,7 @@ const LoginForm = () => {
                     </div>
                     {/* Forgot password */}
                     <div>
-                        <a href="#" className="text-sm hover:text-gray-200">
+                        <a href="/mock" className="text-sm hover:text-gray-200">
                         Forgot password
                         </a>
                     </div>
@@ -112,6 +112,7 @@ const LoginForm = () => {
             <img
                 src="https://cdn.discordapp.com/attachments/1054958023698825266/1111058735599734844/Ando_Katsuhiro_Otomo_style_Futurism_style_a_quaint_flying_food__dbee15aa-b403-4be5-9e09-afc3907042cb-1.png"
                 className="h-full w-full object-cover"
+                alt=""
             />
             </div>
         </div>
