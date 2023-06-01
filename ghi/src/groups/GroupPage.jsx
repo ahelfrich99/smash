@@ -47,8 +47,9 @@ const Groups = () => {
                 <CreateGroup onGroupCreated={fetchGroupData} onClose={handleCloseModal} />
             )}
 
+            <br />
             <div className="container mt-4">
-            <div className="row gy-3">
+            <div className="row gy-3" key={groups.id}>
                 <GroupCard groups={groups} />
             </div>
             </div>
