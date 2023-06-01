@@ -1,6 +1,8 @@
 from pydantic import BaseModel
 from typing import List, Optional
 from queries.pool import pool
+import base64
+from fastapi.encoders import jsonable_encoder
 
 
 class Error(BaseModel):
@@ -10,7 +12,7 @@ class Error(BaseModel):
 class GroupIn(BaseModel):
     group_name: str
     group_size: int
-    group_img: bytes
+    group_img: str
     description: str
 
 
@@ -18,7 +20,7 @@ class GroupOut(BaseModel):
     id: int
     group_name: str
     group_size: int
-    group_img: Optional[bytes]
+    group_img: Optional[str]
     description: str
 
 
@@ -95,11 +97,16 @@ class GroupRepository(BaseModel):
                     )
                     data = db.fetchone()
                     if data:
+                        group_img_str = jsonable_encoder(
+                            data[3],
+                            custom_encoder={
+                                bytes: lambda
+                                v: base64.b64encode(v).decode('utf-8')})
                         return GroupOut(
                             id=data[0],
                             group_name=data[1],
                             group_size=data[2],
-                            group_img=data[3],
+                            group_img=group_img_str,
                             description=data[4]
                         )
                     else:

@@ -1,36 +1,37 @@
 import { useEffect, useState } from "react";
-import GroupCard from "./GroupCard";
-import CreateGroup from "./CreateGroup";
+import GroupPostCard from "./GroupPostCard";
+import CreateGroupPost from "./CreateGroupPost";
 
-const Groups = () => {
-    const [groups, setGroups] = useState([]);
+const GroupPosts = () => {
+    const [groupPosts, setGroupPosts] = useState([]);
     const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
 
-    async function fetchGroupData() {
-        const groupUrl = "http://localhost:8000/groups/";
-        const response = await fetch(groupUrl);
+    async function fetchGroupPostData() {
+        const url = "http://localhost:8000/group_posts/";
+        const response = await fetch(url);
         if (response.ok) {
             const data = await response.json();
-            setGroups(data);
+            setGroupPosts(data);
+            // console.log(data)
         }
     }
 
     const handleCloseModal = () => {
-        setShowCreateGroupModal(false)
-    }
+        setShowCreateGroupModal(false);
+    };
 
     const handleOpenModal = () => {
         setShowCreateGroupModal(true);
-    }
+    };
 
     useEffect(() => {
-        fetchGroupData()
+        fetchGroupPostData()
     }, []);
 
     return (
         <>
         <br />
-        <h1 className="text-center text-3xl font-bold mt-8">Group List</h1>
+        <h1 className="text-center text-3xl font-bold mt-8">Group Posts</h1>
         <br />
             <div className="container mt-4">
                 <div className="row justify-content-end text-center">
@@ -39,22 +40,21 @@ const Groups = () => {
                         className="btn btn-primary btn-lg btn-block"
                         onClick={handleOpenModal}
                         >
-                            Create a Group
+                            Create a Group Post
                     </button>
                 </div>
             </div>
             {showCreateGroupModal && (
-                <CreateGroup onGroupCreated={fetchGroupData} onClose={handleCloseModal} />
+                <CreateGroupPost onGroupPostCreated={fetchGroupPostData} onClose={handleCloseModal} />
             )}
 
-            <br />
             <div className="container mt-4">
-            <div className="row gy-3" key={groups.id}>
-                <GroupCard groups={groups} />
+            <div className="row gy-3">
+                <GroupPostCard groupPosts={groupPosts} />
             </div>
             </div>
         </>
     );
 }
 
-export default Groups;
+export default GroupPosts;

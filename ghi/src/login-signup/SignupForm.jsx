@@ -10,6 +10,7 @@ const SignupForm = () => {
     const [email, setEmail] = useState('');
     const [profileImg, setProfileImg] = useState('');
     const navigate = useNavigate();
+    const { register } = useToken();
 
     const handleRegistration = async (e) => {
         e.preventDefault();
@@ -21,26 +22,12 @@ const SignupForm = () => {
             email: email,
             profile_img: profileImg,
         };
-        try {
-            const url = 'http://localhost:8000/accounts'
-            const fetchUrl = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(accountData),
-            };
-            const response = await fetch(url, fetchUrl)
-
-            if (response.ok) {
-                e.target.reset();
-                navigate('/');
-            } else {
-                console.error('User creation failed.');
-            }
-        } catch (error) {
-            console.error('Error creating user', error);
-        }
+        register(
+            accountData,
+            `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/bangerz/accounts`
+        );
+        e.target.reset();
+        navigate("/mock");
     };
 
     return (
@@ -58,7 +45,7 @@ const SignupForm = () => {
                 <a className="block text-white" href="/">
                     <span className="sr-only">Home</span>
                     <svg
-                    class="h-8 sm:h-10"
+                    className="h-8 sm:h-10"
                     viewBox="0 0 28 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +80,7 @@ const SignupForm = () => {
                     >
                     <span className="sr-only">Home</span>
                     <svg
-                        class="h-8 sm:h-10"
+                        className="h-8 sm:h-10"
                         viewBox="0 0 28 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -270,7 +257,7 @@ const SignupForm = () => {
                     </button>
 
                     <p className="mt-4 text-sm text-gray-500 sm:mt-0">
-                        <strong>Already have a homie?</strong>
+                        <strong>Already a homie?</strong>
                         <a href="/login" className="text-gray-700 underline">
                         <strong>Log in</strong>
                         </a>
