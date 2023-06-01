@@ -1,6 +1,8 @@
 from pydantic import BaseModel
 from queries.pool import pool
 from typing import List, Optional
+import base64
+from fastapi.encoders import jsonable_encoder
 
 
 class Error(BaseModel):
@@ -138,6 +140,11 @@ class AccountQueries(BaseModel):
                     )
                     data = db.fetchone()
                     if data:
+                        profile_img_str = jsonable_encoder(
+                            data[6],
+                            custom_encoder={
+                                bytes: lambda
+                                v: base64.b64encode(v).decode('utf-8')})
                         return AccountOutWithPassword(
                             id=data[0],
                             username=data[1],
@@ -145,7 +152,7 @@ class AccountQueries(BaseModel):
                             first_name=data[3],
                             last_name=data[4],
                             email=data[5],
-                            profile_img=data[6],
+                            profile_img=profile_img_str,
                         )
                     else:
                         return Error(message="Could not find user")

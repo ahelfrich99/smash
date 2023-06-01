@@ -1,6 +1,9 @@
 import { useState } from "react";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
 const CreateGroup = ({ onGroupCreated, onClose }) => {
+    const { token } = useToken();
+
     const [groupName, setGroupName] = useState("");
     const handleGroupNameChange = (e) => {
         setGroupName(e.target.value);
@@ -32,7 +35,8 @@ const CreateGroup = ({ onGroupCreated, onClose }) => {
             method: "post",
             body: JSON.stringify(data),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
         }
         const response = await fetch(groupUrl, fetchConfigUrl);
@@ -48,10 +52,10 @@ const CreateGroup = ({ onGroupCreated, onClose }) => {
     }
 
     const handleCancel = () => {
-        setGroupName("");
-        setGroupSize("");
-        setDescription("");
-        setGroupImg("");
+        setGroupName('');
+        setGroupSize('');
+        setDescription('');
+        setGroupImg('');
 
         onClose();
     };
@@ -75,7 +79,7 @@ const CreateGroup = ({ onGroupCreated, onClose }) => {
                     <input
                         id="groupname"
                         className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-                        placeholder="B JUN"
+                        placeholder="B JUN, MEIMEI, etc."
                         type="text"
                         value={groupName}
                         onChange={handleGroupNameChange}
@@ -83,17 +87,17 @@ const CreateGroup = ({ onGroupCreated, onClose }) => {
                     <label htmlFor="groupsize" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Group Size</label>
                     <input
                         id="groupsize"
-                        className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-16 text-sm border-gray-300 rounded border"
+                        className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                         type="number"
+                        placeholder="10,100,1000, etc."
                         value={groupSize}
                         onChange={handleGroupSizeChange}
                     />
                     <label htmlFor="description" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">Description</label>
-                    <input
+                    <textarea
                         id="description"
                         className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                         placeholder="Tell us about your group!"
-                        type="text"
                         value={description}
                         onChange={handleDescriptionChange}
                     />
