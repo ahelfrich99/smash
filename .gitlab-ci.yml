@@ -10,6 +10,23 @@ lint-test-job:
   script:
     - pip install flake8
     - flake8 sample_service
+
+services:
+  - docker:dind
+
+build-fastapi-service-image:
+  stage: build
+  image: docker:git
+  variables:
+    GITLAB_IMAGE: ${CI_REGISTRY_IMAGE}/bangerz_image
+  before_script:
+    - echo $CI_JOB_TOKEN | docker login -u gitlab-ci-token registry.gitlab.com --password-stdin
+  script:
+    - docker build --tag $GITLAB_IMAGE:latest bangerz
+    - docker push $GITLAB_IMAGE:latest
+  only:
+    - main
+
 #
 # # Run the unit tests
 # api-unit-tests-job:
