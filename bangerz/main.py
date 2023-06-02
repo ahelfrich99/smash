@@ -13,6 +13,7 @@ from routers import (
     group_comments,
     group_posts,
     comments,
+    filess,
 )
 
 
@@ -40,6 +41,7 @@ app.include_router(posts.router)
 app.include_router(comments.router)
 app.include_router(group_posts.router)
 app.include_router(group_comments.router)
+app.include_router(filess.router)
 
 
 @app.get("/api/launch-details")
