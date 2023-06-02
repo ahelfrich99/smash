@@ -19,7 +19,7 @@ class AccountIn(BaseModel):
     first_name: str
     last_name: str
     email: str
-    profile_img: str
+    profile_img: Optional[str]
 
 
 class AccountOut(BaseModel):

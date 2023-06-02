@@ -12,6 +12,7 @@ import Navbar from "./Navbar";
 import SignupForm from "./login-signup/SignupForm";
 import Groups from "./groups/GroupPage";
 import GroupPosts from "./group_posts/GroupPostPage";
+import Profile from "./profile/Profile";
 
 // example imports
 import Example from "./mock-pages/Example";
@@ -34,6 +35,7 @@ function App() {
             <Route exact path="/login" element={<LoginForm />} />
 
             <Route exact path="/home" element={<Main token={token} />} />
+            <Route exact path="/profile" element={<Profile />} />
             <Route exact path="/mock" element={<Example />} />
 
             <Route exact path="/groups" element={<Groups />} />
