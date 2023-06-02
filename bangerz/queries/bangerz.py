@@ -36,13 +36,26 @@ class BangerRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        INSERT INTO bangerz
-                            (user_id, song_title, artist, album, song_img, date)
+                        INSERT INTO bangerz (
+                            user_id,
+                            song_title,
+                            artist,
+                            album,
+                            song_img,
+                            date
+                            )
                         VALUES
                             (%s, %s, %s, %s, %s, %s)
                         RETURNING ID;
                         """,
-                        [banger.user_id, banger.song_title, banger.artist, banger.album, banger.song_img, banger.date]
+                        [
+                            banger.user_id,
+                            banger.song_title,
+                            banger.artist,
+                            banger.album,
+                            banger.song_img,
+                            banger.date
+                        ]
                     )
                     id = result.fetchone()[0]
                     return BangerOut(id=id, **banger.dict())
@@ -55,7 +68,14 @@ class BangerRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        select id, user_id, song_title, artist, album, song_img, date
+                        select
+                            id,
+                            user_id,
+                            song_title,
+                            artist,
+                            album,
+                            song_img,
+                            date
                         from bangerz
                         order by date;
                         """
@@ -75,56 +95,60 @@ class BangerRepository:
         except Exception:
             return {"message": "Could not list bangerz"}
 
-    def update(self, banger_id: int, banger: BangerIn) -> Union[BangerOut, Error]:
-            try:
-                with pool.connection() as conn:
-                    with conn.cursor() as db:
-                        db.execute(
-                            """
-                            update bangerz
-                            set user_id = %s
-                                , song_title = %s
-                                , artist = %s
-                                , album = %s
-                                , song_img = %s
-                                , date = %s
-                            where id = %s
-                            """,
-                            [
-                                banger.user_id,
-                                banger.song_title,
-                                banger.artist,
-                                banger.album,
-                                banger.song_img,
-                                banger.date,
-                                banger_id
-                            ]
-                        )
+    def update(
+        self,
+        banger_id: int,
+        banger: BangerIn
+    ) -> Union[BangerOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        update bangerz
+                        set user_id = %s
+                            , song_title = %s
+                            , artist = %s
+                            , album = %s
+                            , song_img = %s
+                            , date = %s
+                        where id = %s
+                        """,
+                        [
+                            banger.user_id,
+                            banger.song_title,
+                            banger.artist,
+                            banger.album,
+                            banger.song_img,
+                            banger.date,
+                            banger_id
+                        ]
+                    )
 
-                        if db.rowcount == 0:
-                            return Error(message= "Banger not found")
+                    if db.rowcount == 0:
+                        return Error(message="Banger not found")
 
-                        return BangerOut(id=banger_id, **banger.dict())
-            except Exception:
-                return {"message": "Could not update banger"}
+                    return BangerOut(id=banger_id, **banger.dict())
+        except Exception:
+            return {"message": "Could not update banger"}
 
     def delete(self, banger_id: int) -> Union[bool, Error]:
-            try:
-                with pool.connection() as conn:
-                    with conn.cursor() as db:
-                        db.execute(
-                            """
-                            delete from bangerz
-                            where id = %s
-                            """,
-                            [banger_id]
-                        )
-                        if db.rowcount == 0:
-                            return Error(message="Banger not found")
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        delete from bangerz
+                        where id = %s
+                        """,
+                        [banger_id]
+                    )
+                    if db.rowcount == 0:
+                        return Error(message="Banger not found")
 
-                        return True
-            except Exception:
-                return Error(message="Could not delete banger")
+                    return True
+        except Exception:
+            return Error(message="Could not delete banger")
 
     def get_one(self, banger_id: int) -> Union[BangerOut, Error]:
         try:

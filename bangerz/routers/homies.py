@@ -11,6 +11,7 @@ from queries.homies import (
 
 router = APIRouter()
 
+
 @router.post("/homies", response_model=HomieOut | Error)
 async def create(
     homie: HomieIn,
@@ -29,6 +30,7 @@ async def create(
         result = Error(message="Could not create homie")
 
     return result
+
 
 @router.delete("/homies/{user_id}/{homie_id}", response_model=bool | Error)
 def delete(
@@ -57,6 +59,7 @@ async def get_all(
     repo: HomieRepository = Depends(),
 ):
     return repo.get_all()
+
 
 @router.get("/homies/{user_id}", response_model=List[HomieOut] | Error)
 async def get_one(
