@@ -1,17 +1,21 @@
 from pydantic import BaseModel
-from typing import List, Optional, Union
+from typing import List, Union
 from queries.pool import pool
+
 
 class Error(BaseModel):
     message: str
+
 
 class HomieIn(BaseModel):
     user_id: int
     homie_id: int
 
+
 class HomieOut(BaseModel):
     user_id: int
     homie_id: int
+
 
 class HomieRepository:
     def create(self, homie: HomieIn) -> Union[HomieOut, Error]:
@@ -42,8 +46,6 @@ class HomieRepository:
 
         except Exception:
             return {"message: COuld not create homie"}
-
-
 
     def delete(self, homie: HomieIn) -> bool:
         try:
@@ -92,9 +94,7 @@ class HomieRepository:
             print(e)
             return {"message": "Could not get all homies"}
 
-
-
-    def get_one(self, user_id:int) -> Union[Error, List[HomieOut]]:
+    def get_one(self, user_id: int) -> Union[Error, List[HomieOut]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:

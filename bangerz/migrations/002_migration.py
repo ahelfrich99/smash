@@ -8,7 +8,8 @@ steps = [
         # "Down" SQL statement
         """
         ALTER TABLE users
-        ALTER COLUMN profile_img TYPE VARCHAR(500) USING encode(profile_img, 'escape');
+        ALTER COLUMN profile_img TYPE VARCHAR(500)
+        USING encode(profile_img, 'escape');
         """,
     ],
     [
@@ -20,7 +21,8 @@ steps = [
         # "Down" SQL statement
         """
         ALTER TABLE bangerz
-        ALTER COLUMN song_img TYPE VARCHAR(500) USING encode(song_img, 'escape');
+        ALTER COLUMN song_img TYPE VARCHAR(500)
+        USING encode(song_img, 'escape');
         """,
     ],
     [
@@ -56,7 +58,8 @@ steps = [
         # "Down" SQL statement
         """
         ALTER TABLE groups
-        ALTER COLUMN picture_url TYPE VARCHAR(500) USING encode(picture_url, 'escape');
+        ALTER COLUMN picture_url TYPE VARCHAR(500)
+        USING encode(picture_url, 'escape');
         """,
     ],
     [
