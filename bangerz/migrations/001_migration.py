@@ -2,6 +2,20 @@ steps = [
     [
         # "Up" SQL statement
         """
+        CREATE TABLE files (
+            id SERIAL PRIMARY KEY NOT NULL,
+            file_data BYTEA NOT NULL,  -- Use BLOB if MySQL is being used
+            file_type VARCHAR(50) NOT NULL
+        );
+        """,
+        # "Down" SQL statement
+        """
+        DROP TABLE files;
+        """,
+    ],
+    [
+        # "Up" SQL statement
+        """
         CREATE TABLE users (
             id SERIAL PRIMARY KEY NOT NULL,
             username VARCHAR(300) NOT NULL,
@@ -9,8 +23,7 @@ steps = [
             first_name VARCHAR(300) NOT NULL,
             last_name VARCHAR(300) NOT NULL,
             email VARCHAR(300) NOT NULL,
-            profile_img VARCHAR(500)
-
+            profile_img INT REFERENCES files(id)
         );
         """,
         # "Down" SQL statement
@@ -23,11 +36,12 @@ steps = [
         """
         CREATE TABLE bangerz (
             id SERIAL PRIMARY KEY NOT NULL,
-            user_id SERIAL NOT NULL,
+            user_id SERIAL NOT NULL REFERENCES USERS(ID),
             song_title VARCHAR(500) NOT NULL,
             artist VARCHAR(500) NOT NULL,
             album VARCHAR(500),
-            song_img VARCHAR(500),
+            song_upload INT REFERENCES files(id),
+            song_img INT REFERENCES files(id),
             date DATE NOT NULL
         );
         """,
@@ -44,6 +58,7 @@ steps = [
             user_id SERIAL NOT NULL REFERENCES USERS(ID),
             banger_id SERIAL REFERENCES BANGERZ(ID),
             text TEXT NOT NULL,
+            date Date Not NULL,
             like_count INT DEFAULT 0
         );
         """,
@@ -76,7 +91,7 @@ steps = [
             id SERIAL PRIMARY KEY NOT NULL,
             group_name VARCHAR(50) NOT NULL,
             group_size INT NOT NULL,
-            picture_url VARCHAR(500) NOT NULL,
+            group_img INT REFERENCES files(id),
             description TEXT NOT NULL
         );
         """,
@@ -136,4 +151,5 @@ steps = [
         DROP TABLE homies;
         """,
     ],
+
 ]
