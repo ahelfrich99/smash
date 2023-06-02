@@ -6,11 +6,11 @@ const Navbar = () => {
     const navigate = useNavigate();
     const handleSignupClick = () => navigate('/signup');
 
-    const handleLogout = (e) => {
+    const handleLogout = async (e) => {
         e.preventDefault();
-        logout();
+        await logout();
         console.log(token)
-        navigate("/login")
+        navigate("/login");
     };
 
     return (
@@ -26,16 +26,20 @@ const Navbar = () => {
             <Link to="/group_posts" className="text-decoration-none">
                 <button className="btn btn-outline-dark mx-2">Group Posts</button>
             </Link>
-            <div className="btn-group" role="group">
-                <button className="btn btn-danger" onClick={(e) => handleLogout(e)}>
-                Logout <i className="bi bi-box-arrow-left"></i>
-                </button>
-                <button
-                className="btn btn-success ms-2"
-                onClick={handleSignupClick}
-                >
-                Signup <i className="bi bi-person-plus"></i>
-                </button>
+
+            <div className="btn-group mb-3" role="group">
+            <button  className="btn btn-danger" onClick={handleLogout}>
+              Logout <i className="bi bi-box-arrow-left"></i>
+            </button>
+
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={handleSignupClick}
+            >
+              Signup <i className="bi bi-person-plus"></i>
+            </button>
+
             </div>
             </div>
             </div>

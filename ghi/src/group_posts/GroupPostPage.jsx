@@ -50,11 +50,7 @@ const GroupPosts = () => {
 
             <div className="container mt-4">
             <div className="row gy-3">
-<<<<<<< HEAD
-                <GroupPostCard group_posts={groupPosts} />
-=======
                 <GroupPostCard groupPosts={groupPosts} />
->>>>>>> main
             </div>
             </div>
         </>

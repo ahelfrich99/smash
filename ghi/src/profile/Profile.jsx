@@ -1,40 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import JSONPretty from "react-json-pretty";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
 const ProfilePage = () => {
-    const [user, setUser] = useState(null);
+  // const [user, setUser] = useState();
+  // const { fetchWithCookie } = useToken();
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                //const tokenResponse = await axios.get('http://localhost:8000/token');
-                //console.log(tokenResponse.data);
-                const user_id = 1
-                const response = await axios.get(`http://localhost:8000/accounts/${user_id}`);
-                setUser(response.data);
-            } catch (error) {
-                console.error('Failed to fetch user', error);
-            }
-        };
+  // const handleFetchWithJFR = async (e) => {
+  //   e.preventDefault();
+  //   const data = await fetchWithCookie(
+  //     `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/token`
+  //   );
 
-        fetchUser();
-    }, []);
 
-    if (!user) {
-        return <div>Loading...</div>;
-    }
+  //   setUser(data);
 
-    // Decode profile_img from base64 to an image URL
-    const profileImgUrl = `data:image/jpeg;base64,${user.profile_img}`;
+  //   console.log(user);
+  // };
 
-    return (
-        <div>
-            <h1>{`${user.first_name} ${user.last_name}`}</h1>
+  // useEffect(() => {
+  //   handleFetchWithJFR();
+  // }, []);
 
-            <p>Username: {user.username}</p>
-            <p>Email: {user.email}</p>
-        </div>
-    );
-}
+  // Decode profile_img from base64 to an image URL
+  //const profileImgUrl = `data:image/jpeg;base64,${user.profile_img}`;
+
+  return (
+    <div>
+      {/* <h1>{`${user.account.first_name} ${user.account.last_name}`}</h1> */}
+
+      {/* <p>Username: {user.account.username}</p> */}
+      {/* <p>Email: {user.account.email}</p> */}
+    </div>
+  );
+};
 
 export default ProfilePage;
