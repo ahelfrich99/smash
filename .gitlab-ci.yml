@@ -3,6 +3,11 @@ stages:
   - build
   - deploy
 
+
+services:
+  - docker:dind
+
+
 # Run flake8 to check for code quality
 lint-test-job:
   image: python:3-bullseye
@@ -11,8 +16,6 @@ lint-test-job:
     - pip install flake8
     - flake8 bangerz
 
-services:
-  - docker:dind
 
 build-fastapi-service-image:
   stage: build
