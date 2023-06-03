@@ -1,18 +1,11 @@
 import { useState, useEffect } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
- const ProfilePage = () => {
-   const [userData, setUserData] = useState(null);
+ const ProfilePage = ({ userData }) => {
    const [profileImageB64, setProfileImageB64] = useState(null);
    const { fetchWithCookie } = useToken();
 
-   // This function fetches the user data from the server.
-   const handleFetchWithJFR = async () => {
-     const data = await fetchWithCookie(
-       `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/token`
-     );
-     setUserData(data);
-   };
+
 
    // This function fetches the profile image from the server.
    const handleFetchProfileImage = async () => {
@@ -33,11 +26,9 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 
    // This useEffect hook runs when the component mounts and whenever the userData state changes.
    useEffect(() => {
-     handleFetchWithJFR().then(() => {
-       if (userData && userData.account && userData.account.profile_img) {
-         handleFetchProfileImage();
-       }
-     });
+     if (userData && userData.account && userData.account.profile_img) {
+       handleFetchProfileImage();
+     }
    }, [userData]);
 
    // This condition checks if the userData state is null or undefined.
