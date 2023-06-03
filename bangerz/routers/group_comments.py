@@ -11,7 +11,10 @@ from queries.group_comments import (
 
 router = APIRouter()
 
-@router.post("/group_posts/{group_post_id}/group_comments", response_model=GroupCommentOut | Error)
+
+@router.post(
+    "/group_posts/{group_post_id}/group_comments",
+    response_model=GroupCommentOut | Error)
 async def create(
     group_comment: GroupCommentIn,
     response: Response,
@@ -31,7 +34,9 @@ async def create(
     return result
 
 
-@router.get("/group_posts/{post_id}/group_comments", response_model=List[GroupCommentOut] | Error)
+@router.get(
+    "/group_posts/{post_id}/group_comments",
+    response_model=List[GroupCommentOut] | Error)
 async def get_all(
     post_id: int,
     response: Response,
@@ -46,7 +51,10 @@ async def get_all(
         response.status_code = 200
         return result
 
-@router.get("/group_posts/{post_id}/{g_comment_id}", response_model=GroupCommentOut | Error)
+
+@router.get(
+    "/group_posts/{post_id}/{g_comment_id}",
+    response_model=GroupCommentOut | Error)
 async def get_one(
     g_comment_id: int,
     repo: GroupCommentRepository = Depends(),
@@ -59,9 +67,9 @@ async def get_one(
     return result
 
 
-
 @router.put(
-    "/group_posts/{post_id}/{g_comment_id}", response_model=GroupCommentOut | Error
+    "/group_posts/{post_id}/{g_comment_id}",
+    response_model=GroupCommentOut | Error
 )
 def update(
     g_comment_id: int,
@@ -105,7 +113,6 @@ def increment_like_count(
     else:
         response.status_code = 200
         return result
-
 
 
 @router.delete(

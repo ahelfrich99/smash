@@ -3,8 +3,10 @@ from typing import List, Optional, Union
 from queries.pool import pool
 from datetime import date
 
+
 class Error(BaseModel):
     message: str
+
 
 class GroupCommentIn(BaseModel):
     group_id: int
@@ -13,7 +15,6 @@ class GroupCommentIn(BaseModel):
     content: str
     date: date
     like_count: Optional[int]
-
 
 
 class GroupCommentOut(BaseModel):
@@ -25,15 +26,25 @@ class GroupCommentOut(BaseModel):
     date: date
     like_count: int
 
+
 class GroupCommentRepository(BaseModel):
-    def create(self, group_comment: GroupCommentIn) -> Union[GroupCommentOut, Error]:
+    def create(
+        self,
+        group_comment: GroupCommentIn
+    ) -> Union[GroupCommentOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        INSERT INTO group_comments
-                            (group_id, user_id, post_id, content, date, like_count)
+                        INSERT INTO group_comments ()
+                            group_id,
+                            user_id,
+                            post_id,
+                            content,
+                            date,
+                            like_count
+                            )
                         VALUES
                             (%s, %s, %s, %s, %s, %s)
                         RETURNING id;
@@ -50,10 +61,8 @@ class GroupCommentRepository(BaseModel):
                     id = result.fetchone()[0]
                     return GroupCommentOut(id=id, **group_comment.dict())
 
-
         except Exception:
             return {"message: COuld not create comment"}
-
 
     def get_all(self, post_id: int) -> Union[List[GroupCommentOut], Error]:
         try:
@@ -61,7 +70,14 @@ class GroupCommentRepository(BaseModel):
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id, group_id, user_id, post_id, content, date, like_count
+                        SELECT
+                            id,
+                            group_id,
+                            user_id,
+                            post_id,
+                            content,
+                            date,
+                            like_count
                         FROM group_comments
                         WHERE post_id = %s
                         """,
@@ -89,7 +105,14 @@ class GroupCommentRepository(BaseModel):
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT id, group_id, user_id, post_id, content, date, like_count
+                        SELECT
+                            id,
+                            group_id,
+                            user_id,
+                            post_id,
+                            content,
+                            date,
+                            like_count
                         FROM group_comments
                         WHERE id = %s
                         """,
@@ -112,7 +135,6 @@ class GroupCommentRepository(BaseModel):
 
         except Exception:
             Error(message="Could not retrieve group comment information")
-
 
     def update(
         self, g_comment_id: int, group_comment: GroupCommentIn
@@ -142,7 +164,8 @@ class GroupCommentRepository(BaseModel):
                             ],
                         )
 
-                        return GroupCommentOut(id=g_comment_id, **group_comment.dict())
+                        return GroupCommentOut(
+                            id=g_comment_id, **group_comment.dict())
 
             except Exception as e:
                 print(e)
@@ -170,9 +193,8 @@ class GroupCommentRepository(BaseModel):
 
             except Exception:
                 return False
-            
-        return None
 
+        return None
 
     def delete(self, g_comment_id: int) -> Union[bool, Error]:
         target_comment = self.get_one(g_comment_id)

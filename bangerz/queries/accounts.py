@@ -22,7 +22,6 @@ class AccountIn(BaseModel):
     profile_img: Optional[str]
 
 
-
 class AccountOut(BaseModel):
     id: int
     username: str

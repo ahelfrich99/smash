@@ -1,4 +1,4 @@
-import { useState, useRef} from "react";
+import { useState, useRef } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
 
@@ -14,13 +14,28 @@ const SignupForm = () => {
 
   const handleRegistration = async (e) => {
     e.preventDefault();
+    // First, handle file upload
+    let uploadedFile;
+    if (profileImg) {
+      const formData = new FormData();
+      formData.append('file', profileImg);
+      formData.append('file_type', 'image');
+      const response = await fetch(`${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/files`, {
+        method: 'POST',
+        body: formData
+      });
+      const data = await response.json();
+      uploadedFile = data.id;
+    }
+
+    // Then, handle registration
     const accountData = {
       username: username,
       password: password,
       first_name: first_name,
       last_name: last_name,
       email: email,
-      profile_img: profileImg,
+      profile_img: uploadedFile,
     };
 
     try {
@@ -34,6 +49,11 @@ const SignupForm = () => {
       console.error("Error during registration", error);
     }
   };
+
+  const onFileChange = e => {
+    setProfileImg(e.target.files[0]);
+  };
+
 
   return (
     <div className="relative flex h-full w-full">
@@ -117,18 +137,16 @@ const SignupForm = () => {
                 />
               </div>
               <div className="mt-4">
-                <label className="mb-2.5 block font-extrabold" htmlFor="image">
-                  Profile Image
-                </label>
-                <input
-                  type="text"
-                  id="image"
-                  className="inline-block w-full rounded-full bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow"
-                  placeholder="Enter your profile image URL..."
-                  value={profileImg}
-                  onChange={(e) => setProfileImg(e.target.value)}
-                />
-              </div>
+      <label className="mb-2.5 block font-extrabold" htmlFor="image">
+        Profile Image
+      </label>
+      <input
+        type="file"
+        id="image"
+        accept="image/*"
+        onChange={onFileChange}
+      />
+    </div>
               <div className="my-10">
                 <button
                   className="w-full rounded-full bg-blue-600 p-3 hover:bg-blue-800"
