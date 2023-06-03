@@ -22,7 +22,7 @@
             try {
                 await login(username, password);
                 console.log("Logged in successfully!");
-                navigate("/mock");
+                navigate("/profile");
             } catch (error) {
                 console.error("Error during login", error);
             }
