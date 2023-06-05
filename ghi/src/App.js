@@ -40,7 +40,7 @@ function App() {
             <Route exact path="/signup" element={<SignupForm />} />
             <Route exact path="/login" element={<LoginForm />} />
 
-            <Route exact path="/main" element={<Main />} />
+            <Route exact path="/" element={<Main />} />
             <Route exact path="/useUser" element={<UseUser />} />
             <Route
               exact

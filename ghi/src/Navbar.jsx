@@ -35,20 +35,25 @@ const Navbar = () => {
           <Link to="/group_posts" className="text-decoration-none">
             <button className="btn btn-outline-dark mx-2">Group Posts</button>
           </Link>
-          <Link to="/main" className="text-decoration-none">
+          <Link to="/" className="text-decoration-none">
             <button className="btn btn-outline-dark mx-2">Main</button>
           </Link>
+
           <div className="btn-group mb-3" role="group">
-            <button className="btn btn-danger" onClick={handleLogout}>
-              Logout <i className="bi bi-box-arrow-left"></i>
-            </button>
-            <button
-              type="button"
-              className="btn btn-success"
-              onClick={handleSignupClick}
-            >
-              Signup <i className="bi bi-person-plus"></i>
-            </button>
+            {token && (
+              <button className="btn btn-danger" onClick={handleLogout}>
+                Logout <i className="bi bi-box-arrow-left"></i>
+              </button>
+            )}
+            {!token && (
+              <button
+                type="button"
+                className="btn btn-success"
+                onClick={handleSignupClick}
+              >
+                Signup <i className="bi bi-person-plus"></i>
+              </button>
+            )}
           </div>
         </div>
       </div>
