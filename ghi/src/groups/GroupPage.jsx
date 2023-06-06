@@ -7,7 +7,7 @@ const Groups = () => {
     const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
 
     async function fetchGroupData() {
-        const groupUrl = "http://localhost:8000/groups/";
+        const groupUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/groups`;
         const response = await fetch(groupUrl);
         if (response.ok) {
             const data = await response.json();

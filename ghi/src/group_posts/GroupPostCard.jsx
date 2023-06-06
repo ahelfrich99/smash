@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
 const GroupPostCard = ({ groupPosts }) => {
-    const [users, setUsers] = useState([]);
-    const [bangerz, setBangerz] = useState([]);
+    const [setUsers] = useState([]);
+    const [setBangerz] = useState([]);
 
     const fetchUserData = async () => {
-        const url = "http://localhost:8000/accounts/"
+        const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`;
         const response = await fetch(url);
         const users = await response.json();
         const groupPostsWithUser = groupPosts.map((groupPost) => {
@@ -16,7 +16,7 @@ const GroupPostCard = ({ groupPosts }) => {
     }
 
     const fetchBangerData = async () => {
-        const url = "http://localhost:8000/bangerz/"
+        const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/bangerz`;
         const response = await fetch(url);
         const bangerz = await response.json();
         const groupPostsWithBanger = groupPosts.map((groupPost) => {
@@ -28,21 +28,21 @@ const GroupPostCard = ({ groupPosts }) => {
 
     const fetchUsers = async () => {
         const fetchedUsers = await fetchUserData();
-        setUsers(fetchedUsers)
-    }
+        setUsers(fetchedUsers);
+    };
 
     const fetchBangerz = async () => {
         const fetchedBangerz = await fetchBangerData();
         setBangerz(fetchedBangerz);
-    }
+    };
 
     useEffect(() => {
         fetchUsers();
-    }, [groupPosts]);
+    });
 
     useEffect(() => {
         fetchBangerz();
-    }, []);
+    });
 
     return (
         <div className="row">
@@ -56,7 +56,7 @@ const GroupPostCard = ({ groupPosts }) => {
                 return (
                     <div className='flex items-center justify-center' key={groupPost.id}>
                     <div className="p-4 items-center justify-center w-[680px] rounded-xl group sm:flex space-x-6 bg-white bg-opacity-50 shadow-xl hover:rounded-2xl">
-                        <img src={bangerImg} />
+                        <img src={bangerImg} alt="" />
                         <div className="sm:w-8/12 pl-0 p-5">
                             <div className="space-y-2">
                                 <div className="space-y-4">

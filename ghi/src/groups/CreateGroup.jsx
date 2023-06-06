@@ -13,9 +13,7 @@ const CreateGroup = ({ onGroupCreated, onClose }) => {
         setGroupSize(e.target.value);
     };
     const [groupImg, setGroupImg] = useState("");
-    const handleGroupImgChange = (e) => {
-        setGroupImg(e.target.value);
-    };
+
     const [description, setDescription] = useState("");
     const handleDescriptionChange = (e) => {
         setDescription(e.target.value);
@@ -24,13 +22,28 @@ const CreateGroup = ({ onGroupCreated, onClose }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        let uploadedFile;
+        if (groupImg) {
+        const formData = new FormData();
+        formData.append('file', groupImg);
+        formData.append('file_type', 'image');
+        const response = await fetch(`${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/files`, {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+        uploadedFile = data.id;
+        }
+
         const data = {};
         data.group_name = groupName;
         data.group_size = groupSize;
-        data.group_img = groupImg;
+        data.group_img = uploadedFile;
         data.description = description;
 
-        const groupUrl = "http://localhost:8000/groups/"
+        console.log(data)
+
+        const groupUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/groups`;
         const fetchConfigUrl = {
             method: "post",
             body: JSON.stringify(data),
@@ -58,6 +71,10 @@ const CreateGroup = ({ onGroupCreated, onClose }) => {
         setGroupImg('');
 
         onClose();
+    };
+
+    const onFileChange = (e) => {
+        setGroupImg(e.target.files[0]);
     };
 
     return (
@@ -107,7 +124,7 @@ const CreateGroup = ({ onGroupCreated, onClose }) => {
                         className="mb-8 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                         type="file"
                         value={groupImg}
-                        onChange={handleGroupImgChange}
+                        onChange={onFileChange}
                     />
                     <div className="flex items-center justify-start w-full">
                     <button className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 transition duration-150 ease-in-out hover:bg-blue-600 bg-blue-700 rounded text-white px-8 py-2 text-sm">Submit</button>
