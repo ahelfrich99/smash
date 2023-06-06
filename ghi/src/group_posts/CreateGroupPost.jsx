@@ -41,7 +41,7 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
             date: date,
             };
 
-            const postUrl = 'http://localhost:8000/group_posts/';
+            const postUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/group_posts`;
             const postFetchConfig = {
             method: 'post',
             body: JSON.stringify(postData),
@@ -80,7 +80,7 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
     };
 
     const fetchUserData = async () => {
-        const userUrl = 'http://localhost:8000/accounts/';
+        const userUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`;
         const response = await fetch(userUrl);
         if (response.ok) {
             const data = await response.json();
@@ -90,7 +90,7 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
     }
 
     const fetchBangerData = async () => {
-        const bangerUrl = 'http://localhost:8000/bangerz/'
+        const bangerUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/bangerz`;
         const response = await fetch(bangerUrl);
         if (response.ok) {
             const data = await response.json();
@@ -100,7 +100,7 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
     }
 
     const fetchGroupData = async () => {
-        const groupUrl = "http://localhost:8000/groups/";
+        const groupUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/groups`;
         const response = await fetch(groupUrl);
         if (response.ok) {
             const data = await response.json();

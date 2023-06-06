@@ -5,7 +5,7 @@ volumes:
 services:
   fastapi:
     build:
-      context: ./bangerz
+      context: bangerz
       dockerfile: ./Dockerfile.dev
     ports:
       - 8000:80

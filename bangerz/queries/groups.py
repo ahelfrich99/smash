@@ -12,7 +12,7 @@ class Error(BaseModel):
 class GroupIn(BaseModel):
     group_name: str
     group_size: int
-    group_img: str
+    group_img: int
     description: str
 
 
@@ -20,7 +20,7 @@ class GroupOut(BaseModel):
     id: int
     group_name: str
     group_size: int
-    group_img: Optional[str]
+    group_img: Optional[int]
     description: str
 
 
