@@ -1,4 +1,7 @@
-import { AuthProvider, useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
+// deployment is making get rid of useAuthContext from the above import
+// if you need it just add it back in after pulling this
+// - Adrianna
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,7 +15,8 @@ import Navbar from "./Navbar";
 import SignupForm from "./login-signup/SignupForm";
 import Groups from "./groups/GroupPage";
 import GroupPosts from "./group_posts/GroupPostPage";
-import Profile from "./profile/Profile";
+// import Profile from "./profile/Profile";
+import PostsPage from "./posts/PostsPage";
 
 // example imports
 import Example from "./mock-pages/Example";
@@ -21,7 +25,7 @@ function App() {
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
 
-  const { token } = useAuthContext();
+  // const { token } = useAuthContext();
 
   return (
     <div className="container">
@@ -34,8 +38,9 @@ function App() {
             <Route exact path="/signup" element={<SignupForm />} />
             <Route exact path="/login" element={<LoginForm />} />
 
-            <Route exact path="/home" element={<Main token={token} />} />
-            <Route exact path="/profile" element={<Profile />} />
+            <Route exact path="/home" element={<PostsPage />} />
+
+            {/* <Route exact path="/profile" element={<Profile />} /> */}
             <Route exact path="/mock" element={<Example />} />
 
             <Route exact path="/groups" element={<Groups />} />
