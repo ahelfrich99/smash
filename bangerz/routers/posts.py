@@ -1,3 +1,4 @@
+from helpers.account_helper import Account
 from fastapi import APIRouter, Depends, Response
 from typing import Union, List
 from queries.posts import Error, PostIn, PostRepository, PostOut
@@ -21,7 +22,8 @@ def create_post(
         response.status_code = 401
         return Error(message="Sign in to make a post")
 
-    result = repo.create(post)
+    curr_account = Account(account)
+    result = repo.create(curr_account, post)
 
     if result is None:
         response.status_code = 404
@@ -34,6 +36,7 @@ def create_post(
 def get_all(
     response: Response,
     repo: PostRepository = Depends(),
+    account: dict = Depends(authenticator.try_get_current_account_data),
 ):
     result = repo.get_all()
 
@@ -59,7 +62,7 @@ def get_one(
 
 
 @router.put("/posts/{post_id}", response_model=Union[PostOut, Error])
-def update_post(
+def update(
     post_id: int,
     post: PostIn,
     response: Response,
@@ -70,7 +73,8 @@ def update_post(
         response.status_code = 401
         return Error(message="Sign in to access")
 
-    result = repo.update_post(post_id, post)
+    curr_account = Account(account)
+    result = repo.update(curr_account, post_id, post)
 
     if result is None:
         response.status_code = 404
@@ -81,7 +85,7 @@ def update_post(
 
 
 @router.delete("/posts/{post_id}", response_model=Union[bool, Error])
-def delete_post(
+def delete(
     post_id: int,
     response: Response,
     repo: PostRepository = Depends(),
@@ -91,7 +95,8 @@ def delete_post(
         response.status_code = 401
         return Error(message="Sign in to access")
 
-    result = repo.delete_post(post_id)
+    curr_account = Account(account)
+    result = repo.delete(curr_account, post_id)
 
     if result is None:
         response.status_code = 404
@@ -99,3 +104,23 @@ def delete_post(
     else:
         response.status_code = 200
         return result
+
+# @router.put("/posts/{post_id}", response_model=Union[PostOut, Error])
+# def like(
+#     post_id: int,
+#     response: Response,
+#     repo: PostRepository = Depends(),
+#     account: dict = Depends(authenticator.try_get_current_account_data),
+# ) -> Union[PostOut, Error]:
+#     if account is None:
+#         response.status_code = 401
+#         return Error(message="Sign in to access")
+
+#     result = repo.like(post_id)
+
+#     if result is None:
+#         response.status_code = 404
+#         result = Error(message="Could not like post")
+#     else:
+#         response.status_code = 200
+#         return result

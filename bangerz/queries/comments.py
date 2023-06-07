@@ -1,7 +1,12 @@
-from pydantic import BaseModel
-from typing import Optional, List, Union
 from datetime import date
-from queries.pool import pool
+from typing import List, Optional, Union
+
+from databases.comment import (create_comment, delete_comment,
+                               get_all_comments, get_comment)
+from databases.user import get_user
+from helpers.account_helper import Account
+from models.comment import Comment
+from pydantic import BaseModel
 
 
 class Error(BaseModel):
@@ -9,16 +14,15 @@ class Error(BaseModel):
 
 
 class CommentIn(BaseModel):
-    user_id: int
     post_id: int
     content: str
-    date: date
-    like_count: Optional[int]
 
 
 class CommentOut(BaseModel):
     id: int
-    user_id: int
+    first_name: str
+    last_name: str
+    username: str
     post_id: int
     content: str
     date: date
@@ -26,140 +30,57 @@ class CommentOut(BaseModel):
 
 
 class CommentRepository(BaseModel):
-    def create(self, comment: CommentIn) -> CommentOut:
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    result = db.execute(
-                        """
-                        INSERT INTO comments
-                            (user_id, post_id, content, date, like_count)
-                        VALUES
-                            (%s, %s, %s, %s, %s)
-                        RETURNING id
-                        """,
-                        [
-                            comment.user_id,
-                            comment.post_id,
-                            comment.content,
-                            comment.date,
-                            comment.like_count,
-                        ],
-                    )
+    def create(self, account: Account, comment_in: CommentIn) -> CommentOut:
+        comment = Comment(
+                -1,
+                account.user_id,
+                comment_in.post_id,
+                comment_in.content,
+                date.today(),
+                0
+            )
+        comment = create_comment(comment)
 
-                    id = result.fetchone()[0]
-                    return CommentOut(id=id, **comment.dict())
-        except Exception:
-            return Error(message="Could not create comment")
+        return CommentOut(
+            id=comment.id,
+            first_name=account.first_name,
+            last_name=account.last_name,
+            username=account.username,
+            post_id=comment.post_id,
+            content=comment.content,
+            date=comment.date,
+            like_count=comment.like_count
+        )
 
     def get_all(self, post_id: int) -> Union[List[CommentOut], Error]:
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    result = db.execute(
-                        """
-                        SELECT id, user_id, post_id, content, date, like_count
-                        FROM comments
-                        WHERE post_id = %s
-                        """,
-                        [post_id],
-                    )
-                    return [
-                        CommentOut(
-                            id=data[0],
-                            user_id=data[1],
-                            post_id=data[2],
-                            content=data[3],
-                            date=data[4],
-                            like_count=data[5],
-                        )
-                        for data in result
-                    ]
+        comments = get_all_comments(post_id)
+        comment_outs = []
 
-        except Exception as e:
-            print(e)
-            return Error(message="Could not get all comments")
+        for comment in comments:
+            user = get_user(comment.user_id)
 
-    def get_one(self, comment_id: int) -> Union[CommentOut, Error]:
-        try:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    db.execute(
-                        """
-                        SELECT id, user_id, post_id, content, date, like_count
-                        FROM comments
-                        WHERE ID = %s
-                        """,
-                        [comment_id],
-                    )
+            comment_outs.append(
+                CommentOut(
+                    id=comment.id,
+                    first_name=user.first_name,
+                    last_name=user.last_name,
+                    username=user.username,
+                    post_id=comment.post_id,
+                    content=comment.content,
+                    date=comment.date,
+                    like_count=comment.like_count
+                )
+            )
 
-                    data = db.fetchone()
-                    if data:
-                        return CommentOut(
-                            id=data[0],
-                            user_id=data[1],
-                            post_id=data[2],
-                            content=data[3],
-                            date=data[4],
-                            like_count=data[5],
-                        )
-                    else:
-                        return Error(message="Could not find comment")
+        return comment_outs
 
-        except Exception:
-            Error(message="Could not retrieve comment information")
+    def delete(self, account: Account, comment_id: int) -> Union[bool, Error]:
+        comment = get_comment(comment_id)
+        user = get_user(comment.user_id)
 
-    def update(
-        self, comment_id: int, comment: CommentIn
-    ) -> Union[CommentOut, Error]:
-        target_comment = self.get_one(comment_id)
-        if target_comment.id:
-            try:
-                with pool.connection() as conn:
-                    with conn.cursor() as db:
-                        db.execute(
-                            """
-                            UPDATE comments
-                            SET user_id =%s
-                                , post_id = %s
-                                , content = %s
-                                , date = %s
-                                , like_count = %s
-                            WHERE id = %s
-                            """,
-                            [
-                                comment.user_id,
-                                comment.post_id,
-                                comment.content,
-                                comment.date,
-                                comment.like_count,
-                                comment_id,
-                            ],
-                        )
+        if user.id != account.user_id:
+            return Error(message="User does not have permission to delete")
 
-                        return CommentOut(id=comment_id, **comment.dict())
+        delete_comment(comment_id)
 
-            except Exception as e:
-                print(e)
-                return Error(message="Could not update comment")
-
-    def delete(self, comment_id: int) -> Union[bool, Error]:
-        target_comment = self.get_one(comment_id)
-        if target_comment.id:
-            try:
-                with pool.connection() as conn:
-                    with conn.cursor() as db:
-                        db.execute(
-                            """
-                            DELETE FROM comments
-                            WHERE id = %s
-                            """,
-                            [comment_id],
-                        ),
-
-                        return True
-
-            except Exception:
-                return False
-
-        return None
+        return True
