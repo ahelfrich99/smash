@@ -16,7 +16,7 @@ from queries.accounts import (
     AccountQueries,
     DuplicateAccountError,
 )
-from typing import List
+from typing import List, Optional
 from authenticator import authenticator
 
 router = APIRouter()
@@ -25,6 +25,11 @@ router = APIRouter()
 class AccountForm(BaseModel):
     username: str
     password: str
+
+
+class AccountEdit(BaseModel):
+    email: Optional[str]
+    profile_img: Optional[int]
 
 
 class AccountToken(Token):
@@ -144,3 +149,19 @@ async def get_token(
             "type": "Bearer",
             "account": account,
         }
+
+
+@router.put("/accounts/{user_id}", response_model=AccountOut | Error)
+async def update(
+    user_id: int,
+    account_edit: AccountEdit,
+    response: Response,
+    repo: AccountQueries = Depends()
+):
+    result = repo.update(user_id, account_edit.email, account_edit.profile_img)
+    if isinstance(result, Error):
+        response.status_code = 400
+        return result
+    else:
+        response.status_code = 200
+        return result

@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import useToken from '@galvanize-inc/jwtdown-for-react';
+import { useNavigate } from 'react-router-dom'
+
 
 const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
     const { token } = useToken();
+    const { navigate } = useNavigate();
 
     const [groups, setGroups] = useState([])
     const [group, setGroup] = useState('')
@@ -71,6 +74,7 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
             setDate('');
 
             onGroupPostCreated();
+            navigate('/group_posts')
             } else {
                 console.error('Failed to create a new group post');
             }
@@ -84,7 +88,6 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
         const response = await fetch(userUrl);
         if (response.ok) {
             const data = await response.json();
-            console.log(data)
             setUsers(data);
         }
     }
@@ -94,7 +97,6 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
         const response = await fetch(bangerUrl);
         if (response.ok) {
             const data = await response.json();
-            console.log(data)
             setBangerz(data);
         }
     }
@@ -104,7 +106,6 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
         const response = await fetch(groupUrl);
         if (response.ok) {
             const data = await response.json();
-            console.log(data)
             setGroups(data);
         }
     }
