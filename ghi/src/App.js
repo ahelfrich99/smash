@@ -20,6 +20,8 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 import PostsPage from "./posts/PostsPage";
 import UseUser from "./useUser";
 import GroupProfile from "./groups/GroupProfile"
+import BangerzPage from "./bangerz/BangerzPage";
+import BangerzForm from "./bangerz/BangerzForm";
 
 
 function App() {
@@ -64,6 +66,10 @@ function App() {
             path="/group_posts"
             element={<GroupPosts user={user} />}
           />
+          <Route path="bangerz">
+              <Route exact path="" element={<BangerzPage />} />
+              <Route exact path="new" element={<BangerzForm user={user} />} />
+          </Route>
           <Route exact path="/home" element={<PostsPage />} />
         </Routes>
 
