@@ -1,60 +1,33 @@
 import { useEffect, useState } from "react";
-import GroupPostCard from "./GroupPostCard";
-import CreateGroupPost from "./CreateGroupPost";
 
-const GroupPosts = () => {
-    const [groupPosts, setGroupPosts] = useState([]);
-    const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
-
-    async function fetchGroupPostData() {
-        const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/group_posts`;
-        const response = await fetch(url);
-        if (response.ok) {
-            const data = await response.json();
-            setGroupPosts(data);
-            // console.log(data)
-        }
-    }
-
-    const handleCloseModal = () => {
-        setShowCreateGroupModal(false);
-    };
-
-    const handleOpenModal = () => {
-        setShowCreateGroupModal(true);
-    };
+export const UserImage = ({ user, fetchWithCookie }) => {
+    console.log("user:", user);
+    const [image, setImage] = useState(null);
 
     useEffect(() => {
-        fetchGroupPostData()
-    }, []);
+        const fetchImage = async () => {
+            const Response = await fetchWithCookie(
+                `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/files/${user.profile_img}`
+            );
+            const imgUrl = Response;
+            setImage(imgUrl.file_data);
+        }
+        fetchImage();
+    }, [user, fetchWithCookie]);
 
     return (
-        <>
-        <br />
-        <h1 className="text-center text-3xl font-bold mt-8">Group Posts</h1>
-        <br />
-            <div className="container mt-4">
-                <div className="row justify-content-end text-center">
-                    <button
-                        type="button"
-                        className="btn btn-primary btn-lg btn-block"
-                        onClick={handleOpenModal}
-                        >
-                            Create a Group Post
-                    </button>
-                </div>
-            </div>
-            {showCreateGroupModal && (
-                <CreateGroupPost onGroupPostCreated={fetchGroupPostData} onClose={handleCloseModal} />
-            )}
-
-            <div className="container mt-4">
-            <div className="row gy-3">
-                <GroupPostCard groupPosts={groupPosts} />
-            </div>
-            </div>
-        </>
+        <img
+        src={`data:image/jpg;base64,${image}`}
+        alt="User"
+        className="rounded-full h-8 w-8"
+        // style={{ maxWidth: "160px", maxHeight: "115px" }}
+        />
     );
-}
+};
+
+const GroupPosts = ({user}) => {
+
+    return <>${user}`</>;
+};
 
 export default GroupPosts;

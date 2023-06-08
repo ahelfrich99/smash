@@ -1,9 +1,7 @@
-import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 // deployment is making get rid of useAuthContext from the above import
 // if you need it just add it back in after pulling this
 // - Adrianna
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./App.css";
@@ -11,19 +9,24 @@ import "./App.css";
 import { Main } from "./Main";
 import LoginForm from "./login-signup/LoginForm";
 import Navbar from "./Navbar";
-// import { Footer } from "./Footer";
 import SignupForm from "./login-signup/SignupForm";
 import Groups from "./groups/GroupPage";
 import GroupPosts from "./group_posts/GroupPostPage";
-// import Profile from "./profile/Profile";
+import ProfilePage from "./profile/ProfilePage";
+import MyHomieList from "./homies/MyHomieList";
+import HomieList from "./homies/HomieList";
+import Homie from "./homies/Homie";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 import PostsPage from "./posts/PostsPage";
+import UseUser from "./useUser";
+import GroupProfile from "./groups/GroupProfile"
 
-// example imports
-import Example from "./mock-pages/Example";
 
 function App() {
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
+  const { token } = useToken();
+  const { user } = UseUser(token);
 
   // const { token } = useAuthContext();
 
@@ -32,23 +35,41 @@ function App() {
       <BrowserRouter basename={basename}>
         <Navbar />
         <br />
-        <AuthProvider baseUrl={process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}>
-          <Routes>
-            <Route exact path="/" element={<Main />} />
-            <Route exact path="/signup" element={<SignupForm />} />
-            <Route exact path="/login" element={<LoginForm />} />
 
-            <Route exact path="/home" element={<PostsPage />} />
+        <Routes>
+          {/* <Route exact path="/" element={<Main />} /> */}
 
-            {/* <Route exact path="/profile" element={<Profile />} /> */}
-            <Route exact path="/mock" element={<Example />} />
+          <Route exact path="/signup" element={<SignupForm />} />
+          <Route exact path="/login" element={<LoginForm />} />
+          <Route exact path="/" element={<Main />} />
+          <Route exact path="/useUser" element={<UseUser />} />
+          <Route exact path="/" element={<ProfilePage user={user} />} />
+          <Route exact path="/profile" element={<ProfilePage user={user} />} />
+          <Route
+            exact
+            path="myHomieList"
+            element={<MyHomieList user={user} />}
+          />
+          <Route exact path="/homieList" element={<HomieList />} />
+          <Route path="/homie/:id" element={<Homie user={user} />} />
 
-            <Route exact path="/groups" element={<Groups />} />
-            <Route exact path="/group_posts" element={<GroupPosts />} />
-          </Routes>
-          <br />
-          {/* <Footer /> */}
-        </AuthProvider>
+          <Route exact path="/groups" element={<Groups />} />
+          <Route
+            exact
+            path="/groups/:id"
+            element={<GroupProfile user={user} />}
+          />
+          <Route
+            exact
+            path="/group_posts"
+            element={<GroupPosts user={user} />}
+          />
+          <Route exact path="/home" element={<PostsPage />} />
+        </Routes>
+
+        <br />
+        {/* <Footer /> */}
+
         <br />
       </BrowserRouter>
     </div>

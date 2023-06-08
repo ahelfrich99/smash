@@ -1,6 +1,6 @@
 export default function Post({ postData, allPosts, token }) {
   const handleDelete = async (id) => {
-    const url = `http://localhost:8000/posts/${id}`;
+    const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/posts/${id}`;
     const fetchConfigUrl = {
       method: "delete",
       headers: {

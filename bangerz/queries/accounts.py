@@ -19,7 +19,7 @@ class AccountIn(BaseModel):
     first_name: str
     last_name: str
     email: str
-    profile_img: Optional[str]
+    profile_img: Optional[int]
 
 
 class AccountOut(BaseModel):
@@ -28,7 +28,7 @@ class AccountOut(BaseModel):
     first_name: str
     last_name: str
     email: str
-    profile_img: Optional[str]
+    profile_img: Optional[int]
 
 
 class AccountOutWithPassword(AccountOut):
@@ -223,47 +223,39 @@ class AccountQueries(BaseModel):
 
         return None
 
-    # def update(
-    #     self,
-    #     user_id: int,
-    #     account: AccountIn,
-    #     account_id: int
-    # ) -> AccountOutWithPassword | Error:
-    #     target_group = self.get_one(user_id)
-    #     if target_group.id:
-    #         try:
-    #             with pool.connection() as conn:
-    #                 with conn.cursor() as db:
-    #                     db.execute(
-    #                         """
-    #                         UPDATE users
-    #                         SET
-    #                             username = %s,
-    #                             password = %s,
-    #                             first_name = %s,
-    #                             last_name = %s,
-    #                             email = %s,
-    #                             profile_img = %s
-    #                         WHERE id = %s
-    #                         """,
-    #                         [
-    #                             account.username,
-    #                             account.password,
-    #                             account.first_name,
-    #                             account.last_name,
-    #                             account.email,
-    #                             account.profile_img,
-    #                             account_id
+    def update(
+            self,
+            user_id: int,
+            email: Optional[str],
+            profile_img: Optional[int]
+            ) -> AccountOutWithPassword | Error:
+        target_user = self.get_one(user_id)
 
-    #                         ]
-    #                     )
-    #                     return AccountOutWithPassword(
-    #                         id=user_id,
-    #                         **account.dict()
-    #                     )
-
-    #         except Exception as e:
-    #             print(e)
-    #             return Error(message="Could not update user")
-    #     else:
-    #         return Error(message="User not found or username mismatch")
+        if target_user.id:
+            try:
+                with pool.connection() as conn:
+                    with conn.cursor() as db:
+                        db.execute(
+                            """
+                            UPDATE users
+                            SET
+                            email = %s,
+                            profile_img = %s
+                            WHERE id = %s
+                            """,
+                            [email, profile_img, user_id]
+                        )
+                        return AccountOutWithPassword(
+                            id=target_user.id,
+                            username=target_user.username,
+                            hashed_password=target_user.hashed_password,
+                            first_name=target_user.first_name,
+                            last_name=target_user.last_name,
+                            email=email,
+                            profile_img=profile_img
+                        )
+            except Exception as e:
+                print(e)
+                return Error(message="Could not update user")
+        else:
+            return Error(message="User not found")

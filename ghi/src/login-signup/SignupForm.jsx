@@ -18,12 +18,15 @@ const SignupForm = () => {
     let uploadedFile;
     if (profileImg) {
       const formData = new FormData();
-      formData.append('file', profileImg);
-      formData.append('file_type', 'image');
-      const response = await fetch(`${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/files`, {
-        method: 'POST',
-        body: formData
-      });
+      formData.append("file", profileImg);
+      formData.append("file_type", "image");
+      const response = await fetch(
+        `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/files`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
       const data = await response.json();
       uploadedFile = data.id;
     }
@@ -50,10 +53,9 @@ const SignupForm = () => {
     }
   };
 
-  const onFileChange = e => {
+  const onFileChange = (e) => {
     setProfileImg(e.target.files[0]);
   };
-
 
   return (
     <div className="relative flex h-full w-full">
@@ -137,16 +139,16 @@ const SignupForm = () => {
                 />
               </div>
               <div className="mt-4">
-      <label className="mb-2.5 block font-extrabold" htmlFor="image">
-        Profile Image
-      </label>
-      <input
-        type="file"
-        id="image"
-        accept="image/*"
-        onChange={onFileChange}
-      />
-    </div>
+                <label className="mb-2.5 block font-extrabold" htmlFor="image">
+                  Profile Image
+                </label>
+                <input
+                  type="file"
+                  id="image"
+                  accept="image/*"
+                  onChange={onFileChange}
+                />
+              </div>
               <div className="my-10">
                 <button
                   className="w-full rounded-full bg-blue-600 p-3 hover:bg-blue-800"

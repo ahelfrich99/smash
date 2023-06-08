@@ -1,74 +1,17 @@
-import { useEffect, useState } from "react";
-
 const GroupPostCard = ({ groupPosts }) => {
-    const [setUsers] = useState([]);
-    const [setBangerz] = useState([]);
-
-    const fetchUserData = async () => {
-        const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`;
-        const response = await fetch(url);
-        const users = await response.json();
-        const groupPostsWithUser = groupPosts.map((groupPost) => {
-            const user = users.find((user) => user.id === groupPost.userId);
-            return { ...groupPost, user };
-        })
-        return groupPostsWithUser;
-    }
-
-    const fetchBangerData = async () => {
-        const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/bangerz`;
-        const response = await fetch(url);
-        const bangerz = await response.json();
-        const groupPostsWithBanger = groupPosts.map((groupPost) => {
-            const banger = bangerz.find(banger => banger.id === groupPost.bangerId);
-            return { ...groupPost, banger };
-        })
-        return groupPostsWithBanger;
-    }
-
-    const fetchUsers = async () => {
-        const fetchedUsers = await fetchUserData();
-        setUsers(fetchedUsers);
-    };
-
-    const fetchBangerz = async () => {
-        const fetchedBangerz = await fetchBangerData();
-        setBangerz(fetchedBangerz);
-    };
-
-    useEffect(() => {
-        fetchUsers();
-    });
-
-    useEffect(() => {
-        fetchBangerz();
-    });
-
     return (
         <div className="row">
             {groupPosts?.map((groupPost) => {
-                const user = groupPost.user;
-                const banger = groupPost.banger;
-                const profileImg = user ? user.profile_img : "";
-                const bangerImg = banger ? banger.song_img : "";
-                const username = user ? user.username : "";
-
                 return (
                     <div className='flex items-center justify-center' key={groupPost.id}>
                     <div className="p-4 items-center justify-center w-[680px] rounded-xl group sm:flex space-x-6 bg-white bg-opacity-50 shadow-xl hover:rounded-2xl">
-                        <img src={bangerImg} alt="" />
+                        {/* <BangerImage banger={banger} fetchWithCookie={fetchWithCookie} /> */}
                         <div className="sm:w-8/12 pl-0 p-5">
                             <div className="space-y-2">
                                 <div className="space-y-4">
                                     <h4 className="text-md font-semibold text-cyan-900 text-justify">
                                         {groupPost.content}
                                     </h4>
-                                </div>
-                                <div className="flex items-center space-x-4 justify-between">
-                                    <div className="flex gap-3 space-y-1">
-                                        <img  src={profileImg}  className="rounded-full h-8 w-8" alt="" />
-                                        <span className="text-sm">{username}</span>
-                                    </div>
                                 </div>
                                 <div className="flex items-center space-x-4 justify-between">
                                     <div className="text-grey-500 flex flex-row space-x-1  my-4">
