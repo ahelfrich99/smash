@@ -1,7 +1,7 @@
 from pydantic import BaseModel
-from typing import Union
 from queries.pool import pool
 from base64 import b64encode
+from typing import Union
 
 
 class Error(BaseModel):

@@ -2,8 +2,6 @@ from pydantic import BaseModel
 from typing import Optional, List, Union
 from datetime import date
 from queries.pool import pool
-import base64
-from fastapi.encoders import jsonable_encoder
 
 
 class Error(BaseModel):
@@ -15,7 +13,8 @@ class BangerIn(BaseModel):
     song_title: str
     artist: str
     album: Optional[str]
-    song_img: Optional[str]
+    song_img: Optional[int]
+    song_upload: Optional[int]
     date: date
 
 
@@ -25,7 +24,8 @@ class BangerOut(BaseModel):
     song_title: str
     artist: str
     album: Optional[str]
-    song_img: Optional[str]
+    song_img: Optional[int]
+    song_upload: Optional[int]
     date: date
 
 
@@ -42,10 +42,11 @@ class BangerRepository:
                             artist,
                             album,
                             song_img,
+                            song_upload,
                             date
                             )
                         VALUES
-                            (%s, %s, %s, %s, %s, %s)
+                            (%s, %s, %s, %s, %s, %s, %s)
                         RETURNING ID;
                         """,
                         [
@@ -54,6 +55,7 @@ class BangerRepository:
                             banger.artist,
                             banger.album,
                             banger.song_img,
+                            banger.song_upload,
                             banger.date
                         ]
                     )
@@ -75,6 +77,7 @@ class BangerRepository:
                             artist,
                             album,
                             song_img,
+                            song_upload,
                             date
                         from bangerz
                         order by date;
@@ -88,7 +91,8 @@ class BangerRepository:
                             artist=record[3],
                             album=record[4],
                             song_img=record[5],
-                            date=record[6],
+                            song_upload=record[6],
+                            date=record[7],
                         )
                         for record in result
                     ]
@@ -111,6 +115,7 @@ class BangerRepository:
                             , artist = %s
                             , album = %s
                             , song_img = %s
+                            , song_upload = %s
                             , date = %s
                         where id = %s
                         """,
@@ -120,6 +125,7 @@ class BangerRepository:
                             banger.artist,
                             banger.album,
                             banger.song_img,
+                            banger.song_upload,
                             banger.date,
                             banger_id
                         ]
@@ -162,6 +168,7 @@ class BangerRepository:
                             , artist
                             , album
                             , song_img
+                            , song_upload
                             , date
                         from bangerz
                         where id = %s
@@ -169,13 +176,6 @@ class BangerRepository:
                         [banger_id]
                     )
                     record = result.fetchone()
-                    if record:
-                        song_img_str = jsonable_encoder(
-                            record[5],
-                            custom_encoder={
-                                bytes: lambda
-                                v: base64.b64encode(v).decode('utf-8')})
-
                     if record is None:
                         return Error(message="Banger not found")
 
@@ -185,8 +185,9 @@ class BangerRepository:
                         song_title=record[2],
                         artist=record[3],
                         album=record[4],
-                        song_img=song_img_str,
-                        date=record[6]
+                        song_img=record[5],
+                        song_upload=record[6],
+                        date=record[7]
                     )
         except Exception:
             return {"message": "Could not get banger"}
