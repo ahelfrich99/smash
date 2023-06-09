@@ -46,7 +46,7 @@ const SignupForm = () => {
         accountData,
         `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`
       );
-      navigate("/mock");
+      navigate("/profile");
     } catch (error) {
       console.error("Error during registration", error);
     }

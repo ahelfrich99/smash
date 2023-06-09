@@ -5,8 +5,8 @@ import Post from "./Post";
 
 export default function Posts() {
   const { token } = useToken();
-
   const [posts, setPosts] = useState([]);
+  const [bangers, setBangers] = useState([]);
   const [showCreatePostModal, setShowCreatePostModal] = useState(false);
 
   const getPosts = async () => {
@@ -16,6 +16,16 @@ export default function Posts() {
     if (response.ok) {
       const data = await response.json();
       setPosts(data);
+    }
+  };
+
+  const getBangerz = async () => {
+    const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/bangerz`;
+    const response = await fetch(url);
+
+    if (response.ok) {
+      const data = await response.json();
+      setBangers(data);
     }
   };
 
@@ -29,6 +39,7 @@ export default function Posts() {
 
   useEffect(() => {
     getPosts();
+    getBangerz();
   }, []);
 
   return (
@@ -56,7 +67,13 @@ export default function Posts() {
         {posts?.map((post) => {
           return (
             <div key={post.id}>
-              <Post postData={post} allPosts={posts} token={token} />
+              <Post
+                postData={post}
+                allPosts={posts}
+                bangers={bangers}
+                token={token}
+                getPosts={getPosts}
+              />
               <br />
             </div>
           );
