@@ -65,12 +65,9 @@ function BangerzPage() {
             const response = await fetch(deleteUrl, {
                 method: 'DELETE',
         });
-        if (response.ok) {
-
-            fetchData();
-        } else {
-
-        }
+          if (response.ok) {
+              fetchData();
+          }
         }
     };
 
@@ -124,10 +121,10 @@ function BangerzPage() {
                         </div>
                         </div>
                         <React.Fragment>
-                        <BangerSound
-                                banger={banger}
-                                fetchWithCookie={fetchWithCookie}
-                            />
+                          <BangerSound
+                                  banger={banger}
+                                  fetchWithCookie={fetchWithCookie}
+                          />
                         </React.Fragment>
                         <div className="hidden sm:flex sm:flex-col sm:items-end">
                             <div className="mt-1 flex items-center gap-x-1.5">
