@@ -104,23 +104,3 @@ def delete(
     else:
         response.status_code = 200
         return result
-
-# @router.put("/posts/{post_id}", response_model=Union[PostOut, Error])
-# def like(
-#     post_id: int,
-#     response: Response,
-#     repo: PostRepository = Depends(),
-#     account: dict = Depends(authenticator.try_get_current_account_data),
-# ) -> Union[PostOut, Error]:
-#     if account is None:
-#         response.status_code = 401
-#         return Error(message="Sign in to access")
-
-#     result = repo.like(post_id)
-
-#     if result is None:
-#         response.status_code = 404
-#         result = Error(message="Could not like post")
-#     else:
-#         response.status_code = 200
-#         return result

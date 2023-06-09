@@ -21,7 +21,6 @@ const Navbar = () => {
       </h1>
 
       <div className="d-flex align-items-center">
-
         {token !== null && (
           <Link to="/profile" className="text-decoration-none">
             <button className="btn btn-outline-dark mx-2">Profile</button>
@@ -55,8 +54,8 @@ const Navbar = () => {
               <button className="btn btn-outline-dark mx-2">Bangerz</button>
             </Link>
           )}
-          <Link to="/" className="text-decoration-none">
-            <button className="btn btn-outline-dark mx-2">Main</button>
+          <Link to="/home" className="text-decoration-none">
+            <button className="btn btn-outline-dark mx-2">Home</button>
           </Link>
 
           <div className="btn-group mb-3" role="group">

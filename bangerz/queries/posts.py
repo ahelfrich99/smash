@@ -3,7 +3,7 @@ from typing import List, Optional, Union
 
 from databases.banger import get_banger
 from databases.post import (create_post, delete_post, get_all_posts, get_post,
-                            update_post, like_post)
+                            update_post)
 from databases.user import get_user
 from helpers.account_helper import Account
 from models.post import Post
@@ -145,22 +145,3 @@ class PostRepository(BaseModel):
         delete_post(post_id)
 
         return True
-
-    def like(self, post_id: int) -> Union[PostOut, Error]:
-        post = like_post(post_id)
-        user = get_user(post.user_id)
-        banger = get_banger(post.banger_id)
-
-        return PostOut(
-                    id=post.id,
-                    first_name=user.first_name,
-                    last_name=user.last_name,
-                    username=user.username,
-                    banger_id=banger.id,
-                    song_title=banger.song_title,
-                    artist=banger.artist,
-                    album=banger.album,
-                    text=post.text,
-                    date=post.date,
-                    like_count=post.like_count
-                )

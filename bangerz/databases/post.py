@@ -41,7 +41,7 @@ def get_all_posts() -> Post:
                     SELECT
                         id, user_id, banger_id, text, date, like_count
                     FROM posts
-                    ORDER BY id;
+                    ORDER BY id DESC;
                     """
                 )
 
@@ -129,22 +129,3 @@ def delete_post(post_id: int):
 
     except Exception as e:
         raise Exception("Could not delete post: " + str(e))
-
-
-def like_post(post_id: int) -> Post:
-    try:
-        with pool.connection() as conn:
-            with conn.cursor() as db:
-                db.execute(
-                    """
-                    UPDATE posts
-                    SET like_count = like_count + 1
-                    WHERE id = %s
-                    """,
-                    [post_id],
-                )
-
-                return get_post(post_id)
-
-    except Exception as e:
-        raise Exception("Could not like post: " + str(e))
