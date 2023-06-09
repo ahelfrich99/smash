@@ -12,6 +12,9 @@ COPY authenticator.py authenticator.py
 # Modify these instructions to do that
 COPY queries queries
 COPY routers routers
+COPY helpers helpers
+COPY models models
+COPY databases databases
 
 RUN python -m pip install -r requirements.txt
 

@@ -47,11 +47,11 @@ def get_all(
     "/group_posts/{group_post_id}",
     response_model=Union[GroupPostOut, Error])
 def get_one(
-    g_post_id: int,
+    group_post_id: int,
     response: Response,
     repo: GroupPostRepository = Depends()
 ) -> GroupPostOut:
-    result = repo.get_one(g_post_id)
+    result = repo.get_one(group_post_id)
 
     if result is None:
         response.status_code = 404
@@ -64,12 +64,12 @@ def get_one(
     "/group_posts/{group_post_id}",
     response_model=Union[GroupPostOut, Error])
 def update(
-    g_post_id: int,
+    group_post_id: int,
     g_post: GroupPostIn,
     response: Response,
     repo: GroupPostRepository = Depends(),
 ) -> Union[GroupPostOut, Error]:
-    result = repo.update(g_post_id, g_post)
+    result = repo.update(group_post_id, g_post)
 
     if result is None:
         response.status_code = 404
@@ -83,7 +83,7 @@ def update(
     "/group_posts/{group_post_id}",
     response_model=Union[bool, Error])
 def delete(
-    g_post_id: int,
+    group_post_id: int,
     response: Response,
     repo: GroupPostRepository = Depends(),
     account: dict = Depends(authenticator.try_get_current_account_data),
@@ -92,7 +92,7 @@ def delete(
         response.status_code = 401
         return Error(message="Sign in to access feature")
 
-    result = repo.delete(g_post_id)
+    result = repo.delete(group_post_id)
 
     if result is None:
         response.status_code = 404

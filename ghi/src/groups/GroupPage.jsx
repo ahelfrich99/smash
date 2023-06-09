@@ -32,8 +32,7 @@ const Groups = () => {
         <br />
         <h1 className="text-center text-3xl font-bold mt-8">Group List</h1>
         <br />
-            <div className="container mt-4">
-                <div className="row justify-content-end text-center">
+            <div className="container mt-4 text-end">
                     <button
                         type="button"
                         className="btn btn-primary btn-lg btn-block"
@@ -41,7 +40,6 @@ const Groups = () => {
                         >
                             Create a Group
                     </button>
-                </div>
             </div>
             {showCreateGroupModal && (
                 <CreateGroup onGroupCreated={fetchGroupData} onClose={handleCloseModal} />

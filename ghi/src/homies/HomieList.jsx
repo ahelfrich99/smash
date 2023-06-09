@@ -5,6 +5,7 @@ const HomieImage = ({ homie, fetchWithCookie }) => {
   const [image, setImage] = useState(null);
 
   useEffect(() => {
+    //fetch homie image
     const fetchImage = async () => {
       const Response = await fetchWithCookie(
         `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/files/${homie.profile_img}`
@@ -26,22 +27,27 @@ const HomieImage = ({ homie, fetchWithCookie }) => {
   );
 };
 
-const HomieList = () => {
+const HomieList = ({user}) => {
   const [homies, setHomies] = useState([]);
   const { fetchWithCookie } = useToken();
   const { token } = useToken();
 
+  //fetch homie data
   async function fetchHomieData() {
     const groupUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`;
     const response = await fetch(groupUrl);
     if (response.ok) {
       const data = await response.json();
-      setHomies(data);
+      const filteredData = data.filter((homie) => homie.id !== user.id); // Filter out the user with the given id
+      const randomizedData = filteredData.sort(() => Math.random() - 0.5); // Randomize the array
+      const finalData = randomizedData.slice(0, 9); // Get the first 9 users
+      setHomies(finalData);
     }
   }
 
   useEffect(() => {
     fetchHomieData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   return (

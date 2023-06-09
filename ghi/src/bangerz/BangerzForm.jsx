@@ -88,8 +88,8 @@ function BangerzForm({user}) {
 
         const response = await fetch(bangerzUrl, fetchConfig);
         if (response.ok) {
-            const newBanger = await response.json();
-            console.log(newBanger);
+            //const newBanger = await response.json();
+
 
             setTitle('');
             setArtist('');
@@ -114,8 +114,8 @@ function BangerzForm({user}) {
                 const response = await fetch(accountsUrl);
 
                 if (response.ok) {
-                    const data = await response.json();
-                    console.log(data);
+                    //const data = await response.json();
+
                 }
             };
 

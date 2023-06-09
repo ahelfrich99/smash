@@ -18,11 +18,9 @@
 
         const handleSubmit = async (e) => {
             e.preventDefault();
-            console.log(`username: ${username} password: ${password}`);
             try {
                 await login(username, password);
-                console.log("Logged in successfully!");
-                navigate("/homieList");
+                navigate("/profile");
             } catch (error) {
                 console.error("Error during login", error);
             }

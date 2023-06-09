@@ -5,6 +5,7 @@ const HomieImage = ({ homie, fetchWithCookie }) => {
   const [image, setImage] = useState(null);
 
   useEffect(() => {
+    //Handle fetch homie image
     const fetchImage = async () => {
       const Response = await fetchWithCookie(
         `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/files/${homie.profile_img}`
@@ -16,7 +17,7 @@ const HomieImage = ({ homie, fetchWithCookie }) => {
   }, [homie, fetchWithCookie]);
 
   return (
-    <a href={`/homie/${homie.id}`}>
+    <a href={`/homie/followed/${homie.id}`}>
       <img
         src={`data:image/jpg;base64,${image}`}
         alt="Profile"
@@ -31,6 +32,7 @@ const MyHomieList = ({ user }) => {
   const { fetchWithCookie, token } = useToken();
 
   useEffect(() => {
+    //Handle fetch homie data
     async function fetchHomieData() {
       try {
         let anUser = "";
@@ -39,7 +41,7 @@ const MyHomieList = ({ user }) => {
         }
 
         if (!anUser) {
-          // Handle case when there is no image
+          // Handle case when there is no user data passing in
           return;
         }
         const homieResponse = await fetch(
@@ -57,7 +59,6 @@ const MyHomieList = ({ user }) => {
         }
 
         const dataHomies = await homieResponse.json();
-
         const accountsResponse = await fetch(
           `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`
         );

@@ -41,7 +41,6 @@ const CreateGroup = ({ onGroupCreated, onClose }) => {
         data.group_img = uploadedFile;
         data.description = description;
 
-        console.log(data)
 
         const groupUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/groups`;
         const fetchConfigUrl = {
