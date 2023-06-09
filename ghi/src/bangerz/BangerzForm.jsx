@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-function BangerzForm({user}) {
+function BangerzForm({ user, onClose, onPostCreated }) {
     const [title, setTitle] = useState('');
     const [artist, setArtist] = useState('');
     const [album, setAlbum] = useState('');
     const [img, setImg] = useState('');
     const [song, setSong] = useState('');
     const [date, setDate] = useState('');
-    const navigate = useNavigate();
 
     const handleTitleChange = (event) => {
         const value = event.target.value;
@@ -88,41 +86,37 @@ function BangerzForm({user}) {
 
         const response = await fetch(bangerzUrl, fetchConfig);
         if (response.ok) {
-            //const newBanger = await response.json();
-
-
             setTitle('');
             setArtist('');
             setAlbum('');
             setImg('');
             setSong('');
-
-            navigate('/bangerz');
+            onPostCreated();
+            onClose();
         }
       };
 
-        useEffect(() => {
-            const fetchData = async () => {
-                let id = "";
-                if (user && user.id) {
-                    id = user.id;
-                }
-                if (!id) {
-                    return;
-                }
-                const accountsUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts/{id}`;
-                const response = await fetch(accountsUrl);
+    useEffect(() => {
+        const fetchData = async () => {
+            let id = "";
+            if (user && user.id) {
+                id = user.id;
+            }
+            if (!id) {
+                return;
+            }
+            const accountsUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts/${id}`;
+            const response = await fetch(accountsUrl);
 
-                if (response.ok) {
-                    //const data = await response.json();
+            if (response.ok) {
+                return;
+            }
+        };
 
-                }
-            };
-
-            fetchData();
-            const currentDate = new Date().toISOString().slice(0, 10);
-            setDate(currentDate);
-        }, [user]);
+        fetchData();
+        const currentDate = new Date().toISOString().slice(0, 10);
+        setDate(currentDate);
+    }, [user]);
 
       const handleCancel = () => {
         setTitle('');
@@ -131,11 +125,10 @@ function BangerzForm({user}) {
         setImg('');
         setSong('');
         setDate('');
-
-        navigate('/bangerz');
+        onClose();
       };
 
-      return (
+    return (
         <>
         <div>
             <div
@@ -199,11 +192,10 @@ function BangerzForm({user}) {
                     </div>
                 </div>
                 </form>
-                </div>
             </div>
+        </div>
         </>
-      );
-
+    );
 }
 
 export default BangerzForm;

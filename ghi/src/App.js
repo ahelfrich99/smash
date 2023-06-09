@@ -22,7 +22,6 @@ import UseUser from "./useUser";
 import GroupProfile from "./groups/GroupProfile";
 import Profile from "./profile/Profile";
 import BangerzPage from "./bangerz/BangerzPage";
-import BangerzForm from "./bangerz/BangerzForm";
 import HomieContainer from "./homies/HomieContainer";
 
 // example imports
@@ -81,11 +80,7 @@ function App() {
             element={<GroupPosts user={user} />}
           />
           <Route exact path="/home" element={<PostsPage />} />
-
-          <Route path="bangerz">
-            <Route exact path="" element={<BangerzPage />} />
-            <Route exact path="new" element={<BangerzForm user={user} />} />
-          </Route>
+          <Route exact path="/bangerz" element={<BangerzPage user={user} />} />
           <Route exact path="/home" element={<PostsPage />} />
 
           {/* <Route exact path="/profile" element={<Profile />} /> */}
