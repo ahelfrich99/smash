@@ -20,7 +20,7 @@
             e.preventDefault();
             try {
                 await login(username, password);
-                navigate("/profile");
+                navigate("/home");
             } catch (error) {
                 console.error("Error during login", error);
             }
