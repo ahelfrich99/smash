@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react';
 import useToken from '@galvanize-inc/jwtdown-for-react';
-//import { useNavigate } from 'react-router-dom'
-
 
 
 const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
     const { token } = useToken();
-    //const { navigate } = useNavigate();
 
     const [groups, setGroups] = useState([])
     const [group, setGroup] = useState('')
@@ -86,12 +83,15 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
     };
 
     const handleNewGroupPost = (newGroupPost) => {
-        //const groupPostRecord = newGroupPost.groupPostRecord;
-       //const group = newGroupPost.group;
-        //const user = newGroupPost.user;
-        //const banger = newGroupPost.banger;
+        const groupPostRecord = newGroupPost.groupPostRecord;
+        const group = newGroupPost.group;
+        const user = newGroupPost.user;
+        const banger = newGroupPost.banger;
 
-
+        console.log("New group post created:", groupPostRecord);
+        console.log("Group:", group);
+        console.log("User:", user);
+        console.log("Banger:", banger);
     }
 
     const fetchUserData = async () => {

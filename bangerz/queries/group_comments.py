@@ -11,7 +11,7 @@ class Error(BaseModel):
 class GroupCommentIn(BaseModel):
     group_id: int
     user_id: int
-    post_id: int
+    group_post_id: int
     content: str
     date: date
     like_count: Optional[int]
@@ -21,7 +21,7 @@ class GroupCommentOut(BaseModel):
     id: int
     group_id: int
     user_id: int
-    post_id: int
+    group_post_id: int
     content: str
     date: date
     like_count: int
@@ -37,10 +37,10 @@ class GroupCommentRepository(BaseModel):
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        INSERT INTO group_comments ()
+                        INSERT INTO group_comments (
                             group_id,
                             user_id,
-                            post_id,
+                            group_post_id,
                             content,
                             date,
                             like_count
@@ -52,7 +52,7 @@ class GroupCommentRepository(BaseModel):
                         [
                             group_comment.group_id,
                             group_comment.user_id,
-                            group_comment.post_id,
+                            group_comment.group_post_id,
                             group_comment.content,
                             group_comment.date,
                             group_comment.like_count,
@@ -61,10 +61,13 @@ class GroupCommentRepository(BaseModel):
                     id = result.fetchone()[0]
                     return GroupCommentOut(id=id, **group_comment.dict())
 
-        except Exception:
-            return {"message: COuld not create comment"}
+        except Exception as e:
+            raise Exception("Could not create comment" + str(e))
 
-    def get_all(self, post_id: int) -> Union[List[GroupCommentOut], Error]:
+    def get_all(
+        self,
+        group_post_id: int
+    ) -> Union[List[GroupCommentOut], Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -74,21 +77,21 @@ class GroupCommentRepository(BaseModel):
                             id,
                             group_id,
                             user_id,
-                            post_id,
+                            group_post_id,
                             content,
                             date,
                             like_count
                         FROM group_comments
-                        WHERE post_id = %s
+                        WHERE group_post_id = %s
                         """,
-                        [post_id],
+                        [group_post_id],
                     )
                     return [
                         GroupCommentOut(
                             id=data[0],
                             group_id=data[1],
                             user_id=data[2],
-                            post_id=data[3],
+                            group_post_id=data[3],
                             content=data[4],
                             date=data[5],
                             like_count=data[6],
@@ -109,7 +112,7 @@ class GroupCommentRepository(BaseModel):
                             id,
                             group_id,
                             user_id,
-                            post_id,
+                            group_post_id,
                             content,
                             date,
                             like_count
@@ -125,7 +128,7 @@ class GroupCommentRepository(BaseModel):
                             id=data[0],
                             group_id=data[1],
                             user_id=data[2],
-                            post_id=data[3],
+                            group_post_id=data[3],
                             content=data[4],
                             date=data[5],
                             like_count=data[6],
@@ -148,7 +151,7 @@ class GroupCommentRepository(BaseModel):
                             """
                             UPDATE group_comments
                             SET user_id =%s
-                                , post_id = %s
+                                , group_post_id = %s
                                 , content = %s
                                 , date = %s
                                 , like_count = %s
@@ -156,7 +159,7 @@ class GroupCommentRepository(BaseModel):
                             """,
                             [
                                 group_comment.user_id,
-                                group_comment.post_id,
+                                group_comment.group_post_id,
                                 group_comment.content,
                                 group_comment.date,
                                 group_comment.like_count,

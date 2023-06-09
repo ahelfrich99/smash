@@ -95,7 +95,7 @@ class GroupPostRepository(BaseModel):
         except Exception:
             return Error(message="Could not get all group posts")
 
-    def get_one(self, g_post_id: int) -> Union[GroupPostOut, Error]:
+    def get_one(self, group_post_id: int) -> Union[GroupPostOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -112,7 +112,7 @@ class GroupPostRepository(BaseModel):
                         FROM group_posts
                         WHERE id = %s
                         """,
-                        [g_post_id]
+                        [group_post_id]
                     )
 
                     data = db.fetchone()
@@ -134,10 +134,10 @@ class GroupPostRepository(BaseModel):
 
     def update(
         self,
-        g_post_id: int,
+        group_post_id: int,
         g_post: GroupPostIn
     ) -> Union[GroupPostOut, Error]:
-        target_post = self.get_one(g_post_id)
+        target_post = self.get_one(group_post_id)
         if target_post.id:
             try:
                 with pool.connection() as conn:
@@ -161,11 +161,11 @@ class GroupPostRepository(BaseModel):
                                 g_post.content,
                                 g_post.date,
                                 g_post.like_count,
-                                g_post_id
+                                group_post_id
                             ],
                         )
 
-                        return GroupPostOut(id=g_post_id, **g_post.dict())
+                        return GroupPostOut(id=group_post_id, **g_post.dict())
 
             except Exception as e:
                 print(e)
@@ -173,8 +173,8 @@ class GroupPostRepository(BaseModel):
         else:
             return Error(message="Group post not found")
 
-    def delete(self, g_post_id: int) -> Union[bool, Error]:
-        target_post = self.get_one(g_post_id)
+    def delete(self, group_post_id: int) -> Union[bool, Error]:
+        target_post = self.get_one(group_post_id)
         if target_post.id:
             try:
                 with pool.connection() as conn:
@@ -184,7 +184,7 @@ class GroupPostRepository(BaseModel):
                             DELETE FROM group_posts
                             WHERE id = %s
                             """,
-                            [g_post_id],
+                            [group_post_id],
                         ),
 
                         return True

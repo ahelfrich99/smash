@@ -1,39 +1,38 @@
-# from pydantic import BaseModel
-# from typing import Optional
-# from fastapi.testclient import TestClient
-# from main import app
-# from authenticator import authenticator
-# from queries.groups import GroupRepository
+from pydantic import BaseModel
+from typing import Optional
+from fastapi.testclient import TestClient
+from main import app
+from queries.groups import GroupRepository
 
 
-# client = TestClient(app)
+client = TestClient(app)
 
 
-# class AccountOut(BaseModel):
-#     id: int
-#     username: str
-#     first_name: str
-#     last_name: str
-#     email: str
-#     profile_img: Optional[int]
+class AccountOut(BaseModel):
+    id: int
+    username: str
+    first_name: str
+    last_name: str
+    email: str
+    profile_img: Optional[int]
 
 
-# def fake_get_current_account_data():
-#     account = AccountOut(
-#         id=1,
-#         username="pineapple",
-#         first_name="James",
-#         last_name="Oh",
-#         email="Jamesoh@gmail.com",
-#         profile_img=1,
-#     )
-#     print(account)
-#     return account.__dict__
+def fake_get_current_account_data():
+    account = AccountOut(
+        id=1,
+        username="pineapple",
+        first_name="James",
+        last_name="Oh",
+        email="Jamesoh@gmail.com",
+        profile_img=1,
+    )
+    print(account)
+    return account.__dict__
 
 
-# class FakeGroupListRepository:
-#     def get_all(self):
-#         return []
+class FakeGroupListRepository:
+    def get_all(self):
+        return []
 
 
 # class CreateGroupRepository:
@@ -48,23 +47,23 @@
 #         return result
 
 
-# class GetGroupRepository:
-#     def get_one(self, group_id):
-#         return {
-#             "id": group_id,
-#             "group_name": "string",
-#             "group_size": 0,
-#             "group_img": 0,
-#             "description": "string"
-#         }
+class GetGroupRepository:
+    def get_one(self, group_id):
+        return {
+            "id": group_id,
+            "group_name": "string",
+            "group_size": 0,
+            "group_img": 0,
+            "description": "string"
+        }
 
 
-# def test_get_group_list():
-#     app.dependency_overrides[GroupRepository] = FakeGroupListRepository
-#     response = client.get("/groups")
-#     app.dependency_overrides = {}
-#     assert response.status_code == 200
-#     assert response.json() == []
+def test_get_group_list():
+    app.dependency_overrides[GroupRepository] = FakeGroupListRepository
+    response = client.get("/groups")
+    app.dependency_overrides = {}
+    assert response.status_code == 200
+    assert response.json() == []
 
 
 # def test_create_group():
@@ -94,16 +93,16 @@
 #     assert response.json() == expected
 
 
-# def test_get_group():
-#     app.dependency_overrides[GroupRepository] = GetGroupRepository
-#     response = client.get("/groups/1")
-#     expected = {
-#         "id": 1,
-#         "group_name": "string",
-#         "group_size": 0,
-#         "group_img": 0,
-#         "description": "string"
-#     }
-#     app.dependency_overrides = {}
-#     assert response.status_code == 200
-#     assert response.json() == expected
+def test_get_group():
+    app.dependency_overrides[GroupRepository] = GetGroupRepository
+    response = client.get("/groups/1")
+    expected = {
+        "id": 1,
+        "group_name": "string",
+        "group_size": 0,
+        "group_img": 0,
+        "description": "string"
+    }
+    app.dependency_overrides = {}
+    assert response.status_code == 200
+    assert response.json() == expected

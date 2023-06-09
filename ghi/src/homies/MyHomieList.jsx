@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
+import "./homie.css";
 
 const HomieImage = ({ homie, fetchWithCookie }) => {
   const [image, setImage] = useState(null);

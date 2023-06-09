@@ -21,7 +21,7 @@ const Navbar = () => {
       </h1>
 
       <div className="d-flex align-items-center">
-       
+
         {token !== null && (
           <Link to="/profile" className="text-decoration-none">
             <button className="btn btn-outline-dark mx-2">Profile</button>
