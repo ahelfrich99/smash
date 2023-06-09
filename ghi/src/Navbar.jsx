@@ -57,6 +57,11 @@ const Navbar = () => {
           <Link to="/home" className="text-decoration-none">
             <button className="btn btn-outline-dark mx-2">Home</button>
           </Link>
+          {token === null && (
+            <Link to="/login" className="text-decoration-none">
+              <button className="btn btn-outline-dark mx-2">Login</button>
+            </Link>
+          )}
 
           <div className="btn-group mb-3" role="group">
             {token && (
