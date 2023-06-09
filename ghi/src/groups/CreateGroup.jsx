@@ -59,6 +59,7 @@ const CreateGroup = ({ onGroupCreated, onClose }) => {
             setDescription('')
 
             onGroupCreated();
+            onClose();
         }
     }
 

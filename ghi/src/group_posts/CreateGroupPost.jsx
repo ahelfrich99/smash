@@ -73,7 +73,7 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
             handleNewGroupPost(newGroupPost);
 
             onGroupPostCreated();
-            window.location.reload();
+            onClose();
             } else {
                 console.error('Failed to create a new group post');
             }
