@@ -14,7 +14,7 @@ const SignupForm = () => {
 
   const handleRegistration = async (e) => {
     e.preventDefault();
-    // First, handle file upload
+    // File Upload
     let uploadedFile;
     if (profileImg) {
       const formData = new FormData();
@@ -31,7 +31,7 @@ const SignupForm = () => {
       uploadedFile = data.id;
     }
 
-    // Then, handle registration
+    // After the image reference ID is obtained, the image reference ID is assigned to the profile_img for the account.
     const accountData = {
       username: username,
       password: password,
@@ -46,7 +46,6 @@ const SignupForm = () => {
         accountData,
         `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`
       );
-      console.log("Registered successfully!");
       navigate("/mock");
     } catch (error) {
       console.error("Error during registration", error);

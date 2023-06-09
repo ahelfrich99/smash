@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import useToken from '@galvanize-inc/jwtdown-for-react';
-import { useNavigate } from 'react-router-dom'
+//import { useNavigate } from 'react-router-dom'
+
 
 
 const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
     const { token } = useToken();
-    const { navigate } = useNavigate();
+    //const { navigate } = useNavigate();
 
     const [groups, setGroups] = useState([])
     const [group, setGroup] = useState('')
@@ -65,7 +66,6 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
                 user: user,
                 banger: banger,
             };
-            console.log('New Group Post:', newGroupPost);
 
             setGroup('');
             setUser('');
@@ -73,8 +73,10 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
             setContent('');
             setDate('');
 
+            handleNewGroupPost(newGroupPost);
+
             onGroupPostCreated();
-            navigate('/group_posts')
+            window.location.reload();
             } else {
                 console.error('Failed to create a new group post');
             }
@@ -82,6 +84,15 @@ const CreateGroupPost = ({ onClose, onGroupPostCreated }) => {
             console.error('An error occurred:', error);
         }
     };
+
+    const handleNewGroupPost = (newGroupPost) => {
+        //const groupPostRecord = newGroupPost.groupPostRecord;
+       //const group = newGroupPost.group;
+        //const user = newGroupPost.user;
+        //const banger = newGroupPost.banger;
+
+
+    }
 
     const fetchUserData = async () => {
         const userUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`;

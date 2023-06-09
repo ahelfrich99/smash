@@ -69,10 +69,10 @@ function BangerzPage() {
                 method: 'DELETE',
         });
         if (response.ok) {
-            console.log('Banger deleted');
+
             fetchData();
         } else {
-            console.log('Error deleting banger');
+    
         }
         }
     };

@@ -7,8 +7,28 @@ const ProfilePage = ({ user }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [newEmail, setNewEmail] = useState("");
   const { fetchWithCookie } = useToken();
+  const [displayUser, setDisplayUser] = useState(user);
 
-  // This useEffect hook runs when the component mounts and whenever the userData state changes.
+  const fetchEmail = async () => {
+    try {
+      let fetchUser = "";
+      if (user && user.id) {
+        fetchUser = user.id;
+      }
+
+      if (!fetchUser) {
+        // Handle case when user is not passing in time
+        return;
+      }
+      const data = await fetchWithCookie(
+        `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts/${fetchUser}`
+      );
+      setDisplayUser(data);
+    } catch (error) {
+      console.error("Error fetching profile image", error);
+    }
+  };
+
   useEffect(() => {
     // This function fetches the profile image from the server.
     const fetchImage = async () => {
@@ -19,7 +39,7 @@ const ProfilePage = ({ user }) => {
         }
 
         if (!imageId) {
-          // Handle case when there is no image
+          // Handle case when user is not passing in time
           return;
         }
         const imageData = await fetchWithCookie(
@@ -51,6 +71,7 @@ const ProfilePage = ({ user }) => {
 
     try {
       let imageID = user.profile_img;
+
       const UpdateUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts/${user.id}`;
       const fetchUpdateUrl = {
         method: "PUT",
@@ -68,21 +89,21 @@ const ProfilePage = ({ user }) => {
 
       if (response.ok) {
         setNewEmail("");
+        fetchEmail();
       }
 
       setModalVisible(false);
-      // Ideally you'd want to re-fetch the user data here
     } catch (error) {
       console.error("Error updating profile", error);
     }
   };
 
-  // This condition checks if the userData state is null or undefined.
+  // This condition to wait for the user data to pass in.
   if (!user) {
     return <div>Loading...</div>;
   }
 
-  // This returns the profile page content.
+  // Return Profile Info
   return (
     <div className="card" style={{ width: "18rem" }}>
       <img
@@ -95,7 +116,7 @@ const ProfilePage = ({ user }) => {
         <h5 className="card-title">{`${user.first_name} ${user.last_name}`}</h5>
         <p className="card-text">
           <strong>Username:</strong> {user.username} <br />
-          <strong>Email:</strong> {user.email}
+          <strong>Email:</strong> {displayUser.email}
         </p>
         <button
           type="button"

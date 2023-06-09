@@ -228,7 +228,7 @@ class AccountQueries(BaseModel):
             user_id: int,
             email: Optional[str],
             profile_img: Optional[int]
-            ) -> AccountOutWithPassword | Error:
+    ) -> AccountOutWithPassword | Error:
         target_user = self.get_one(user_id)
 
         if target_user.id:

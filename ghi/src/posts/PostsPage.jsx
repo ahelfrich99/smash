@@ -10,7 +10,7 @@ export default function Posts() {
   const [showCreatePostModal, setShowCreatePostModal] = useState(false);
 
   const getPosts = async () => {
-    const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/posts/`;
+    const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/posts`;
     const response = await fetch(url);
 
     if (response.ok) {

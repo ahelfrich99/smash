@@ -13,7 +13,6 @@ const UserDataCard = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.account);
         setUserData(data);
       })
       .catch((error) => console.error(error));
@@ -24,7 +23,6 @@ const UserDataCard = () => {
     const data = await fetchWithCookie(
       `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/token`
     );
-    console.log(data);
     setUserData(data);
   };
 

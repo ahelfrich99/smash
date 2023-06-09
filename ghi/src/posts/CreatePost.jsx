@@ -6,7 +6,7 @@ export default function CreatePost({ onPostCreated, onClose, token }) {
   const [banger, setBanger] = useState("");
 
   const getBangerz = async () => {
-    const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/bangerz/`;
+    const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/bangerz`;
     const response = await fetch(url);
 
     if (response.ok) {
@@ -28,7 +28,7 @@ export default function CreatePost({ onPostCreated, onClose, token }) {
       text: text,
     };
 
-    const postsUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/posts/`;
+    const postsUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/posts`;
     const fetchConfigUrl = {
       method: "post",
       body: JSON.stringify(data),

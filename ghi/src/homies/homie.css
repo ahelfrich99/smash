@@ -1,0 +1,12 @@
+.homie-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.homie-page-container {
+  width: 40%; /* Adjust the percentage to match your design */
+}
+
+.homie-post-container {
+  width: 60%; /* Adjust the percentage to match your design */
+}
