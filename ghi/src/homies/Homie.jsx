@@ -11,7 +11,6 @@ const Homie = ({ user }) => {
   const [isFollowing, setIsFollowing] = useState(false);
   const location = useLocation();
 
-
   const fetchHomieDataAndImage = async () => {
     const groupUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts/${id}`;
     const response = await fetch(groupUrl);
@@ -26,7 +25,7 @@ const Homie = ({ user }) => {
         }
 
         if (!imageId) {
-          // Handle case when there is no data passing in.
+          // Handle case when there is no image
           return;
         }
         const imageData = await fetchWithCookie(
@@ -38,14 +37,31 @@ const Homie = ({ user }) => {
       }
     }
 
-    // Grab page address contains followed, assign the value to isFollowed
+    // Fetching homie data
 
     const isFollowed = location.pathname.includes("followed");
 
     if (isFollowed) {
       setIsFollowing(true);
     }
+    // const homieUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/homies/${user.id}`;
+    // const homieResponse = await fetch(homieUrl, {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //     "Content-Type": "application/json",
+    //   },
+    // });
 
+    // if (homieResponse.ok) {
+    //   const homiesData = await homieResponse.json();
+
+    //   console.log("homieData", homiesData);
+
+    //   // Check if the user is following the homie
+    //   const isUserFollowing = homiesData.some((item) => item.homie_id === id);
+
+    //   setIsFollowing(isUserFollowing);
+    // }
   };
 
   const followHomie = async (event) => {
@@ -54,7 +70,6 @@ const Homie = ({ user }) => {
     const data = {};
     data.user_id = user.id;
     data.homie_id = id;
-    // Fetch homie endpoint to follow homie
     const followUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/homies`;
     const response = await fetch(followUrl, {
       body: JSON.stringify(data),
@@ -92,14 +107,12 @@ const Homie = ({ user }) => {
   };
 
 
+  useEffect(() => {
+    fetchHomieDataAndImage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
- useEffect(() => {
-  fetchHomieDataAndImage();
- // eslint-disable-next-line react-hooks/exhaustive-deps
- }, [id]);
-
-
-  // Wait for homie data before render the component.
+  // This condition checks if the userData state is null or undefined.
   if (!homie) {
     return <div>Loading...</div>;
   }

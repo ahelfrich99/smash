@@ -1,72 +1,166 @@
-// import { useEffect, useState } from "react";
-// import DeleteGroupPost from "./DeleteGroupPost";
+import React from "react";
+import { useEffect, useState } from "react";
+import DeleteGroupPost from "./DeleteGroupPost";
+import CreateGroupComment from "../group_comments/CreateGroupComment";
+import GroupComment from "../group_comments/GroupComment";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
-// const GroupPostCard = ({ groupPost }) => {
-// //     //const [comments, setComments] = useState([]);
-// //     const [showCreateComment, setShowCreateComment] = useState(false);
+const BangerImage = ({ banger, fetchWithCookie }) => {
+        const [image, setImage] = useState(null);
 
-// //     const getGroupComments = async (id) => {
-// //         const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/group_posts/${id}/group_comments`;
-// //         const response = await fetch(url);
+        useEffect(() => {
+            const fetchImage = async () => {
+            const Response = await fetchWithCookie(
+                `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/files/${banger.song_img}`
+            );
+            const imgUrl = Response;
+            setImage(imgUrl.file_data);
+            };
+            fetchImage();
+        }, [banger, fetchWithCookie]);
 
-// //         if (response.ok) {
-// //             const data = await response.json();
-// //           //  setComments(data)
-// //         }
-// //     }
+        return (
+            <img
+            src={`data:image/jpg;base64,${image}`}
+            alt="banger"
+            style={{ maxWidth: "150px" }}
+            />
+        );
+    };
 
-// // //    const handleCloseModal = () => {
-// // //         setShowCreateComment(false);
-// // //     }
+const BangerSound = ({ banger, fetchWithCookie }) => {
+    const [song, setSong] = useState(null);
 
-// //     const handleOpenModal = () => {
-// //         setShowCreateComment(true);
-// //     }
+    useEffect(() => {
+        const fetchSong = async () => {
+        const Response = await fetchWithCookie(
+            `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/files/${banger.song_upload}`
+        );
+        const songUrl = Response;
+        setSong(songUrl.file_data);
+        };
+        fetchSong();
+    }, [banger, fetchWithCookie]);
 
-// //     // useEffect(() => {
-// //     //     getGroupComments(groupPost.id);
-// //     // }, []);
+    return (
+        <audio src={`data:audio/mp3;base64,${song}`} alt="banger" controls />
+    );
+};
 
-// //     return (
-// //         <article className='flex items-center justify-center' key={groupPost.id}>
-// //         <div className="p-4 items-center justify-center w-[680px] rounded-xl group sm:flex space-x-6 bg-white bg-opacity-50 shadow-xl hover:rounded-2xl">
-// //             {/* <BangerImage banger={banger} fetchWithCookie={fetchWithCookie} /> */}
-// //             <div className="sm:w-8/12 pl-0 p-5">
-// //                 <div className="space-y-2">
-// //                     <div className="space-y-4">
-// //                         <h4 className="text-md font-semibold text-cyan-900 text-justify">
-// //                             {groupPost.content}
-// //                         </h4>
-// //                     </div>
-// //                     <div className="flex items-center space-x-4 justify-between">
-// //                         <div className="text-grey-500 flex flex-row space-x-1  my-4">
-// //                             <svg stroke="currentColor" fill="none" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-// //                             <time className="text-xs">{groupPost.date}</time>
-// //                         </div>
-// //                         <div className="flex flex-row space-x-1">
-// //                             <div
-// //                                 className="bg-green-500 shadow-lg shadow- shadow-green-600 text-white cursor-pointer px-3 text-center justify-center items-center py-1 rounded-xl flex space-x-2 flex-row">
-// //                                 <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" className="text-xl" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M885.9 533.7c16.8-22.2 26.1-49.4 26.1-77.7 0-44.9-25.1-87.4-65.5-111.1a67.67 67.67 0 0 0-34.3-9.3H572.4l6-122.9c1.4-29.7-9.1-57.9-29.5-79.4A106.62 106.62 0 0 0 471 99.9c-52 0-98 35-111.8 85.1l-85.9 311H144c-17.7 0-32 14.3-32 32v364c0 17.7 14.3 32 32 32h601.3c9.2 0 18.2-1.8 26.5-5.4 47.6-20.3 78.3-66.8 78.3-118.4 0-12.6-1.8-25-5.4-37 16.8-22.2 26.1-49.4 26.1-77.7 0-12.6-1.8-25-5.4-37 16.8-22.2 26.1-49.4 26.1-77.7-.2-12.6-2-25.1-5.6-37.1zM184 852V568h81v284h-81zm636.4-353l-21.9 19 13.9 25.4a56.2 56.2 0 0 1 6.9 27.3c0 16.5-7.2 32.2-19.6 43l-21.9 19 13.9 25.4a56.2 56.2 0 0 1 6.9 27.3c0 16.5-7.2 32.2-19.6 43l-21.9 19 13.9 25.4a56.2 56.2 0 0 1 6.9 27.3c0 22.4-13.2 42.6-33.6 51.8H329V564.8l99.5-360.5a44.1 44.1 0 0 1 42.2-32.3c7.6 0 15.1 2.2 21.1 6.7 9.9 7.4 15.2 18.6 14.6 30.5l-9.6 198.4h314.4C829 418.5 840 436.9 840 456c0 16.5-7.2 32.1-19.6 43z"></path></svg>
-// //                                 <span>{groupPost.like_count}</span>
-// //                             </div>
-// //                         </div>
-// //                     </div>
-// //                 </div>
-// //                 <div className="text-end">
-// //                 <DeleteGroupPost id={groupPost.id} />
-// //                 <button
-// //                     type="button"
-// //                     className="btn btn-secondary btn-sm"
-// //                     onClick={handleOpenModal}
-// //                 >
-// //                     Comment
-// //                 </button>
+const GroupPostCard = ({ groupPost, group, bangers }) => {
+    const [comments, setComments] = useState([]);
+    const [users, setUsers] = useState([]);
+    const [showCreateComment, setShowCreateComment] = useState(false);
+    const { token } = useToken();
+    const { fetchWithCookie } = useToken();
 
-// //                 </div>
-// //             </div>
-// //         </div>
-// //     </article>
-// //     );
-// // }
+    const getGroupComments = async (id) => {
+        const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/group_posts/${id}/group_comments`;
+        const response = await fetch(url);
 
-// // export default GroupPostCard;
+        if (response.ok) {
+            const data = await response.json();
+            setComments(data)
+        }
+    }
+
+    const getUsers = async () => {
+        const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/accounts`;
+        const response = await fetch(url);
+
+        if (response.ok) {
+            const data = await response.json();
+            setUsers(data);
+        }
+    }
+
+    const handleCloseModal = () => {
+        setShowCreateComment(false);
+    }
+
+    const handleOpenModal = () => {
+        setShowCreateComment(true);
+    }
+
+    const user = users.find((user) => user.id === groupPost.user_id);
+    const banger = bangers.find((banger) => banger.id === groupPost.banger_id);
+
+    useEffect(() => {
+        getGroupComments(groupPost.id);
+        getUsers();
+    }, [groupPost.id]);
+
+    return (
+        <div>
+            <div className="card" key={groupPost.id}>
+                <div className="card-body">
+                    <div className="card-content">
+                        <div className="left-side">
+                        <h5 className="card-title">
+                        <strong>{user ? `${user.first_name} ${user.last_name}` : 'Unknown user'}</strong>
+                    </h5>
+                    <h6 className="card-subtitle mb-2 text-muted">
+                        <strong>@{user ? `${user.username}` : 'unknown username'}</strong>
+                    </h6>
+                    <p>
+                        <strong>Banger: </strong>{banger ? `${banger.song_title} by ${banger.artist}` : 'Unknown banger'}
+                    </p>
+                    <p className="card-text">
+                        <strong>Content: </strong>{groupPost.content}
+                    </p>
+                    </div>
+                    <br />
+                    <div className="right-side">
+                    <div className="flex gap-x-4">
+                        <BangerImage
+                            banger={banger}
+                            fetchWithCookie={fetchWithCookie}
+                        />
+                        <div className="min-w-0 flex-auto">
+                            <p className="text-sm font-semibold leading-6 text-gray-900">{banger ? `${banger.song_title}` : `Unknown song title`}</p>
+                            <p className="mt-1 truncate text-xs leading-5 text-gray-700">{banger ? `${banger.artist}` : `Unknown artist`}</p>
+                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">{banger ? `${banger.album}` : `Unknown album`}</p>
+                        </div>
+                    </div>
+                    <br />
+                        <BangerSound
+                        banger={banger}
+                        fetchWithCookie={fetchWithCookie}
+                        />
+                    <br />
+                    <DeleteGroupPost id={groupPost.id} />
+                    <button
+                        type="button"
+                        className="btn btn-secondary btn-md"
+                        onClick={handleOpenModal}
+                    >
+                        Comment
+                    </button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+            {comments?.map((comment) => {
+                return (
+                    <div key={comment.id}>
+                        <GroupComment comment={comment} user={user} />
+                    </div>
+                )
+            })}
+            </div>
+            {showCreateComment && (
+                <CreateGroupComment
+                    onCommentCreated={(id) => getGroupComments(id)}
+                    onClose={handleCloseModal}
+                    token={token}
+                    groupPost={groupPost}
+                    group={group}
+                    users={users}
+                />
+            )}
+        </div>
+    );
+}
+
+export default GroupPostCard;

@@ -16,14 +16,14 @@ const GroupImage = ({ group, fetchWithCookie }) => {
     }, [group, fetchWithCookie]);
 
     return (
-      <a href={`/groups/${group.id}`}>
-        <img
-          src={`data:image/jpg;base64,${image}`}
-          alt="Group"
-          style={{ maxWidth: "160px", maxHeight: "115px" }}
-          className="dark:shadow-xl border-white dark:border-gray-800 rounded-full align-middle border-8 absolute -m-16 -ml-18 lg:-ml-16 max-w-[100px]"
-        />
-      </a>
+        <a href={`/groups/${group.id}`}>
+            <img
+            src={`data:image/jpg;base64,${image}`}
+            alt="Group"
+            style={{ maxWidth: "160px", maxHeight: "115px" }}
+            className="dark:shadow-xl border-white dark:border-gray-800 rounded-full align-middle border-8 absolute -m-16 -ml-18 lg:-ml-16 max-w-[100px]"
+            />
+        </a>
     );
 };
 

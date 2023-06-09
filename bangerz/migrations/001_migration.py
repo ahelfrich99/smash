@@ -125,7 +125,7 @@ steps = [
             id SERIAL PRIMARY KEY NOT NULL,
             group_id SERIAL NOT NULL REFERENCES GROUPS(ID),
             user_id SERIAL NOT NULL REFERENCES USERS(ID),
-            post_id SERIAL NOT NULL REFERENCES POSTS(ID),
+            group_post_id SERIAL NOT NULL REFERENCES GROUP_POSTS(ID),
             content TEXT NOT NULL,
             date DATE NOT NULL,
             like_count INT DEFAULT 0

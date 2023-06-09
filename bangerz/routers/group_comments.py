@@ -35,14 +35,14 @@ async def create(
 
 
 @router.get(
-    "/group_posts/{post_id}/group_comments",
+    "/group_posts/{group_post_id}/group_comments",
     response_model=List[GroupCommentOut] | Error)
 async def get_all(
-    post_id: int,
+    group_post_id: int,
     response: Response,
     repo: GroupCommentRepository = Depends(),
 ):
-    result = repo.get_all(post_id)
+    result = repo.get_all(group_post_id)
 
     if result is None:
         response.status_code = 404
@@ -53,7 +53,7 @@ async def get_all(
 
 
 @router.get(
-    "/group_posts/{post_id}/{g_comment_id}",
+    "/group_posts/{group_post_id}/{g_comment_id}",
     response_model=GroupCommentOut | Error)
 async def get_one(
     g_comment_id: int,
@@ -68,7 +68,7 @@ async def get_one(
 
 
 @router.put(
-    "/group_posts/{post_id}/{g_comment_id}",
+    "/group_posts/{group_post_id}/{g_comment_id}",
     response_model=GroupCommentOut | Error
 )
 def update(
@@ -93,7 +93,8 @@ def update(
 
 
 @router.put(
-    "/group_posts/{post_id}/{g_comment_id}/like", response_model=bool | Error
+    "/group_posts/{group_post_id}/{g_comment_id}/like",
+    response_model=bool | Error
 )
 def increment_like_count(
     g_comment_id: int,
@@ -116,7 +117,7 @@ def increment_like_count(
 
 
 @router.delete(
-    "/group_posts/{post_id}/{g_comment_id}", response_model=bool | Error
+    "/group_posts/{group_post_id}/{g_comment_id}", response_model=bool | Error
 )
 def delete(
     g_comment_id: int,

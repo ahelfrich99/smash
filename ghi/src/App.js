@@ -16,6 +16,7 @@ import GroupContainer from "./groups/GroupContainer";
 import MyHomieList from "./homies/MyHomieList";
 import HomieList from "./homies/HomieList";
 import useToken from "@galvanize-inc/jwtdown-for-react";
+// import Profile from "./profile/Profile";
 import PostsPage from "./posts/PostsPage";
 import UseUser from "./useUser";
 import GroupProfile from "./groups/GroupProfile";
@@ -40,7 +41,7 @@ function App() {
   return (
     <div className="container">
       <BrowserRouter basename={basename}>
-        <Navbar />
+        <Navbar user={user} />
         <br />
 
         <Routes>
@@ -90,7 +91,6 @@ function App() {
           {/* <Route exact path="/profile" element={<Profile />} /> */}
           <Route exact path="/mock" element={<Example />} />
         </Routes>
-
         <br />
         {/* <Footer /> */}
 
