@@ -47,8 +47,8 @@ const Groups = () => {
 
             <br />
             <div className="container mt-4">
-            <div className="row gy-3" key={groups.id}>
-                <GroupCard groups={groups} />
+            <div className="row gy-3">
+                <GroupCard key={groups.id} groups={groups} />
             </div>
             </div>
         </>
