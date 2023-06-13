@@ -8,7 +8,8 @@ import "./App.css";
 
 import { Main } from "./Main";
 import LoginForm from "./login-signup/LoginForm";
-import Navbar from "./Navbar";
+// import Navbar from "./Navbar";
+import Sidebar from "./sidebar/Sidebar";
 import SignupForm from "./login-signup/SignupForm";
 import Groups from "./groups/GroupPage";
 import GroupPosts from "./group_posts/GroupPostPage";
@@ -35,17 +36,12 @@ function App() {
   const { token } = useToken();
   const { user } = UseUser(token);
 
-  // const { token } = useAuthContext();
-
   return (
-    <div className="container">
+    <div class="main-body">
       <BrowserRouter basename={basename}>
-        <Navbar user={user} />
+        <Sidebar />
         <br />
-
         <Routes>
-          {/* <Route exact path="/" element={<Main />} /> */}
-
           <Route exact path="/signup" element={<SignupForm />} />
           <Route exact path="/login" element={<LoginForm />} />
           <Route exact path="/" element={<Main />} />
@@ -82,13 +78,9 @@ function App() {
           <Route exact path="/home" element={<PostsPage />} />
           <Route exact path="/bangerz" element={<BangerzPage user={user} />} />
           <Route exact path="/home" element={<PostsPage />} />
-
-          {/* <Route exact path="/profile" element={<Profile />} /> */}
           <Route exact path="/mock" element={<Example />} />
         </Routes>
         <br />
-        {/* <Footer /> */}
-
         <br />
       </BrowserRouter>
     </div>
