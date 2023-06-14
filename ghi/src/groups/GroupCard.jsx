@@ -52,7 +52,7 @@ const GroupCard = ({ groups }) => {
                 <p className="group-title">{group.group_name}</p>
                 <br />
                 <p className="group-subtitle">
-                    <strong>{group.group_size}</strong> Homies in this group
+                    <strong className="group-size">{group.group_size}</strong> Homies in this group
                 </p>
                 <br />
                 <p className="group-subsub">{group.description}</p>
