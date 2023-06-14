@@ -37,7 +37,7 @@ function App() {
   const { user } = UseUser(token);
 
   return (
-    <div class="main-body">
+    <div className="main-body">
       <BrowserRouter basename={basename}>
         <Sidebar />
         <br />

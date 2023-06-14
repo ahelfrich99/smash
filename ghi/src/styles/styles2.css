@@ -203,6 +203,12 @@ textarea {
   /* 2 */
   padding: 0;
   /* 3 */
+  transition: all 0.5s ease;
+}
+
+button:hover {
+  opacity: 1;
+  transform: scale(1.10);
 }
 
 /*
@@ -225,7 +231,7 @@ button,
 [type='submit'] {
   -webkit-appearance: button;
   /* 1 */
-  background-color: rgb(32, 32, 240);
+  background-color: #f36a5d;
   /* 2 */
   background-image: none;
   /* 2 */
@@ -1705,5 +1711,3 @@ code {
     width: 50%;
   }
 }
-
-

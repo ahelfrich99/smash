@@ -3,8 +3,9 @@
     width: 100vw;
     /* background-color: #E99D72; */
     background: #28353b;
-    border-radius: 30px;
+    /* border-radius: 30px; */
     display: flex;
+    overflow-y: auto;
 }
 
 /* .App {

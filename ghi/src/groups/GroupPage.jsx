@@ -29,28 +29,24 @@ const Groups = () => {
 
     return (
         <>
-        <br />
-        <h1 className="text-center text-3xl font-bold mt-8">Group List</h1>
-        <br />
-            <div className="container mt-4 text-end">
-                    <button
-                        type="button"
-                        className="btn btn-primary btn-lg btn-block"
-                        onClick={handleOpenModal}
-                        >
-                            Create a Group
-                    </button>
-            </div>
-            {showCreateGroupModal && (
-                <CreateGroup onGroupCreated={fetchGroupData} onClose={handleCloseModal} />
-            )}
-
-            <br />
-            <div className="container mt-4">
-            <div className="row gy-3">
-                <GroupCard key={groups.id} groups={groups} />
-            </div>
-            </div>
+        <div className="container mt-4 text-center">
+                <button
+                    type="button"
+                    className="btn btn-lg btn-block"
+                    onClick={handleOpenModal}
+                    style={{ backgroundColor: 'rgba(254,97,82,255)' }}
+                    >
+                        Create a Group
+                </button>
+        <div className="container mt-4">
+        <div className="row gy-3">
+            <GroupCard key={groups.id} groups={groups} />
+        </div>
+        </div>
+        </div>
+        {showCreateGroupModal && (
+            <CreateGroup onGroupCreated={fetchGroupData} onClose={handleCloseModal} />
+        )}
         </>
     );
 }

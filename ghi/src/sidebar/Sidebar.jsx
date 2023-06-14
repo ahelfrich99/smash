@@ -24,8 +24,6 @@ const Sidebar = () => {
     const { token, logout } = useToken();
     const navigate = useNavigate();
 
-    const handleSignupClick = () => navigate("/signup");
-
     const handleLogout = async (e) => {
         e.preventDefault();
         await logout();
@@ -59,13 +57,13 @@ const Sidebar = () => {
                 </>
             )}
             {token && (
-                <>
-                    <SidebarButtonLogout title="Logout" icon={<HiLogout />} onClick={handleLogout} />
-                </>
+                <button onClick={handleLogout} className="btn-trans">
+                    <SidebarButtonLogout title="Logout" icon={<HiLogout />} />
+                </button>
             )}
             {!token && (
                 <>
-                    <SidebarButtonSignup title="Signup" icon={<MdLibraryMusic />} onClick={handleSignupClick} />
+                    <SidebarButtonSignup title="Signup" to="/signup" icon={<MdLibraryMusic />} />
                 </>
             )}
         </div>

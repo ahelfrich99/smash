@@ -6,7 +6,8 @@ a {
     height: 80px;
     width: 80px;
     border-radius: 20px;
-    color: #F8D9C0;
+    /* color: #F8D9C0; */
+    color: #f36a5d;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,13 +18,13 @@ a {
 }
 
 .btn-body.active {
-    background-color: #556770;
-    color: #fff;
+    background-color: #3f4b50;
+    color: #fe9086;
     transform: scale(1.05);
 }
 
 .btn-body:hover {
-    color: #fff;
+    color: #fe9086;
 }
 
 .btn-title {

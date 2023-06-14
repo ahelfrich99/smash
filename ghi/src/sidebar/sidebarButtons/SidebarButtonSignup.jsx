@@ -4,8 +4,8 @@ import "./SidebarButton.css";
 
 export default function SidebarButtonSignup(props) {
     return (
-        <Link>
-        <div className='btn-body active'>
+        <Link to={props.to}>
+        <div className='btn-body'>
             <IconContext.Provider value={{ size: "24px", className: "btn-icon" }}>
             {props.icon}
             <p className="btn-title">{props.title}</p>
