@@ -20,15 +20,19 @@ a {
 .btn-body.active {
     background-color: #3f4b50;
     color: #fe9086;
-    transform: scale(1.05);
+    transform: scale(1.15);
 }
 
 .btn-body:hover {
     color: #fe9086;
+    transition: all 0.5s ease;
+    transform: scale(1.15);
 }
 
 .btn-title {
-    margin: 4px auto;
+    margin: 10px;
+    padding: 8px auto;
     font-weight: 600;
-    font-size: 12px;
+    font-size: 10px;
+    font-family: "Retro";
 }

@@ -1,6 +1,7 @@
 import { IconContext } from 'react-icons';
 import { Link, useLocation } from 'react-router-dom';
 import './SidebarButton.css'
+import '../Sidebar.css'
 
 export default function SidebarButton(props) {
     const location = useLocation();
@@ -11,7 +12,7 @@ export default function SidebarButton(props) {
         <Link to={props.to}>
             <div className={btnClass}>
                 <IconContext.Provider
-                    value={{size: '24px', className: 'btn-icon'}}
+                    value={{size: '32px', className: 'btn-icon'}}
                 >
                     {props.icon}
                     <p className='btn-title'>{props.title}</p>

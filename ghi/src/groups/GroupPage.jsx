@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import GroupCard from "./GroupCard";
 import CreateGroup from "./CreateGroup";
 
+import "./groups.css"
+
 const Groups = () => {
     const [groups, setGroups] = useState([]);
     const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
@@ -34,7 +36,7 @@ const Groups = () => {
                     type="button"
                     className="btn btn-lg btn-block"
                     onClick={handleOpenModal}
-                    style={{ backgroundColor: 'rgba(254,97,82,255)' }}
+                    style={{ backgroundColor: 'rgba(254,97,82,255)', fontFamily: "Retro" }}
                     >
                         Create a Group
                 </button>

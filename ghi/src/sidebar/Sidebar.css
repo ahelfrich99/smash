@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'Retro';
+    src: local('PressStart2P-Regular'),
+        url('../fonts/PressStart2P-Regular.ttf') format('truetype');
+}
+
 .sidebar-container {
     width: 100px;
     height: 100%;

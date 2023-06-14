@@ -19,3 +19,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+    font-family: 'Retro';
+    src: local('PressStart2P-Regular'),
+        url('./fonts/PressStart2P-Regular.ttf') format('truetype');
+}
