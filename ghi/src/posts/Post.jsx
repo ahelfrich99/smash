@@ -3,9 +3,10 @@ import Comment from "./Comment";
 import CreateComment from "./CreateComment";
 import PostBanger from "./PostBanger";
 
-export default function Post({ postData, allPosts, bangers, token, getPosts }) {
+export default function Post({ postData, bangers, token, getPosts, user }) {
   const [comments, setComments] = useState([]);
   const [showCreateCommentModal, setShowCreateCommentModal] = useState(false);
+  const [liked, setLiked] = useState(postData.liked);
 
   const getComments = async (id) => {
     const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/posts/${id}/comments`;
@@ -30,7 +31,47 @@ export default function Post({ postData, allPosts, bangers, token, getPosts }) {
     const response = await fetch(url, fetchConfigUrl);
 
     if (response.ok) {
-      allPosts.filter((post) => post.id !== id);
+      getPosts();
+    }
+  };
+
+  const likePost = async () => {
+    const data = {
+      user_id: user.id,
+      post_id: postData.id,
+    };
+
+    const likeUrl = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/likes`;
+    const fetchConfigUrl = {
+      method: "post",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(likeUrl, fetchConfigUrl);
+
+    if (response.ok) {
+      setLiked(true);
+      getPosts();
+    }
+  };
+
+  const unlikePost = async (id) => {
+    const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/likes/${id}`;
+    const fetchConfigUrl = {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await fetch(url, fetchConfigUrl);
+
+    if (response.ok) {
+      setLiked(false);
       getPosts();
     }
   };
@@ -45,7 +86,16 @@ export default function Post({ postData, allPosts, bangers, token, getPosts }) {
 
   useEffect(() => {
     getComments(postData.id);
-  }, [postData.id]);
+    setLiked(postData.liked);
+  }, [postData.id, postData.liked]);
+
+  if (!user) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -65,12 +115,14 @@ export default function Post({ postData, allPosts, bangers, token, getPosts }) {
             />
           </div>
           <p className="card-text">{postData.text}</p>
-          <button
-            onClick={() => handleDelete(postData.id)}
-            className="btn btn-secondary btn-sm"
-          >
-            Delete
-          </button>
+          {user.id === postData.user_id && (
+            <button
+              onClick={() => handleDelete(postData.id)}
+              className="btn btn-secondary btn-sm"
+            >
+              Delete
+            </button>
+          )}
           <button
             type="button"
             className="btn btn-secondary btn-sm"
@@ -78,6 +130,23 @@ export default function Post({ postData, allPosts, bangers, token, getPosts }) {
           >
             Comment
           </button>
+          {token &&
+            (!liked ? (
+              <button
+                className="btn btn-success btn-sm"
+                onClick={() => likePost()}
+              >
+                Like
+              </button>
+            ) : (
+              <button
+                className="btn btn-danger btn-sm"
+                onClick={() => unlikePost(postData.id)}
+              >
+                Unlike
+              </button>
+            ))}
+          <h6>Likes: {postData.like_count}</h6>
         </div>
       </div>
       <div>

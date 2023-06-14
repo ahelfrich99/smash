@@ -38,7 +38,7 @@ def get_all(
     repo: PostRepository = Depends(),
     account: dict = Depends(authenticator.try_get_current_account_data),
 ):
-    result = repo.get_all()
+    result = repo.get_all(account)
 
     if result is None:
         response.status_code = 404
@@ -50,9 +50,12 @@ def get_all(
 
 @router.get("/posts/{post_id}", response_model=Union[PostOut, Error])
 def get_one(
-    post_id: int, response: Response, repo: PostRepository = Depends()
+    post_id: int,
+    response: Response,
+    repo: PostRepository = Depends(),
+    account: dict = Depends(authenticator.try_get_current_account_data),
 ) -> PostOut:
-    result = repo.get_one(post_id)
+    result = repo.get_one(account, post_id)
 
     if result is None:
         response.status_code = 404

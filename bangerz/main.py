@@ -14,6 +14,7 @@ from routers import (
     group_posts,
     comments,
     filess,
+    likes
 )
 
 
@@ -42,6 +43,7 @@ app.include_router(comments.router)
 app.include_router(group_posts.router)
 app.include_router(group_comments.router)
 app.include_router(filess.router)
+app.include_router(likes.router)
 
 
 @app.get("/api/launch-details")

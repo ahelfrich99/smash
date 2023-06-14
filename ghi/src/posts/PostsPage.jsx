@@ -3,7 +3,7 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 import CreatePost from "./CreatePost";
 import Post from "./Post";
 
-export default function Posts() {
+export default function Posts({ user }) {
   const { token } = useToken();
   const [posts, setPosts] = useState([]);
   const [bangers, setBangers] = useState([]);
@@ -11,7 +11,14 @@ export default function Posts() {
 
   const getPosts = async () => {
     const url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/posts`;
-    const response = await fetch(url);
+    const fetchConfigUrl = {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await fetch(url, fetchConfigUrl);
 
     if (response.ok) {
       const data = await response.json();
@@ -38,9 +45,12 @@ export default function Posts() {
   };
 
   useEffect(() => {
-    getPosts();
+    if (token) {
+      getPosts();
+    }
     getBangerz();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   return (
     <div>
@@ -71,10 +81,10 @@ export default function Posts() {
             <div key={post.id}>
               <Post
                 postData={post}
-                allPosts={posts}
                 bangers={bangers}
                 token={token}
                 getPosts={getPosts}
+                user={user}
               />
               <br />
             </div>
