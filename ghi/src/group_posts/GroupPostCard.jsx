@@ -4,6 +4,7 @@ import DeleteGroupPost from "./DeleteGroupPost";
 import CreateGroupComment from "../group_comments/CreateGroupComment";
 import GroupComment from "../group_comments/GroupComment";
 import useToken from "@galvanize-inc/jwtdown-for-react";
+import "./group_posts.css"
 
 const BangerImage = ({ banger, fetchWithCookie }) => {
         const [image, setImage] = useState(null);
@@ -23,7 +24,7 @@ const BangerImage = ({ banger, fetchWithCookie }) => {
             <img
             src={`data:image/jpg;base64,${image}`}
             alt="banger"
-            style={{ maxWidth: "150px" }}
+            className="image"
             />
         );
     };
@@ -92,72 +93,103 @@ const GroupPostCard = ({ groupPost, group, bangers }) => {
 
     return (
         <div>
-            <div className="card" key={groupPost.id}>
-                <div className="card-body">
-                    <div className="card-content">
-                        <div className="left-side">
-                        <h5 className="card-title">
-                        <strong>{user ? `${user.first_name} ${user.last_name}` : 'Unknown user'}</strong>
-                    </h5>
-                    <h6 className="card-subtitle mb-2 text-muted">
-                        <strong>@{user ? `${user.username}` : 'unknown username'}</strong>
-                    </h6>
-                    <p>
-                        <strong>Banger: </strong>{banger ? `${banger.song_title} by ${banger.artist}` : 'Unknown banger'}
-                    </p>
-                    <p className="card-text">
-                        <strong>Content: </strong>{groupPost.content}
-                    </p>
-                    </div>
-                    <br />
-                    <div className="right-side">
-                    <div className="flex gap-x-4">
-                        <BangerImage
-                            banger={banger}
-                            fetchWithCookie={fetchWithCookie}
-                        />
-                        <div className="min-w-0 flex-auto">
-                            <p className="text-sm font-semibold leading-6 text-gray-900">{banger ? `${banger.song_title}` : `Unknown song title`}</p>
-                            <p className="mt-1 truncate text-xs leading-5 text-gray-700">{banger ? `${banger.artist}` : `Unknown artist`}</p>
-                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">{banger ? `${banger.album}` : `Unknown album`}</p>
-                        </div>
-                    </div>
-                    <br />
-                        <BangerSound
-                        banger={banger}
-                        fetchWithCookie={fetchWithCookie}
-                        />
-                    <br />
-                    <DeleteGroupPost id={groupPost.id} />
-                    <button
+            <div className="screen-container" key={groupPost.id}>
+            <div className="post-body">
+                <div className="post-section">
+                    <div className="left-section">
+                        <h5 className="post-title">
+                            <strong>
+                            {user
+                                ? `${user.first_name} ${user.last_name}`
+                                : "Unknown user"}
+                            </strong>
+                        </h5>
+                        <h6 className="post-username">
+                            <strong>
+                            @{user ? `${user.username}` : "unknown username"}
+                            </strong>
+                        </h6>
+                        <br />
+                        <h6 className="banger-title">
+                            <strong>Banger:</strong>
+                            <p className="banger-title2">
+                                {banger
+                                ? `${banger.song_title} by ${banger.artist}`
+                                : "Unknown banger"}
+                            </p>
+                        </h6>
+                        <br />
+                        <h6 className="post-content">
+                            <strong>Content:</strong>
+                            <p className="post-content2">
+                                {groupPost.content}
+                            </p>
+                        </h6>
+                        <br />
+                        <DeleteGroupPost id={groupPost.id} />
+                        <button
                         type="button"
                         className="btn btn-secondary btn-md"
                         onClick={handleOpenModal}
-                    >
+                        >
                         Comment
-                    </button>
+                        </button>
                     </div>
+                    <div className="right-section">
+                        <div className="post-card1">
+                            <div className="post-card">
+                                <div>
+                                    <BangerImage
+                                    banger={banger}
+                                    fetchWithCookie={fetchWithCookie}
+                                    />
+                                </div>
+                                <br />
+                            </div>
+                            <div className="right-content">
+                                <div className="sound">
+                                    <BangerSound banger={banger} fetchWithCookie={fetchWithCookie} />
+                                </div>
+                                <br />
+                                <div>
+                                    <p className="banger-subtitle">
+                                        {banger ? `${banger.song_title}` : `Unknown song title`}
+                                    </p>
+                                    <p className="banger">
+                                        {banger ? `${banger.album}` : `Unknown album`}
+                                    </p>
+                                    <p className="banger-artist">
+                                        {banger ? `${banger.artist}` : `Unknown artist`}
+                                    </p>
+                                    <p className="banger-date">
+                                        {banger ? `${banger.date}` : `Unknown date`}
+                                    </p>
+                                </div>
+                                <br />
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+                </div>
             <div>
             {comments?.map((comment) => {
                 return (
                     <div key={comment.id}>
-                        <GroupComment comment={comment} user={user} />
-                    </div>
-                )
+                    <GroupComment comment={comment} user={user} />
+                </div>
+                );
             })}
+            </div>
             </div>
             {showCreateComment && (
                 <CreateGroupComment
-                    onCommentCreated={(id) => getGroupComments(id)}
-                    onClose={handleCloseModal}
-                    token={token}
-                    groupPost={groupPost}
-                    group={group}
-                    users={users}
-                />
+                onCommentCreated={(id) => getGroupComments(id)}
+                onClose={handleCloseModal}
+                token={token}
+                groupPost={groupPost}
+                group={group}
+                users={users}
+            />
             )}
         </div>
     );

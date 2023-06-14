@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'Retro';
+    src: local('PressStart2P-Regular'),
+        url('../fonts/PressStart2P-Regular.ttf') format('truetype');
+}
+
+.card {
+    /* background: rbg(30, 42, 62);
+    background: linear-gradient(
+        75deg,
+        rgb(40, 58, 88) 0%,
+        rgba(54, 69, 98, 0) 100%
+    ); */
+    background: transparent;
+    padding: 10px;
+    /* margin-bottom: 10px; */
+
+}
+
+.card-body {
+    margin: 0;
+    padding: 0;
+}
+
+.card-subtitle {
+    font-family: "Retro";
+    font-weight: 800;
+    font-size: 17px;
+    color: white;
+}
+
+.card-text {
+    font-family: "Retro";
+    font-weight: 800;
+    font-size: 15px;
+    margin-top: 10px;
+    color: white;
+}

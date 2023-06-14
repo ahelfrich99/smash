@@ -73,7 +73,7 @@ steps = [
         CREATE TABLE comments (
             id SERIAL PRIMARY KEY NOT NULL,
             user_id SERIAL NOT NULL REFERENCES USERS(ID),
-            post_id SERIAL NOT NULL REFERENCES POSTS(ID),
+            post_id SERIAL NOT NULL REFERENCES POSTS(ID) ON DELETE CASCADE,
             content TEXT NOT NULL,
             date DATE NOT NULL,
             like_count INT DEFAULT 0
@@ -149,6 +149,22 @@ steps = [
         # "Down" SQL statement
         """
         DROP TABLE homies;
+        """,
+    ],
+    [
+        # "Up" SQL statement
+        """
+        CREATE TABLE likes (
+        id SERIAL PRIMARY KEY NOT NULL,
+        user_id INT,
+        post_id INT,
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+);
+        """,
+        # "Down" SQL statement
+        """
+        DROP TABLE likes;
         """,
     ],
 

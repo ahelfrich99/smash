@@ -77,7 +77,7 @@ function App() {
             path="/group_posts"
             element={<GroupPosts user={user} />}
           />
-          <Route exact path="/home" element={<PostsPage />} />
+          <Route exact path="/home" element={<PostsPage user={user} />} />
           <Route exact path="/bangerz" element={<BangerzPage user={user} />} />
           <Route exact path="/home" element={<PostsPage />} />
           <Route exact path="/mock" element={<Example />} />

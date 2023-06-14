@@ -22,7 +22,6 @@ const GroupImage = ({ group, fetchWithCookie }) => {
             <img
             src={`data:image/jpg;base64,${image}`}
             alt="Group"
-            // style={{ maxWidth: "180px", maxHeight: "155px" }}
             className="image"
             />
         </a>
@@ -53,7 +52,7 @@ const GroupCard = ({ groups }) => {
                 <p className="group-title">{group.group_name}</p>
                 <br />
                 <p className="group-subtitle">
-                    <strong>{group.group_size}</strong> Homies in this group
+                    <strong className="group-size">{group.group_size}</strong> Homies in this group
                 </p>
                 <br />
                 <p className="group-subsub">{group.description}</p>

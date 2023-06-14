@@ -211,6 +211,12 @@ button:hover {
   transform: scale(1.10);
 }
 
+button:hover {
+  opacity: 1;
+  transform: scale(1.08);
+  transition: all 0.8s ease;
+}
+
 /*
 Remove the inheritance of text transform in Edge and Firefox.
 */
@@ -218,6 +224,7 @@ Remove the inheritance of text transform in Edge and Firefox.
 button,
 select {
   text-transform: none;
+  transition: all 0.08s ease;
 }
 
 /*
