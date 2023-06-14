@@ -42,7 +42,7 @@ build-front-end-job:
     # You need to substitute in your real values for
     # GROUP_NAME, PROJECT_NAME, & WEBSERVICE_NAME below.
     PUBLIC_URL: https://bangerz-only.gitlab.io/bangerz-only
-    REACT_APP_SAMPLE_SERVICE_API_HOST: https://feb-23-pt-8-fastapi.mod3projects.com
+    REACT_APP_SAMPLE_SERVICE_API_HOST: https://bangerz-only-api.feb-a-1.mod3projects.com
   script:
     - cd ghi
     - npm install
