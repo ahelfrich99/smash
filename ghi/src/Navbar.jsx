@@ -43,43 +43,38 @@ const Navbar = () => {
             <button className="btn btn-outline-dark mx-2">Find Groups</button>
           </Link>
         )}
-        <div className="d-flex align-items-center">
-          {token !== null && (
-            <Link to="/group_posts" className="text-decoration-none">
-              <button className="btn btn-outline-dark mx-2">Group Posts</button>
-            </Link>
-          )}
-          {token !== null && (
-            <Link to="/bangerz" className="text-decoration-none">
-              <button className="btn btn-outline-dark mx-2">Bangerz</button>
-            </Link>
-          )}
-          <Link to="/home" className="text-decoration-none">
-            <button className="btn btn-outline-dark mx-2">Home</button>
+        {token !== null && (
+          <Link to="/group_posts" className="text-decoration-none">
+            <button className="btn btn-outline-dark mx-2">Group Posts</button>
           </Link>
-          {token === null && (
-            <Link to="/login" className="text-decoration-none">
-              <button className="btn btn-outline-dark mx-2">Login</button>
-            </Link>
-          )}
-
-          <div className="btn-group mb-3" role="group">
-            {token && (
-              <button className="btn btn-danger" onClick={handleLogout}>
-                Logout <i className="bi bi-box-arrow-left"></i>
-              </button>
-            )}
-            {!token && (
-              <button
-                type="button"
-                className="btn btn-success"
-                onClick={handleSignupClick}
-              >
-                Signup <i className="bi bi-person-plus"></i>
-              </button>
-            )}
-          </div>
-        </div>
+        )}
+        {token !== null && (
+          <Link to="/bangerz" className="text-decoration-none">
+            <button className="btn btn-outline-dark mx-2">Bangerz</button>
+          </Link>
+        )}
+        <Link to="/home" className="text-decoration-none">
+          <button className="btn btn-outline-dark mx-2">Home</button>
+        </Link>
+        {token === null && (
+          <Link to="/login" className="text-decoration-none">
+            <button className="btn btn-outline-dark mx-2">Login</button>
+          </Link>
+        )}
+        {token && (
+          <button className="btn btn-danger" onClick={handleLogout}>
+            Logout <i className="bi bi-box-arrow-left"></i>
+          </button>
+        )}
+        {!token && (
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={handleSignupClick}
+          >
+            Signup <i className="bi bi-person-plus"></i>
+          </button>
+        )}
       </div>
     </div>
   );

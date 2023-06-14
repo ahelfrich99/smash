@@ -1,0 +1,215 @@
+@font-face {
+    font-family: 'Retro';
+    src: local('PressStart2P-Regular'),
+        url('../fonts/PressStart2P-Regular.ttf') format('truetype');
+}
+
+.screen-container {
+    width: calc(100% - 100px);
+    height: 100%;
+    background-color: #192227;
+    border-radius: 30px;
+    opacity: 1;
+    background-image:  repeating-radial-gradient(
+        circle at top,
+        transparent 0,
+        #303b40 100px
+        ),
+        repeating-linear-gradient( #23365655, #233656 );
+}
+
+.image {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 15px;
+    justify-content: space-around;
+    object-fit: cover;
+}
+
+.post-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 65px;
+}
+
+.left-section {
+    text-align: start;
+    flex: 1;
+    padding-right: 10px;
+}
+
+.right-section {
+    text-align: start;
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    padding-top: 5px;
+}
+
+.post-card {
+    position: relative;
+    width: auto;
+    height: auto;
+    border-radius: 20px;
+    background-color: rgb(31, 39, 53);
+    border: 1px solid rgba(54, 69, 98, 0.18);
+    padding: 1%;
+    margin-left: 5px;
+    margin-right: 3px;
+    background: rbg(30, 42, 62);
+    background: linear-gradient(
+        75deg,
+        rgb(40, 58, 88) 0%,
+        rgba(54, 69, 98, 0) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease;
+}
+
+.post-card:hover {
+    opacity: 1;
+    transform: scale(1.06);
+}
+
+.post-card1 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: rgb(31, 39, 53);
+    border: 1px solid rgba(54, 69, 98, 0.18);
+    padding: 1%;
+    margin-bottom: 2%;
+    background: rbg(30, 42, 62);
+    /* background: linear-gradient(
+        75deg,
+        rgb(40, 58, 88) 0%,
+        rgba(54, 69, 98, 0) 100%
+    ); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.right-content {
+    flex: 0;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.sound {
+    transition: all 0.4s ease;
+}
+
+.sound:hover {
+    transform: scale(1.04);
+}
+
+.post-body {
+    /* width: 94%; */
+    /* height: 80%; */
+    padding: 2%;
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    justify-content: space-between;
+}
+
+.post-title {
+    font-weight: 800;
+    font-size: 17px;
+    color: white;
+    margin: 10px 0px 10px;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-family: "Retro";
+    margin-bottom: 7px;
+}
+
+.post-username {
+    font-weight: 400;
+    font-size: 14px;
+    margin: 0px;
+    color: white;
+    font-family: "Retro";
+    /* opacity: 1; */
+}
+
+.banger-title {
+    font-weight: 400;
+    font-size: 17px;
+    margin: 0px;
+    color: white;
+    font-family: "Retro";
+}
+
+.banger-title2 {
+    font-weight: 400;
+    font-size: 15px;
+    margin: 0px;
+    color: white;
+    font-family: "Retro";
+    margin-top: 10px;
+}
+
+.post-content {
+    font-weight: 400;
+    font-size: 17px;
+    margin: 0px;
+    color: white;
+    font-family: "Retro";
+    width: 250px;
+    height: 90px;
+}
+.post-content2 {
+    font-weight: 400;
+    font-size: 15px;
+    margin: 0px;
+    color: white;
+    font-family: "Retro";
+    margin-top: 10px;
+}
+
+.banger-subtitle {
+    font-weight: 400;
+    font-size: 18px;
+    margin: 0px;
+    color: white;
+    font-family: "Retro";
+    margin-top: 5px;
+}
+
+.banger-artist {
+    font-weight: 400;
+    font-size: 9px;
+    margin: 0px;
+    color: white;
+    font-family: "Retro";
+    margin-top: 15px;
+}
+
+.banger {
+    font-weight: 400;
+    font-size: 12px;
+    margin: 0px;
+    color: white;
+    font-family: "Retro";
+    margin-top: 15px;
+}
+
+.banger-date {
+    font-weight: 400;
+    font-size: 12px;
+    margin: 0px;
+    color: white;
+    font-family: "Retro";
+    margin-top: 10px;
+}

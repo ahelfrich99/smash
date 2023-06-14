@@ -1,142 +1,67 @@
-# Module3 Project Gamma
+# SMASH: Social, Music, And Sharing Hub
 
-## Getting started
+---
 
-You have a project repository, now what? The next section
-lists all of the deliverables that are due at the end of the
-week. Below is some guidance for getting started on the
-tasks for this week.
+Come find new music, connect with friends, and share your creations!
 
-## Install Extensions
+- Adrianna Helfrich
+- Andrew Lam
+- Joon Hyuk Brandon Jang
+- Kristen Lungstrum
 
-- Prettier: <https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode>
-- Black Formatter: <https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter>
+## Intended Market
 
-## Deliverables
+We want to target users from social media and music backgrounds. We want to provide an experience where users can come connect with
+other users, share their own productions, and manage meetups with groups through the app.
 
-- [ ] Wire-frame diagrams
-- [ ] API documentation
-- [ ] Project is deployed to Caprover (BE, DB) & GitLab-pages (FE)
-- [ ] GitLab issue board is setup and in use (or project management tool of choice)
-- [ ] Journals
+## Design
 
-## Project layout
+- [API design](docs/apis.md)
+- [GHI](docs/ghi.md)
 
-The layout of the project is just like all of the projects
-you did with `docker-compose` in module #2. You will create
-a directory in the root of the repository for each service
-that you add to your project just like those previous
-projects were setup.
+## Functionality
 
-### Directories
+- Home Page Functionality
+    - users can view a feed of posts
+    - users can create a post and attach a "banger" to reference in it
+    - users can delete a post that they made
+    - users can comment on a post
+    - users can listen to bangers attached to songs through the music player within the post
 
-Several directories have been added to your project. The
-directories `docs` and `journals` are places for you and
-your team-mates to, respectively, put any documentation
-about your project that you create and to put your
-project-journal entries. See the _README.md_ file in each
-directory for more info.
+- Bangerz Page Functionality
+    - users can create a banger by filling out the form with the banger details
+    - users can view a list of their created bangerz
+    - users can play and listen to each individual banger in the list
+    - users can delete a banger
 
-The other directories, `ghi` and `sample_service`, are
-sample services, that you can start building off of or use
-as a reference point.
+- Group Page Functionality
+    - users can view a list of groups
+    - users can click on a group picture to go to the group's profile page
+    - users can create a group through the create function
 
-Inside of `ghi` is a minimal React app that has an "under
-construction" page. It is setup similarly to all of the
-other React projects that you have worked on.
+- Group Profile Page Functionality
+    - users can view group profile and the info on the group card
+    - users can see the group's posts on the right hand side in column format
+    - users can create a group post through the profile page for the group
+    - users can play the banger attached to the group post
 
-Inside of `sample_service` is a minimal FastAPI application.
-"Where are all the files?" you might ask? Well, the
-`main.py` file is the whole thing, and go take look inside
-of it... There's not even much in there..., hmm? That is
-FastAPI, we'll learn more about it in the coming days. Can
-you figure out what this little web-application does even
-though you haven't learned about FastAPI yet?
+- Group Post Page Functionality
+    - users can view a list of all group posts
+    - users can create a group post and specifiy which group to create the post for
+    - users can play bangers on the group post on the list
 
-Also in `sample_service` is a directory for your migrations.
-If you choose to use PostgreSQL, then you'll want to use
-migrations to control your database. Unlike Django, where
-migrations were automatically created for you, you'll write
-yours by hand using DDL. Don't worry about not knowing what
-DDL means; we have you covered. There's a sample migration
-in there that creates two tables so you can see what they
-look like.
+## Project Initialization
 
-The sample Dockerfile and Dockerfile.dev run your migrations
-for you automatically.
+To enjoy the full experience of our application on your local machine, please follow the steps below for set up:
 
-### Other files
+1. Clone the repository into a directory of choice
+2. `cd` into the new cloned project directory
+3. Run the following commands in your project directory terminal to build docker image and container
 
-The following project files have been created as a minimal
-starting point. Please follow the guidance for each one for
-a most successful project.
+    ```sh
+    docker volume create bangerz
+    docker-compose build
+    docker-compose up
+    ```
 
-- `docker-compose.yaml`: there isn't much in here, just a
-  **really** simple UI and FastAPI service. Add services
-  (like a database) to this file as you did with previous
-  projects in module #2.
-- `.gitlab-ci.yml`: This is your "ci/cd" file where you will
-  configure automated unit tests, code quality checks, and
-  the building and deployment of your production system.
-  Currently, all it does is deploy an "under construction"
-  page to your production UI on GitLab and a sample backend
-  to CapRover. We will learn much more about this file.
-- `.gitignore`: This is a file that prevents unwanted files
-  from getting added to your repository, files like
-  `pyc` files, `__pycache__`, etc. We've set it up so that
-  it has a good default configuration for Python projects.
-- `.env.sample`: This file is a template to copy when
-  creating environment variables for your team. Create a
-  copy called `.env` and put your own passwords in here
-  without fear of it being committed to git (see `.env`
-  listed in `.gitignore`). You can also put team related
-  environment variables in here, things like api and signing
-  keys that shouldn't be committed; these should be
-  duplicated in your deployed environments.
-
-## How to complete the initial deploy
-
-There will be further guidance on completing the initial
-deployment, but it just consists of these steps:
-
-### Setup GitLab repo/project
-
-- make sure this project is in a group. If it isn't, stop
-  now and move it to a GitLab group
-- remove the fork relationship: In GitLab go to:
-
-  Settings -> General -> Advanced -> Remove fork relationship
-
-- add these GitLab CI/CD variables:
-  - PUBLIC_URL : this is your gitlab pages URL
-  - SAMPLE_SERVICE_API_HOST: enter "blank" for now
-
-#### Your GitLab pages URL
-
-You can't find this in GitLab until after you've done a deploy
-but you can figure it out yourself from your GitLab project URL.
-
-If this is your project URL
-
-https://gitlab.com/GROUP_NAME/PROJECT_NAME
-
-then your GitLab pages URL will be
-
-https://GROUP_NAME.gitlab.io/PROJECT_NAME
-
-### Initialize CapRover
-
-1. Attain IP address and domain from an instructor
-1. Follow the steps in the CD Cookbook in Learn.
-
-### Update GitLab CI/CD variables
-
-Copy the service URL for your CapRover service and then paste
-that into the value for the SAMPLE_SERVICE_API_HOST CI/CD variable
-in GitLab.
-
-### Deploy it
-
-Merge a change into main to kick off the initial deploy. Once the build pipeline
-finishes you should be able to see an "under construction" page on your GitLab
-pages site.
+4. Once the docker containers are running, go to http://localhost:3000 to experience the application
