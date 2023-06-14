@@ -7,9 +7,8 @@
 .screen-container {
     width: calc(130% - 80px);
     height: 100%;
-    background-color: #303b40;
+    background-color: #192227;
     border-radius: 30px;
-    background-color: #303b40;
     opacity: 1;
     background-image:  repeating-radial-gradient(
         circle at top,
@@ -47,7 +46,7 @@
     width: 30%;
     height: 35%;
     border-radius: 20px;
-    background-color: rgb(30,42,62);
+    background-color: rgb(31, 39, 53);
     border: 1px solid rgba(54, 69, 98, 0.18);
     padding: 1%;
     margin-bottom: 2%;

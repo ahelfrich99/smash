@@ -22,7 +22,6 @@ const GroupImage = ({ group, fetchWithCookie }) => {
             <img
             src={`data:image/jpg;base64,${image}`}
             alt="Group"
-            // style={{ maxWidth: "180px", maxHeight: "155px" }}
             className="image"
             />
         </a>

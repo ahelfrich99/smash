@@ -18,6 +18,7 @@ export default function SidebarButton(props) {
                     <p className='btn-title'>{props.title}</p>
                 </IconContext.Provider>
             </div>
+            <br />
         </Link>
     );
 }

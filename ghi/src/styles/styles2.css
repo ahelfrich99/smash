@@ -203,12 +203,12 @@ textarea {
   /* 2 */
   padding: 0;
   /* 3 */
-  transition: all 0.5s ease;
 }
 
 button:hover {
   opacity: 1;
-  transform: scale(1.10);
+  transform: scale(1.08);
+  transition: all 0.8s ease;
 }
 
 /*
@@ -218,6 +218,7 @@ Remove the inheritance of text transform in Edge and Firefox.
 button,
 select {
   text-transform: none;
+  transition: all 0.08s ease;
 }
 
 /*

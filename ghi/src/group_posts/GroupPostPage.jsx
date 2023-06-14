@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import GroupPostCard from "./GroupPostCard";
 import CreateGroupPost from "./CreateGroupPost";
 
+import "./group_posts.css"
+
 const GroupPosts = ({user}) => {
     const [groupPosts, setGroupPosts] = useState([]);
     const [bangers, setBangers] = useState([]);
@@ -40,17 +42,32 @@ const GroupPosts = ({user}) => {
 
     return (
         <>
-        <br />
-        <h1 className="text-center text-3xl font-bold mt-8">Group Posts</h1>
-        <br />
-        <div className="container mt-4 text-end">
-            <button
-                type="button"
-                className="btn btn-primary btn-md btn-block"
-                onClick={handleOpenModal}
-            >
-                Create a Group Post
-            </button>
+        <div className="container mt-4 text-start">
+            <div className="text-center">
+                <button
+                    type="button"
+                    className="btn btn-lg btn-block"
+                    onClick={handleOpenModal}
+                    style={{ backgroundColor: 'rgba(254,97,82,255)', fontFamily: "Retro" }}
+                >
+                    Create a Group Post
+                </button>
+            </div>
+            <div className="container mt-4">
+                <div className="row gy-3">
+                    {groupPosts?.map((groupPost) => {
+                        return (
+                            <div key={groupPost.id}>
+                                <GroupPostCard
+                                    groupPost={groupPost}
+                                    user={user}
+                                    bangers={bangers}
+                                />
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
         </div>
         {showCreateGroupModal && (
             <CreateGroupPost
@@ -58,22 +75,6 @@ const GroupPosts = ({user}) => {
             onClose={handleCloseModal}
             />
         )}
-
-        <div className="container mt-4">
-            <div className="row gy-3">
-                {groupPosts?.map((groupPost) => {
-                    return (
-                        <div key={groupPost.id}>
-                            <GroupPostCard
-                                groupPost={groupPost}
-                                user={user}
-                                bangers={bangers}
-                            />
-                        </div>
-                    )
-                })}
-            </div>
-        </div>
         </>
     );
 };
