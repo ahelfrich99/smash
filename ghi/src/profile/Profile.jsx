@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./profile.css";
 import ProfilePage from "./ProfilePage";
-import PostsPage from "../posts/PostsPage";
+import ProfilePost from "./ProfilePost";
 
 const Profile = ({ user }) => {
 
@@ -11,11 +11,11 @@ const Profile = ({ user }) => {
     <div className="profile-container">
       {user && (
         <>
-          <div className="profile-post-container" style={{ width: "65%" }}>
+          <div className="profile-post-container" style={{ width: "30%" }}>
             <ProfilePage user={user} />
           </div>
-          <div className="profile-post-container" style={{ width: "65%" }}>
-            <PostsPage user={user.id} />
+          <div className="profile-post-container" style={{ width: "70%" }}>
+            <ProfilePost user={user.id} />
           </div>
         </>
       )}

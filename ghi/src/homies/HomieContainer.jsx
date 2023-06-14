@@ -12,10 +12,10 @@ const { id } = useParams();
 // homie page container.
   return (
     <div className="homie-container">
-      <div className="homie-post-container" style={{ width: "35%" }}>
+      <div className="homie-post-container" style={{ width: "30%" }}>
         <Homie user={user} />
       </div>
-      <div className="homie-post-container" style={{ width: "65%" }}>
+      <div className="homie-post-container" style={{ width: "50%" }}>
         <PostsPage user={id} />
       </div>
     </div>

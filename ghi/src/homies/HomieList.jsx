@@ -1,5 +1,6 @@
-import { useState, useEffect, navigate } from "react";
+import { useState, useEffect } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
+import { useNavigate } from "react-router-dom";
 import "./homies.css";
 
 const HomieImage = ({ homie, fetchWithCookie }) => {
@@ -31,6 +32,7 @@ const HomieImage = ({ homie, fetchWithCookie }) => {
 const HomieList = ({user}) => {
   const [homies, setHomies] = useState([]);
   const { fetchWithCookie } = useToken();
+  const navigate = useNavigate();
   const { token } = useToken();
 
   //fetch homie data
@@ -48,7 +50,8 @@ const HomieList = ({user}) => {
 
 
   const goToHomie = (id) => {
-    navigate("/groups/:id", { state: { id: id } });
+
+    navigate(`/homie/${id}`);
   };
 
   useEffect(() => {

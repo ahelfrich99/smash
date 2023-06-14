@@ -24,6 +24,7 @@ import GroupProfile from "./groups/GroupProfile";
 import Profile from "./profile/Profile";
 import BangerzPage from "./bangerz/BangerzPage";
 import HomieContainer from "./homies/HomieContainer";
+import ProfilePost from "./profile/ProfilePost";
 
 // example imports
 import Example from "./mock-pages/Example";
@@ -47,6 +48,7 @@ function App() {
           <Route exact path="/" element={<Main />} />
           <Route exact path="/useUser" element={<UseUser />} />
           <Route path="/profile" element={<Profile user={user} />} />
+    
           <Route
             exact
             path="myHomieList"
