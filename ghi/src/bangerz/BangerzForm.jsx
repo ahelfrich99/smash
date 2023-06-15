@@ -187,8 +187,8 @@ function BangerzForm({ user, onClose, onPostCreated }) {
                         onChange={handleSongChange}
                     />
                     <div className="flex items-center justify-start w-full">
-                    <button className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 transition duration-150 ease-in-out hover:bg-blue-600 bg-blue-700 rounded text-white px-8 py-2 text-sm">Submit</button>
-                    <button className="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-red-400 ml-3 bg-red-100 transition duration-150 text-white-600 ease-in-out hover:border-red-400 hover:bg-red-300 border rounded px-8 py-2 text-sm" onClick={handleCancel}>Cancel</button>
+                    <button className=" btn black-button text-sm">Submit</button>
+                    <button className=" focus:outline-none focus:ring-2 focus:ring-offset-2 ml-3 btn cancel-button text-sm" onClick={handleCancel}>Nevermind</button>
                     </div>
                 </div>
                 </form>
