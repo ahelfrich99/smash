@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./profile.css";
 import ProfilePage from "./ProfilePage";
-import ProfilePost from "./ProfilePost";
+import PostsPage from "../posts/PostsPage";
 
 const Profile = ({ user }) => {
   //Return Profile Container
@@ -10,13 +10,12 @@ const Profile = ({ user }) => {
       {user && (
         <div style={{ display: "flex", flexDirection: "row" }}>
           {/* ProfilePage content */}
-          <div className="profile-content" style={{ width: "100%" }}>
+          <div className="profile-content" style={{ width: "25%" }}>
             <ProfilePage user={user} />
           </div>
-
           ProfilePost content
           <div className="profile-posts" style={{ width: "70%" }}>
-            <ProfilePost user={user.id} />
+            <PostsPage user={user.id} />
           </div>
         </div>
       )}
