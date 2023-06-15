@@ -106,72 +106,73 @@ const handleCloseModal = (event) => {
 
   // Return Profile Info
   return (
-<div className="container mt-4">
-  <div className="row gy-3">
-    <div className="screen-container">
-      <div className="group-body">
-        <div className="group-card text-center">
-          <div>
-            <img
-              src={`data:image/png;base64,${profileImageB64}`}
-              alt="Profile"
-              style={{ maxWidth: "300px" }}
-              className="mx-auto"
-            />
-          </div>
-          <br />
-          <p className="group-title" style={{ color: "#30E5BE" }}>{`${user.first_name} ${user.last_name}`}</p>
-          <br />
-          <p className="group-subtitle">
-            <strong>Username:</strong> {user.username} <br />
-            <strong>Email:</strong> {displayUser.email}
-          </p>
-          <br />
-          <button
-            type="button"
-            className="btn btn-primary update-button"
-            onClick={handleOpenModal}
-          >
-            Update Profile
-          </button>
-
-          {isModalVisible && (
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">Update Profile</h5>
-                <form onSubmit={handleUpdate}>
-                  <div className="form-group">
-                    <label>
-                      New Email:
-                      <input
-                        type="email"
-                        value={newEmail}
-                        onChange={handleEmailChange}
-                        required
-                        className="form-control"
-                      />
-                    </label>
-                  </div>
-                  <button className="btn btn-primary" type="submit">
-                    Update
-                  </button>
-                  <button
-                    className="btn btn-secondary"
-                    onClick={(event) => handleCloseModal(event)}
-                  >
-                    Close
-                  </button>
-                </form>
+    <div className="container mt-4" style={{ marginLeft: "20px" }}>
+      <div className="row gy-3">
+        <div className="profile-screen-container">
+          <div className="profile-body">
+            <div className="profile-card text-center">
+              <div>
+                <img
+                  src={`data:image/png;base64,${profileImageB64}`}
+                  alt="Profile"
+                  style={{ maxWidth: "300px" }}
+                  className="mx-auto"
+                />
               </div>
+              <br />
+              <p
+                className="profile-title"
+                style={{ color: "#30E5BE" }}
+              >{`${user.first_name} ${user.last_name}`}</p>
+              <br />
+              <p className="profile-subtitle">
+                <strong>Username:</strong> {user.username} <br />
+                <strong>Email:</strong> {displayUser.email}
+              </p>
+              <br />
+              <button
+                type="button"
+                className="btn btn-primary update-button"
+                onClick={handleOpenModal}
+              >
+                Update Profile
+              </button>
+
+              {isModalVisible && (
+                <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">Update Profile</h5>
+                    <form onSubmit={handleUpdate}>
+                      <div className="form-group">
+                        <label>
+                          New Email:
+                          <input
+                            type="email"
+                            value={newEmail}
+                            onChange={handleEmailChange}
+                            required
+                            className="form-control"
+                          />
+                        </label>
+                      </div>
+                      <button className="btn btn-primary" type="submit">
+                        Update
+                      </button>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={(event) => handleCloseModal(event)}
+                      >
+                        Close
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-
   );
 };
 export default ProfilePage;

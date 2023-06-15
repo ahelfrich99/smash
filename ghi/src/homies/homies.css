@@ -4,7 +4,7 @@
         url('../fonts/PressStart2P-Regular.ttf') format('truetype');
 }
 
-.screen-container {
+.homies-screen-container {
     width: calc(130% - 80px);
     height: 100%;
     background-color: #303b40;
@@ -19,11 +19,11 @@
         repeating-linear-gradient( #23365655, #233656 );
 }
 
-.flex {
+.homies-flex {
     display: flex;
 }
 
-.image {
+.homies-image {
     width: 100%;
     /* height: 100%; */
     aspect-ratio: 1;
@@ -32,7 +32,7 @@
     object-fit: cover;
 }
 
-.group-body {
+.homies-body {
     width: 94%;
     height: 80%;
     padding: 2%;
@@ -42,7 +42,7 @@
     justify-content: space-between;
 }
 
-.group-card {
+.homies-card {
     position: relative;
     width: 30%;
     height: 35%;
@@ -61,12 +61,12 @@
     cursor: pointer;
 }
 
-.group-card:hover {
+.homies-card:hover {
     opacity: 1;
     transform: scale(1.02);
 }
 
-.group-title {
+.homies-title {
     font-weight: 800;
     font-size: 25px;
     color: white;
@@ -80,7 +80,7 @@
     font-family: "Retro";
 }
 
-.group-subtitle {
+.homies-subtitle {
     font-weight: 400;
     font-size: 12px;
     margin: 0px;
@@ -88,7 +88,7 @@
     font-family: "Retro";
 }
 
-.group-subsub {
+.homies-subsub {
     font-weight: 400;
     font-size: 16px;
     margin: 0px;
@@ -96,30 +96,30 @@
     font-family: "Retro";
 }
 
-.insta {
+.homies-insta {
     padding: 0.25rem;
     margin: -0.25rem;
     color: white;
 }
 
-.insta:hover {
+.homies-insta:hover {
     color: #3B82F6;
 }
 
-.insta:focus {
+.homies-insta:focus {
     outline: none;
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
-.insta:focus-visible {
+.homies-insta:focus-visible {
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
-.insta:ring-primary {
+.homies-insta:ring-primary {
     box-shadow: 0 0 0 2px #6366F1;
 }
 
-.insta2 {
+.homies-insta2 {
     width: 6rem;
     height: 3rem;
     overflow: visible;
