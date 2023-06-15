@@ -1,24 +1,3 @@
-/* .profile-content {
-  width: 30%;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.profile-posts {
-  width: 70%;
-  padding: 20px;
-  box-sizing: border-box;
-} */
-
-/* If you need some space between .profile-content and .profile-posts */
-/* .profile-content {
-  margin-right: 10px;
-}
-
-.profile-posts {
-  margin-left: 10px;
-} */
-
 @font-face {
     font-family: 'Retro';
     src: local('PressStart2P-Regular'),
@@ -26,20 +5,18 @@
 }
 
 .screen-container {
-    font-family: 'Retro', sans-serif;
-    width: 140%; /* Adjust the width to make it larger */
+    width: calc(130% - 80px);
     height: 100%;
-    margin-right: -20%; /* Add negative margin to align with group-body */
     background-color: #303b40;
     border-radius: 30px;
     background-color: #303b40;
     opacity: 1;
-    background-image: repeating-radial-gradient(
-            circle at top,
-            transparent 0,
-            #303b40 100px
+    background-image:  repeating-radial-gradient(
+        circle at top,
+        transparent 0,
+        #303b40 100px
         ),
-        repeating-linear-gradient(#23365655, #233656);
+        repeating-linear-gradient( #23365655, #233656 );
 }
 
 .flex {
@@ -56,10 +33,9 @@
 }
 
 .group-body {
-    font-family: 'Retro', sans-serif;
-    width: 100%;
+    width: 94%;
     height: 80%;
-    padding: 1%;
+    padding: 2%;
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
@@ -68,8 +44,8 @@
 
 .group-card {
     position: relative;
-    width: 100%;
-    height: 100%;
+    width: 30%;
+    height: 35%;
     border-radius: 20px;
     background-color: rgb(30,42,62);
     border: 1px solid rgba(54, 69, 98, 0.18);
@@ -83,7 +59,6 @@
     );
     transition: all 0.2s ease;
     cursor: pointer;
-    overflow: hidden;
 }
 
 .group-card:hover {
@@ -125,7 +100,6 @@
     padding: 0.25rem;
     margin: -0.25rem;
     color: white;
-    font-family: "Retro";
 }
 
 .insta:hover {

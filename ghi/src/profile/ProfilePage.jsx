@@ -58,9 +58,10 @@ const ProfilePage = ({ user }) => {
     setModalVisible(true);
   };
 
-  const handleCloseModal = () => {
-    setModalVisible(false);
-  };
+const handleCloseModal = (event) => {
+  event.stopPropagation();
+  setModalVisible(false);
+};
 
   const handleEmailChange = (event) => {
     setNewEmail(event.target.value);
@@ -105,72 +106,72 @@ const ProfilePage = ({ user }) => {
 
   // Return Profile Info
   return (
-    <div className="card" style={{ width: "18rem" }}>
-      <img
-        className="card-img-top"
-        src={`data:image/png;base64,${profileImageB64}`}
-        alt="Profile"
-        style={{ maxWidth: "300px" }}
-      />
-      <div className="card-body">
-        <h5 className="card-title">{`${user.first_name} ${user.last_name}`}</h5>
-        <p className="card-text">
-          <strong>Username:</strong> {user.username} <br />
-          <strong>Email:</strong> {displayUser.email}
-        </p>
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={handleOpenModal}
-        >
-          Update Profile
-        </button>
-      </div>
+<div className="container mt-4">
+  <div className="row gy-3">
+    <div className="screen-container">
+      <div className="group-body">
+        <div className="group-card text-center">
+          <div>
+            <img
+              src={`data:image/png;base64,${profileImageB64}`}
+              alt="Profile"
+              style={{ maxWidth: "300px" }}
+              className="mx-auto"
+            />
+          </div>
+          <br />
+          <p className="group-title" style={{ color: "#30E5BE" }}>{`${user.first_name} ${user.last_name}`}</p>
+          <br />
+          <p className="group-subtitle">
+            <strong>Username:</strong> {user.username} <br />
+            <strong>Email:</strong> {displayUser.email}
+          </p>
+          <br />
+          <button
+            type="button"
+            className="btn btn-primary update-button"
+            onClick={handleOpenModal}
+          >
+            Update Profile
+          </button>
 
-      {isModalVisible && (
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">Update Profile</h5>
-            <form onSubmit={handleUpdate}>
-              <div className="form-group">
-                <label>
-                  New Email:
-                  <input
-                    type="email"
-                    value={newEmail}
-                    onChange={handleEmailChange}
-                    required
-                    className="form-control"
-                  />
-                </label>
+          {isModalVisible && (
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">Update Profile</h5>
+                <form onSubmit={handleUpdate}>
+                  <div className="form-group">
+                    <label>
+                      New Email:
+                      <input
+                        type="email"
+                        value={newEmail}
+                        onChange={handleEmailChange}
+                        required
+                        className="form-control"
+                      />
+                    </label>
+                  </div>
+                  <button className="btn btn-primary" type="submit">
+                    Update
+                  </button>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={(event) => handleCloseModal(event)}
+                  >
+                    Close
+                  </button>
+                </form>
               </div>
-              <button className="btn btn-primary" type="submit">
-                Update
-              </button>
-              <button className="btn btn-secondary" onClick={handleCloseModal}>
-                Close
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-      <div className="pt-6 mx-6 mt-6 text-center border-t border-black-200 dark:border-gray-700/50">
-        <div className="flex flex-wrap justify-center">
-          <div className="w-full px-6">
-            <p className="mb-4 font-light leading-relaxed text-black-600 dark:text-black-400"></p>
-          </div>
-        </div>
-      </div>
-      <div className="relative h-6 overflow-hidden translate-y-6 rounded-b-xl">
-        <div className="absolute flex -space-x-12 rounded-b-2xl">
-          <div className="w-36 h-8 transition-colors duration-200 delay-75 transform skew-x-[35deg] bg-blue-400/90 group-hover:bg-blue-600/90 z-10"></div>
-          <div className="w-28 h-8 transition-colors duration-200 delay-100 transform skew-x-[35deg] bg-blue-300/90 group-hover:bg-blue-500/90 z-20"></div>
-          <div className="w-28 h-8 transition-colors duration-200 delay-150 transform skew-x-[35deg] bg-blue-200/90 group-hover:bg-blue-400/90 z-30"></div>
-          <div className="w-28 h-8 transition-colors duration-200 delay-200 transform skew-x-[35deg] bg-blue-100/90 group-hover:bg-blue-300/90 z-40"></div>
-          <div className="w-28 h-8 transition-colors duration-200 delay-300 transform skew-x-[35deg] bg-blue-50/90 group-hover:bg-blue-200/90 z-50"></div>
+            </div>
+          )}
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
   );
 };
 export default ProfilePage;

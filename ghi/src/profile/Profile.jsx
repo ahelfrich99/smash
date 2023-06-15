@@ -4,20 +4,20 @@ import ProfilePage from "./ProfilePage";
 import PostsPage from "../posts/PostsPage";
 
 const Profile = ({ user }) => {
-
-
   //Return Profile Container
   return (
-    <div className="profile-container">
+    <div>
       {user && (
-        <>
-          <div className="profile-post-container" style={{ width: "65%" }}>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          {/* ProfilePage content */}
+          <div className="profile-content" style={{ width: "25%" }}>
             <ProfilePage user={user} />
           </div>
-          <div className="profile-post-container" style={{ width: "65%" }}>
+          ProfilePost content
+          <div className="profile-posts" style={{ width: "70%" }}>
             <PostsPage user={user.id} />
           </div>
-        </>
+        </div>
       )}
     </div>
   );

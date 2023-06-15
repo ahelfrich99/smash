@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useParams, useLocation } from "react-router-dom";
+import "./profile.css";
 
 const Homie = ({ user }) => {
   const { id } = useParams();
@@ -119,45 +120,50 @@ const Homie = ({ user }) => {
 
   // This returns the homie profile page content.
   return (
-    <div className="card" style={{ width: "18rem" }}>
-      <img
-        className="card-img-top"
-        src={`data:image/png;base64,${profileImageB64}`}
-        alt="Profile"
-        style={{ maxWidth: "300px" }}
-      />
-      <div className="card-body">
-        <h5 className="card-title">{`${homie.first_name} ${homie.last_name}`}</h5>
-        <p className="card-text">
-          <strong>Username:</strong> {homie.username} <br />
-          <strong>Email:</strong> {homie.email}
-        </p>
-        {token &&
-          (!isFollowing ? (
-            <button className="btn btn-success" onClick={followHomie}>
-              Follow Homie
-            </button>
-          ) : (
-            <button className="btn btn-danger" onClick={unFollowHomie}>
-              Unfollow Homie
-            </button>
-          ))}
-      </div>
-
-      <div className="pt-6 mx-6 mt-6 text-center border-t border-black-200 dark:border-gray-700/50">
-        <div className="flex flex-wrap justify-center">
-          <div className="w-full px-6">
-            <p className="mb-4 font-light leading-relaxed text-black-600 dark:text-black-400"></p>
+    <div className="container mt-4">
+      <div className="row gy-3 justify-content-center">
+        <div className="screen-container">
+          <div className="group-body">
+            <div className="group-card text-center">
+              <div>
+                <img
+                  className="card-img-top"
+                  src={`data:image/png;base64,${profileImageB64}`}
+                  alt="Profile"
+                  style={{ maxWidth: "300px", margin: "0 auto" }}
+                />
+              </div>
+              <br />
+              <br />
+              <p className="group-title" style={{ color: "#30E5BE" }}>
+                {`${homie.first_name} ${homie.last_name}`}
+              </p>
+              <br />
+              <p className="group-subtitle">
+                <strong>Username:</strong> {homie.username} <br />
+                <strong>Email:</strong> {homie.email}
+              </p>
+              <br />
+              <div
+                style={{
+                  marginTop: "20px",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                {token &&
+                  (!isFollowing ? (
+                    <button className="btn btn-success" onClick={followHomie}>
+                      Follow
+                    </button>
+                  ) : (
+                    <button className="btn btn-danger" onClick={unFollowHomie}>
+                      Unfollow
+                    </button>
+                  ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="relative h-6 overflow-hidden translate-y-6 rounded-b-xl">
-        <div className="absolute flex -space-x-12 rounded-b-2xl">
-          <div className="w-36 h-8 transition-colors duration-200 delay-75 transform skew-x-[35deg] bg-blue-400/90 group-hover:bg-blue-600/90 z-10"></div>
-          <div className="w-28 h-8 transition-colors duration-200 delay-100 transform skew-x-[35deg] bg-blue-300/90 group-hover:bg-blue-500/90 z-20"></div>
-          <div className="w-28 h-8 transition-colors duration-200 delay-150 transform skew-x-[35deg] bg-blue-200/90 group-hover:bg-blue-400/90 z-30"></div>
-          <div className="w-28 h-8 transition-colors duration-200 delay-200 transform skew-x-[35deg] bg-blue-100/90 group-hover:bg-blue-300/90 z-40"></div>
-          <div className="w-28 h-8 transition-colors duration-200 delay-300 transform skew-x-[35deg] bg-blue-50/90 group-hover:bg-blue-200/90 z-50"></div>
         </div>
       </div>
     </div>

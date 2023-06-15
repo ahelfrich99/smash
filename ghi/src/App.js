@@ -47,6 +47,7 @@ function App() {
           <Route exact path="/" element={<Main />} />
           <Route exact path="/useUser" element={<UseUser />} />
           <Route path="/profile" element={<Profile user={user} />} />
+
           <Route
             exact
             path="myHomieList"
