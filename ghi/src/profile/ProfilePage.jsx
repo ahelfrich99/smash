@@ -173,6 +173,10 @@ const handleCloseModal = (event) => {
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
   );
 };
 export default ProfilePage;
