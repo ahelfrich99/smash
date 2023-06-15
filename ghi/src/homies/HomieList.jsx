@@ -103,7 +103,6 @@ const HomieList = ({user}) => {
                     ></path>
                   </svg>
                 </a>
-                {/* </div> */}
               </div>
             ))}
           </div>
