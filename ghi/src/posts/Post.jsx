@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import Comment from "./Comment";
 import CreateComment from "./CreateComment";
 import PostBanger from "./PostBanger";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { BsFillTrash3Fill } from "react-icons/bs";
+import { FaRegComment } from "react-icons/fa";
+
+import "./posts.css";
 
 export default function Post({ postData, bangers, token, getPosts, user }) {
   const [comments, setComments] = useState([]);
@@ -99,64 +104,70 @@ export default function Post({ postData, bangers, token, getPosts, user }) {
 
   return (
     <div>
-      <div className="card" key={postData.id}>
-        <div className="card-body">
-          <h5 className="card-title">
-            {postData.first_name} {postData.last_name}
-          </h5>
-          <h6 className="card-subtitle mb-2 text-muted">
-            @{postData.username}
-          </h6>
-          <div>
-            <PostBanger
-              banger={bangers.find(
-                (banger) => banger.id === postData.banger_id
+      <div className="screen-container" key={postData.id}>
+        <div className="post-body">
+          <div className="post-section">
+            <div className="left-section">
+              <h5 className="post-title">
+                {postData.first_name} {postData.last_name}
+              </h5>
+              <h6 className="post-username">@{postData.username}</h6>
+              <br />
+              <p className="post-content2">{postData.text}</p>
+              <br />
+              <h6 className="banger-artist">{postData.like_count} Likes</h6>
+              <br />
+              {token &&
+                (!liked ? (
+                  <button className="btn btn-danger" onClick={() => likePost()}>
+                    {<AiOutlineHeart />}
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => unlikePost(postData.id)}
+                  >
+                    {<AiFillHeart />}
+                  </button>
+                ))}
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={handleOpenModal}
+              >
+                {<FaRegComment />}
+              </button>
+              {user.id === postData.user_id && (
+                <button
+                  onClick={() => handleDelete(postData.id)}
+                  className="btn btn-secondary"
+                >
+                  {<BsFillTrash3Fill />}
+                </button>
               )}
-            />
+            </div>
+            <div className="right-section">
+              <div className="post-card1">
+                <PostBanger
+                  banger={bangers.find(
+                    (banger) => banger.id === postData.banger_id
+                  )}
+                />
+              </div>
+            </div>
           </div>
-          <p className="card-text">{postData.text}</p>
-          {user.id === postData.user_id && (
-            <button
-              onClick={() => handleDelete(postData.id)}
-              className="btn btn-secondary btn-sm"
-            >
-              Delete
-            </button>
-          )}
-          <button
-            type="button"
-            className="btn btn-secondary btn-sm"
-            onClick={handleOpenModal}
-          >
-            Comment
-          </button>
-          {token &&
-            (!liked ? (
-              <button
-                className="btn btn-success btn-sm"
-                onClick={() => likePost()}
-              >
-                Like
-              </button>
-            ) : (
-              <button
-                className="btn btn-danger btn-sm"
-                onClick={() => unlikePost(postData.id)}
-              >
-                Unlike
-              </button>
-            ))}
-          <h6>Likes: {postData.like_count}</h6>
         </div>
       </div>
-      <div>
-        {comments?.map((comment) => {
-          return (
-            <div key={comment.id}>
-              <Comment commentData={comment} allComments={comments} />
-            </div>
-          );
-        })}
+      <div className="post-body">
+        <div>
+          {comments?.map((comment) => {
+            return (
+              <div key={comment.id}>
+                <Comment commentData={comment} allComments={comments} />
+              </div>
+            );
+          })}
+        </div>
       </div>
       {showCreateCommentModal && (
         <CreateComment
