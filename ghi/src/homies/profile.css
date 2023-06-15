@@ -72,7 +72,7 @@
     height: 100%;
     border-radius: 20px;
     background-color: rgb(30,42,62);
-    border: 0px solid rgba(54, 69, 98, 0.18);
+    border: 1px solid rgba(54, 69, 98, 0.18);
     padding: 1%;
     margin-bottom: 2%;
     background: rbg(30, 42, 62);

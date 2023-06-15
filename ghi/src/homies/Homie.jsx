@@ -121,49 +121,46 @@ const Homie = ({ user }) => {
   // This returns the homie profile page content.
   return (
     <div className="container mt-4">
-      <div className="row gy-3">
+      <div className="row gy-3 justify-content-center">
         <div className="screen-container">
           <div className="group-body">
-            <div className="card" style={{ width: "18rem" }}>
-              <img
-                className="card-img-top"
-                src={`data:image/png;base64,${profileImageB64}`}
-                alt="Profile"
-                style={{ maxWidth: "300px" }}
-              />
-              <div className="card-body">
-                <h5
-                  className="group-title"
-                  style={{ color: "#30E5BE" }}
-                >{`${homie.first_name} ${homie.last_name}`}</h5>
-                <p className="card-text">
-                  <strong>Username:</strong> {homie.username} <br />
-                  <br></br>
-                  <strong>Email:</strong> {homie.email}
-                  <br></br>
-                </p>
-
-                <div
-                  style={{
-                    marginTop: "20px",
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  {token &&
-                    (!isFollowing ? (
-                      <button className="btn btn-success" onClick={followHomie}>
-                        Follow
-                      </button>
-                    ) : (
-                      <button
-                        className="btn btn-danger"
-                        onClick={unFollowHomie}
-                      >
-                        Unfollow
-                      </button>
-                    ))}
-                </div>
+            <div className="group-card text-center">
+              <div>
+                <img
+                  className="card-img-top"
+                  src={`data:image/png;base64,${profileImageB64}`}
+                  alt="Profile"
+                  style={{ maxWidth: "300px", margin: "0 auto" }}
+                />
+              </div>
+              <br />
+              <br />
+              <p className="group-title" style={{ color: "#30E5BE" }}>
+                {`${homie.first_name} ${homie.last_name}`}
+              </p>
+              <br />
+              <p className="group-subtitle">
+                <strong>Username:</strong> {homie.username} <br />
+                <strong>Email:</strong> {homie.email}
+              </p>
+              <br />
+              <div
+                style={{
+                  marginTop: "20px",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                {token &&
+                  (!isFollowing ? (
+                    <button className="btn btn-success" onClick={followHomie}>
+                      Follow
+                    </button>
+                  ) : (
+                    <button className="btn btn-danger" onClick={unFollowHomie}>
+                      Unfollow
+                    </button>
+                  ))}
               </div>
             </div>
           </div>
