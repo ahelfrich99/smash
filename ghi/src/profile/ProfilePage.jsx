@@ -108,9 +108,9 @@ const handleCloseModal = (event) => {
   return (
 <div className="container mt-4">
   <div className="row gy-3">
-    <div className="screen-container">
-      <div className="group-body">
-        <div className="group-card text-center">
+    <div className="screen-container9">
+      <div className="group-body9">
+        <div className="group-card9 text-center">
           <div>
             <img
               src={`data:image/png;base64,${profileImageB64}`}
@@ -120,9 +120,9 @@ const handleCloseModal = (event) => {
             />
           </div>
           <br />
-          <p className="group-title" style={{ color: "#30E5BE" }}>{`${user.first_name} ${user.last_name}`}</p>
+          <p className="group-title9" style={{ color: "#30E5BE" }}>{`${user.first_name} ${user.last_name}`}</p>
           <br />
-          <p className="group-subtitle">
+          <p className="group-subtitle9">
             <strong>Username:</strong> {user.username} <br />
             <strong>Email:</strong> {displayUser.email}
           </p>

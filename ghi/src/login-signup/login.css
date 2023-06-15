@@ -1,0 +1,182 @@
+@font-face {
+    font-family: 'Retro';
+    src: local('PressStart2P-Regular'),
+        url('../fonts/PressStart2P-Regular.ttf') format('truetype');
+}
+
+.banner {
+    margin-top: 12px;
+    margin-bottom: 25px;
+    background-color: #34424a;
+    border: #34424a;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    color: white;
+}
+
+.banner-text {
+    color: white;
+    font-family: "Retro";
+    font-size: 11px;
+    margin-left: 10px;
+}
+
+.banner-text2 {
+    color: #f36a5d;
+    font-size: 13px;
+}
+
+.banner-text3 {
+    color: #f36a5d;
+    font-size: 13px;
+}
+
+.login-body {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.login-body2 {
+    height: 100vh;
+    width: 50%;
+    background-color: #192227;
+}
+
+.login-body3-text {
+    font-size: 36px;
+    line-height: 2.5rem;
+    font-weight: bold;
+    color: white;
+    font-family: "Retro";
+}
+
+.login-body3-text2 {
+    color: white;
+    font-size: 12px;
+    font-family: "Retro";
+    margin-top: 5px;
+}
+
+.login-body2-button {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    border-radius: 15px;
+    background-color: #f36a5d;
+    padding: 0.50rem;
+    color: white;
+    font-family: "Retro";
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.login-body2-button:hover {
+    background-color: #e87368;
+    transform: scale(1.03);
+}
+
+.login-border {
+    border-top: 1px solid #636363;
+}
+
+.login-border-text {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    text-align: center;
+    font-size: 12px;
+    font-family: "Retro";
+    color: white;
+    margin-top: 10px;
+}
+
+.username {
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 800;
+    color: white;
+    font-family: "Retro";
+}
+
+.username-input {
+    display: inline-block;
+    width: 100%;
+    border-radius: 15px;
+    background-color: white;
+    padding: 10px;
+    line-height: 1;
+    color: black;
+    opacity: 1;
+    font-family: "Retro";
+    font-size: 15px;
+}
+
+.password {
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 800;
+    color: white;
+    font-family: "Retro";
+}
+
+.password-input {
+    display: inline-block;
+    width: 100%;
+    border-radius: 15px;
+    background-color: white;
+    padding: 10px;
+    line-height: 1;
+    color: black;
+    font-family: "Retro";
+    font-size: 15px;
+}
+
+.check-remem:hover {
+    transform: scale(1.02);
+    transition: all 0.3s ease;
+}
+
+.checkbox {
+    cursor: pointer;
+}
+
+.checkbox:hover {
+    transform: scale(1.02);
+    transition: all 0.3s ease;
+}
+
+.remember {
+    margin-left: 8px;
+    margin-right: 8px;
+    font-size: 12px;
+    color: white;
+    font-family: "Retro";
+}
+
+.login-button2 {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.login-button2-1 {
+    width: 100%;
+    border-radius: 15px;
+    background-color: #f36a5d;
+    padding: 12px;
+    transition: all 0.3s ease;
+    font-family: "Retro";
+    color: white;
+
+}
+
+.login-button2-1:hover {
+    background-color: #e87368;
+    transform: scale(1.03);
+}

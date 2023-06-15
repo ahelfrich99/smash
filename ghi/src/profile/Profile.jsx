@@ -13,7 +13,9 @@ const Profile = ({ user }) => {
           <div className="profile-content" style={{ width: "25%" }}>
             <ProfilePage user={user} />
           </div>
-          ProfilePost content
+          <div style={{ color: "transparent" }}>
+            ProfilePost content
+          </div>
           <div className="profile-posts" style={{ width: "70%" }}>
             <PostsPage user={user.id} />
           </div>

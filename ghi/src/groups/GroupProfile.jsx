@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import GroupPostCard from "../group_posts/GroupPostCard";
 import CreateGroupPost from "../group_posts/CreateGroupPost";
 
+import "./group-profile.css"
+
 const GroupProfile = () => {
   const { id } = useParams();
   const { token } = useToken();
@@ -125,111 +127,95 @@ const GroupProfile = () => {
   // This returns the profile page content.
   return (
     <>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6">
-            <div className="card" style={{ width: "18rem" }}>
-              <img
-                className="card-img-top"
-                src={`data:image/png;base64,${profileImageB64}`}
-                alt="Profile"
-                style={{ maxWidth: "300px" }}
-              />
-              <div className="card-body">
-                <h5 className="card-title fs-3">
-                  <strong>{`${group.group_name}`}</strong>
-                </h5>
-                <p className="card-text fs-6">
-                  <strong>Group:</strong> {group.group_name} <br />
-                  <strong>Description:</strong> {group.description}
-                </p>
-              </div>
-
-              <div className="pt-6 mx-6 mt-6 text-center border-t border-black-200 dark:border-gray-700/50">
-                <div className="flex flex-wrap justify-center">
-                  <div className="w-full px-6">
-                    <p className="mb-4 font-light leading-relaxed text-black-600 dark:text-black-400"></p>
-                  </div>
-                </div>
-              </div>
-              <div className="container mt-4 text-end">
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={handleOpenUpdateModal}
-                >
-                  Update Group
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-primary btn-md btn-block"
-                  onClick={handleOpenModal}
-                >
-                  Create Group Post
-                </button>
-              </div>
-              <div className="relative h-6 overflow-hidden translate-y-6 rounded-b-xl">
-                <div className="absolute flex -space-x-12 rounded-b-2xl">
-                  <div className="w-36 h-8 transition-colors duration-200 delay-75 transform skew-x-[35deg] bg-blue-400/90 group-hover:bg-blue-600/90 z-10"></div>
-                  <div className="w-28 h-8 transition-colors duration-200 delay-100 transform skew-x-[35deg] bg-blue-300/90 group-hover:bg-blue-500/90 z-20"></div>
-                  <div className="w-28 h-8 transition-colors duration-200 delay-150 transform skew-x-[35deg] bg-blue-200/90 group-hover:bg-blue-400/90 z-30"></div>
-                  <div className="w-28 h-8 transition-colors duration-200 delay-200 transform skew-x-[35deg] bg-blue-100/90 group-hover:bg-blue-300/90 z-40"></div>
-                  <div className="w-28 h-8 transition-colors duration-200 delay-300 transform skew-x-[35deg] bg-blue-50/90 group-hover:bg-blue-200/90 z-50"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {showCreateGroupModal && (
-          <CreateGroupPost
-            onGroupPostCreated={fetchGroupPostData}
-            onClose={handleCloseModal}
-          />
-        )}
-        {showUpdateModal && (
-          <div className="card">
+      <div className="screen-container2">
+        <div className="left-section1">
+          <div className="gp-card">
+            <img
+              className="card-image"
+              src={`data:image/png;base64,${profileImageB64}`}
+              alt="Profile"
+            />
             <div className="card-body">
-              <h5 className="card-title">Update Group</h5>
-              <form onSubmit={handleUpdate}>
-                <div className="form-group">
-                  <label>
-                    New Description:
-                    <textarea
-                      type="text"
-                      value={newDescription}
-                      onChange={handleDescriptionChange}
-                      required
-                      className="form-control"
-                    />
-                  </label>
+              <h5 className="card-body-title">
+                <strong>{`${group.group_name}`}</strong>
+              </h5>
+              <p className="card-body-text">
+                {group.description}
+              </p>
+            </div>
+            <div className="splitter">
+              <div className="flex flex-wrap justify-center">
+                <div className="w-full px-6">
+                  <p className="splitter2"></p>
                 </div>
-                <button className="btn btn-primary" type="submit">
-                  Update
-                </button>
-                <button
-                  className="btn btn-secondary"
-                  onClick={handleCloseUpdateModal}
-                >
-                  Close
-                </button>
-              </form>
+              </div>
+            </div>
+            <div className="gp-buttons">
+              <button
+                className="update-button"
+                onClick={handleOpenUpdateModal}
+              >
+                Update Group
+              </button>
+              <button
+                className="create-button"
+                onClick={handleOpenModal}
+              >
+                Create Group Post
+              </button>
             </div>
           </div>
-        )}
+            {showUpdateModal && (
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title" style={{ fontFamily: "Retro", color: "white" }}>Update Group</h5>
+                  <form onSubmit={handleUpdate} className="form-css">
+                    <div className="form-group">
+                      <label>
+                        New Description:
+                        <textarea
+                          type="text"
+                          value={newDescription}
+                          onChange={handleDescriptionChange}
+                          required
+                          className="form-control"
+                        />
+                      </label>
+                    </div>
+                    <button className="btn btn-primary" type="submit">
+                      Update
+                    </button>
+                    <button
+                      className="btn btn-secondary"
+                      onClick={handleCloseUpdateModal}
+                    >
+                      Close
+                    </button>
+                  </form>
+                </div>
+              </div>
+            )}
+        </div>
         <br />
-        <div className="col-md-6 mt-4">
-          <div>
+        <div className="right-section1">
+          <div className="group-post">
             {groupPosts?.map((groupPost) => {
               return (
-                <div key={groupPost.id}>
+                <div key={groupPost.id} className="group-post2">
                   <GroupPostCard groupPost={groupPost} group={group} bangers={bangers} />
                   <br />
                 </div>
               );
             })}
           </div>
+          </div>
         </div>
-      </div>
+      {showCreateGroupModal && (
+        <CreateGroupPost
+          onGroupPostCreated={fetchGroupPostData}
+          onClose={handleCloseModal}
+        />
+      )}
     </>
   );
 };

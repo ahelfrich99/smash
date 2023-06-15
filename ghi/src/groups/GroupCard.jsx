@@ -37,7 +37,7 @@ const GroupCard = ({ groups }) => {
     };
 
     return (
-        <div className="screen-container">
+        <div className="screen-container3">
             <div className="group-body">
             {groups?.map((group) => (
                 <div

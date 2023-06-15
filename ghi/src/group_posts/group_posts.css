@@ -71,7 +71,7 @@
 
 .post-card:hover {
     opacity: 1;
-    transform: scale(1.06);
+    transform: scale(1.04);
 }
 
 .post-card1 {
@@ -109,9 +109,7 @@
 }
 
 .post-body {
-    /* width: 94%; */
-    /* height: 80%; */
-    padding: 2%;
+    padding: 1%;
     flex: 1;
     display: flex;
     flex-wrap: wrap;
@@ -161,21 +159,45 @@
 }
 
 .post-content {
-    font-weight: 400;
-    font-size: 17px;
-    margin: 0px;
-    color: white;
-    font-family: "Retro";
-    width: 250px;
-    height: 90px;
+    margin-top: 10px;
+    width: 500px;
+    height: 120px;
 }
+
 .post-content2 {
     font-weight: 400;
     font-size: 15px;
-    margin: 0px;
+    line-height: 1.75;
     color: white;
     font-family: "Retro";
-    margin-top: 10px;
+    width: 400px;
+}
+
+.gp-post-buttons {
+    margin-top: 15px;
+}
+
+.comment-button {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #f36a5d;
+    border-color: #f36a5d;
+    color: #fff;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    font-family: "Retro";
+    transition: all 0.3s ease;
+}
+
+.comment-button:hover {
+    background-color: #e34739;
+    color: #fff;
+    transform: scale(1.05);
 }
 
 .banger-subtitle {

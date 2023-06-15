@@ -12,6 +12,7 @@
     align-items: center;
     justify-content: space-between;
     margin-left: 5px;
+    overflow: hidden;
 }
 
 .profile-img {
@@ -19,8 +20,19 @@
     height: 75px;
     border-radius: 20px;
     margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.profile-img:hover {
+    transform: scale(1.12);
 }
 
 .btn-trans {
     background-color: transparent;
+}
+
+.profile-img-text {
+    font-family: "Retro";
+    font-size: 10px;
+    color: white;
 }

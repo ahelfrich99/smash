@@ -1,0 +1,82 @@
+.delete {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #f91d1d;
+    border-color: #f36a5d;
+    color: #fff;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    font-family: "Retro";
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.delete:hover {
+    background-color: rgb(230, 136, 127);
+    color: #fff;
+    transform: scale(1.03);
+}
+
+.delete-modal {
+    font-family: "Retro";
+    line-height: 1.5;
+}
+
+.modal-title-1 {
+    font-family: "Retro";
+    font-size: 15px;
+}
+
+.font1 {
+    font-family: "Retro";
+}
+
+.font2 {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #f36a5d;
+    border-color: #f36a5d;
+    color: #fff;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    font-family: "Retro";
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.font2:hover {
+    color: #fff;
+    transform: scale(1.03);
+}
+
+.font3 {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #f36a5d;
+    border-color: #f36a5d;
+    color: #fff;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    font-family: "Retro";
+    transition: all 0.3s ease;
+}
+
+.font3:hover {
+    color: #fff;
+    transform: scale(1.03);
+}

@@ -110,30 +110,32 @@ const GroupPostCard = ({ groupPost, group, bangers }) => {
                             </strong>
                         </h6>
                         <br />
-                        <h6 className="banger-title">
+                        {/* <h6 className="banger-title">
                             <strong>Banger:</strong>
                             <p className="banger-title2">
                                 {banger
                                 ? `${banger.song_title} by ${banger.artist}`
                                 : "Unknown banger"}
                             </p>
-                        </h6>
+                        </h6> */}
                         <br />
                         <h6 className="post-content">
-                            <strong>Content:</strong>
+                            {/* <strong>Content:</strong> */}
                             <p className="post-content2">
                                 {groupPost.content}
                             </p>
                         </h6>
                         <br />
-                        <DeleteGroupPost id={groupPost.id} />
-                        <button
-                        type="button"
-                        className="btn btn-secondary btn-md"
-                        onClick={handleOpenModal}
-                        >
-                        Comment
-                        </button>
+                        <div className="gp-post-buttons">
+                            <button
+                            type="button"
+                            className="comment-button"
+                            onClick={handleOpenModal}
+                            >
+                            Comment
+                            </button>
+                            <DeleteGroupPost id={groupPost.id} />
+                        </div>
                     </div>
                     <div className="right-section">
                         <div className="post-card1">
