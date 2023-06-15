@@ -3,6 +3,8 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 import CreatePost from "./CreatePost";
 import Post from "./Post";
 
+import "./posts.css";
+
 export default function Posts({ user }) {
   const { token } = useToken();
   const [posts, setPosts] = useState([]);
@@ -53,14 +55,18 @@ export default function Posts({ user }) {
   }, [token]);
 
   return (
-    <div>
-      <div className="container mt-4">
+    <div className="container mt-4 text-start">
+      <div className="text-center">
         {token !== null && (
-          <div className="row justify-content-end text-center">
+          <div>
             <button
               type="button"
-              className="btn btn-primary btn-lg btn-block"
+              className="btn btn-lg btn-block"
               onClick={handleOpenModal}
+              style={{
+                backgroundColor: "rgba(254,97,82,255)",
+                fontFamily: "Retro",
+              }}
             >
               Create a Post
             </button>
