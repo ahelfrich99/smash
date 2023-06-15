@@ -1,6 +1,8 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useState } from "react";
 
+import "./delete.css"
+
 const DeleteGroupPost = ({ id }) => {
     const [showModal, setShowModal] = useState(false);
     const { token } = useToken();
@@ -30,7 +32,7 @@ const DeleteGroupPost = ({ id }) => {
 
     return (
         <>
-        <button className="btn btn-danger" onClick={() => setShowModal(true)}>
+        <button className="delete" onClick={() => setShowModal(true)}>
             Delete Group Post
         </button>
 
@@ -39,17 +41,29 @@ const DeleteGroupPost = ({ id }) => {
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
                 <div className="modal-header">
-                    <h5 className="modal-title">Confirm Delete</h5>
-                    <button type="button" className="close" onClick={() => setShowModal(false)}>
-                    <span aria-hidden="true">&times;</span>
-                    </button>
+                    <div className="modal-title-1">
+                        <h5 className="modal-title">Confirm Delete</h5>
+                    </div>
+                    {/* <div className="button-hide">
+                        <button type="button" className="close" onClick={() => setShowModal(false)}>
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div> */}
                 </div>
-                <div className="modal-body">
-                    <p>No cap, you really want to delete this group post? You sure?</p>
+                <div className="delete-modal">
+                    <div className="modal-body">
+                        <p>Homie, you sure you want to delete this group post? On god?</p>
+                    </div>
                 </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Close</button>
-                    <button data-bs-dismiss="modal" type="button" className="btn btn-danger" onClick={handleDelete}>Delete</button>
+                <div className="font1">
+                    <div className="modal-footer">
+                        <div className="font2">
+                            <button onClick={() => setShowModal(false)}>Close</button>
+                        </div>
+                        <div className="font3">
+                            <button data-bs-dismiss="modal" onClick={handleDelete}>Delete</button>
+                        </div>
+                    </div>
                 </div>
                 </div>
             </div>

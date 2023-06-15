@@ -1,0 +1,172 @@
+@font-face {
+    font-family: 'Retro';
+    src: local('PressStart2P-Regular'),
+        url('../fonts/PressStart2P-Regular.ttf') format('truetype');
+}
+
+.signup-body {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.signup-body2 {
+    height: 100vh;
+    width: 50%;
+    background-color: #192227;
+}
+
+.signup-body-text {
+    font-size: 36px;
+    line-height: 2.5rem;
+    font-weight: bold;
+    color: white;
+    font-family: "Retro";
+}
+
+.signup-body-text2 {
+    color: white;
+    font-size: 12px;
+    font-family: "Retro";
+    margin-top: 10px;
+}
+
+.username {
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 800;
+    color: white;
+    font-family: "Retro";
+}
+
+.user-input {
+    display: inline-block;
+    width: 100%;
+    border-radius: 15px;
+    background-color: white;
+    padding: 10px;
+    line-height: 1;
+    color: black;
+    opacity: 1;
+    font-family: "Retro";
+    font-size: 15px;
+}
+
+.password {
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 800;
+    color: white;
+    font-family: "Retro";
+}
+
+.pass-input {
+    display: inline-block;
+    width: 100%;
+    border-radius: 15px;
+    background-color: white;
+    padding: 10px;
+    line-height: 1;
+    color: black;
+    opacity: 1;
+    font-family: "Retro";
+    font-size: 15px;
+}
+
+.firstname {
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 800;
+    color: white;
+    font-family: "Retro";
+}
+
+.first-input {
+    display: inline-block;
+    width: 100%;
+    border-radius: 15px;
+    background-color: white;
+    padding: 10px;
+    line-height: 1;
+    color: black;
+    opacity: 1;
+    font-family: "Retro";
+    font-size: 15px;
+}
+
+.lastname {
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 800;
+    color: white;
+    font-family: "Retro";
+}
+
+.last-input {
+    display: inline-block;
+    width: 100%;
+    border-radius: 15px;
+    background-color: white;
+    padding: 10px;
+    line-height: 1;
+    color: black;
+    opacity: 1;
+    font-family: "Retro";
+    font-size: 15px;
+}
+
+.email {
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 800;
+    color: white;
+    font-family: "Retro";
+}
+
+.email-input {
+    display: inline-block;
+    width: 100%;
+    border-radius: 15px;
+    background-color: white;
+    padding: 10px;
+    line-height: 1;
+    color: black;
+    opacity: 1;
+    font-family: "Retro";
+    font-size: 15px;
+}
+
+.image-upload {
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 800;
+    color: white;
+    font-family: "Retro";
+}
+
+.image-input {
+    display: inline-block;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #34424a;
+    color: black;
+    opacity: 1;
+    font-family: "Retro";
+    width: 100%;
+}
+
+.signup-button2 {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.signup-button2-1 {
+    width: 100%;
+    border-radius: 15px;
+    background-color: #f36a5d;
+    padding: 12px;
+    transition: all 0.3s ease;
+    font-family: "Retro";
+    color: white;
+}

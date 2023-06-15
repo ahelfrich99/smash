@@ -4,7 +4,7 @@
         url('../fonts/PressStart2P-Regular.ttf') format('truetype');
 }
 
-.screen-container {
+.screen-container3 {
     width: calc(130% - 80px);
     height: 100%;
     background-color: #192227;
@@ -77,13 +77,19 @@
     line-clamp: 2;
     -webkit-box-orient: vertical;
     font-family: "Retro";
-    height: 90px;
+    height: 70px;
+    transition: all 0.5s ease;
+}
+
+.group-title:hover {
+    opacity: 1;
+    transform: scale(1.10);
+    color: #f36a5d;
 }
 
 .group-subtitle {
     font-weight: 400;
     font-size: 12px;
-    margin: 0px;
     color: white;
     font-family: "Retro";
     height: 25px;
@@ -91,8 +97,9 @@
 
 .group-size {
     font-weight: 800;
-    font-size: 16px;
-    color: red;
+    font-size: 18px;
+    color: #f36a5d;
+    transition: all 0.5s ease;
 }
 
 .group-subsub {
@@ -101,7 +108,7 @@
     margin: 0px;
     color: white;
     font-family: "Retro";
-    height: 50px;
+    height: 100px;
 }
 
 .insta {
@@ -112,7 +119,7 @@
 }
 
 .insta:hover {
-    color: #3B82F6;
+    color: #f36a5d;
     opacity: 1;
     /* transform: scale(1.04); */
 }
@@ -139,7 +146,7 @@
 }
 
 .insta2:hover {
-    color: #3B82F6;
+    color: #f36a5d;
     opacity: 1;
     transform: scale(1.04);
 }

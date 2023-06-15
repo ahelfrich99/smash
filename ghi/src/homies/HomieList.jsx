@@ -62,35 +62,35 @@ const HomieList = ({user}) => {
   return (
     <div className="container mt-4">
       <div className="row gy-3">
-        <div className="screen-container">
-          <div className="group-body">
+        <div className="screen-container6">
+          <div className="group-body6">
             {homies?.map((homie) => (
               <div
                 key={homie.id}
-                className="group-card"
+                className="group-card6"
                 onClick={() => goToHomie(homie.id)}
               >
                 <div>
                   <HomieImage homie={homie} fetchWithCookie={fetchWithCookie} />
                 </div>
                 <br />
-                <p className="group-title">{homie.last_name}</p>
+                <p className="group-title6">{homie.last_name}</p>
                 <br />
-                <p className="group-subtitle">
+                <p className="group-subtitle6">
                   <strong>{homie.last_name}</strong> Homies in this group
                 </p>
                 <br />
-                <p className="group-subsub">{homie.email}</p>
+                <p className="group-subsub6">{homie.email}</p>
                 {/* <div> */}
                 <a
-                  className="insta"
+                  className="insta5"
                   href="https://www.linkedin.com/in/joonhyukjang/"
                   rel="noreferrer"
                   aria-label="User on Instagram"
                   target="_blank"
                 >
                   <svg
-                    className="insta2"
+                    className="insta7"
                     alt=""
                     aria-hidden="true"
                     viewBox="0 0 140 140"

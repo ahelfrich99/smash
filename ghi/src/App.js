@@ -8,16 +8,13 @@ import "./App.css";
 
 import { Main } from "./Main";
 import LoginForm from "./login-signup/LoginForm";
-// import Navbar from "./Navbar";
 import Sidebar from "./sidebar/Sidebar";
 import SignupForm from "./login-signup/SignupForm";
 import Groups from "./groups/GroupPage";
 import GroupPosts from "./group_posts/GroupPostPage";
-import GroupContainer from "./groups/GroupContainer";
 import MyHomieList from "./homies/MyHomieList";
 import HomieList from "./homies/HomieList";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-// import Profile from "./profile/Profile";
 import PostsPage from "./posts/PostsPage";
 import UseUser from "./useUser";
 import GroupProfile from "./groups/GroupProfile";
@@ -61,11 +58,6 @@ function App() {
           />
           <Route exact path="/mock" element={<Example />} />
           <Route exact path="/groups" element={<Groups />} />
-          <Route
-            exact
-            path="/groups/:id"
-            element={<GroupContainer user={user} />}
-          />
           <Route
             exact
             path="/groups/:id"

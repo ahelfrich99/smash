@@ -33,11 +33,14 @@ const Sidebar = () => {
 
     return (
         <div className="sidebar-container">
-            <img
-                src="https://imgur.com/TkBkCrZ"
-                className='profile-img'
-                alt='Logo'
-            />
+            <div>
+                <img
+                    src="https://i.imgur.com/FSGwmJ6.png"
+                    className='profile-img'
+                    alt='Logo'
+                />
+                <h1 className="profile-img-text">S.M.A.S.H</h1>
+            </div>
             <div>
                 <SidebarButton title="Home" to="/home" icon={<SiHomeadvisor />} />
                 {token !== null && (

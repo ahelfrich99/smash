@@ -1,0 +1,162 @@
+@font-face {
+    font-family: 'Retro';
+    src: local('PressStart2P-Regular'),
+        url('../fonts/PressStart2P-Regular.ttf') format('truetype');
+}
+
+.screen-container2 {
+    width: calc(100% - 100px);
+    height: auto;
+    background-color: #192227;
+    opacity: 1;
+    overflow-y: auto;
+    display: flex;
+}
+
+.left-section1 {
+    width: 45%;
+}
+
+.right-section1 {
+    /* width: auto; */
+    display: flex;
+    flex-direction: column;
+}
+
+.group-post {
+    width: 100%;
+}
+
+.group-post2 {
+    margin-bottom: 16px;
+    margin-top: 15px;
+}
+
+.gp-card {
+    width: 90%;
+    /* flex-shrink: 0; */
+    position: relative;
+    border-radius: 15px;
+    background-color: rgb(31, 39, 53);
+    border: 1px solid rgba(54, 69, 98, 0.18);
+    padding: 2%;
+    margin-bottom: 2%;
+    background: rbg(30, 42, 62);
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+.card-image {
+    width: 60%;
+    aspect-ratio: 1;
+    border-radius: 15px;
+    justify-content: space-around;
+    object-fit: cover;
+}
+
+.card-body {
+    margin-top: 15px;
+}
+
+.card-body-title {
+    font-family: "Retro";
+    font-size: 25px;
+    color: white;
+    margin-bottom: 15px;
+    transition: all 0.4s ease;
+    margin-top: 15px;
+}
+
+.card-body-title:hover {
+    transform: scale(1.09);
+    transform: translateX(5px);
+    color: #f36a5d;
+}
+
+.card-body-text {
+    font-family: "Retro";
+    font-size: 13px;
+    color: white;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.splitter {
+    padding-top: 24px;
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-top: 24px;
+    text-align: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    border-color: rgba(0, 0, 0, 0.2);
+    --tw-border-opacity: 1;
+    border-color: rgba(55, 65, 81, var(--tw-border-opacity));
+}
+
+.splitter2 {
+    font-weight: 300;
+    color: #374151;
+    --tw-text-opacity: 1;
+    color: rgba(0, 0, 0, var(--tw-text-opacity));
+    --tw-text-opacity: 1;
+    color: rgba(0, 0, 0, var(--tw-text-opacity));
+}
+
+.gp-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.update-button {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #f36a5d;
+    border-color: #f36a5d;
+    color: #fff;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    font-family: "Retro";
+    transition: all 0.3s ease;
+    margin-right: 8px;
+}
+
+.update-button:hover {
+    background-color: #e34739;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.create-button {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #f36a5d;
+    border-color: #f36a5d;
+    color: #fff;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    font-family: "Retro";
+    transition: all 0.3s ease;
+}
+
+.create-button:hover {
+    background-color: #e34739;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.form-css {
+    font-family: "Retro";
+    color: white;
+}

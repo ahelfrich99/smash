@@ -122,9 +122,9 @@ const Homie = ({ user }) => {
   return (
     <div className="container mt-4">
       <div className="row gy-3 justify-content-center">
-        <div className="screen-container">
-          <div className="group-body">
-            <div className="group-card text-center">
+        <div className="screen-container5">
+          <div className="group-body5">
+            <div className="group-card5 text-center">
               <div>
                 <img
                   className="card-img-top"
@@ -135,11 +135,11 @@ const Homie = ({ user }) => {
               </div>
               <br />
               <br />
-              <p className="group-title" style={{ color: "#30E5BE" }}>
+              <p className="group-title5" style={{ color: "#30E5BE" }}>
                 {`${homie.first_name} ${homie.last_name}`}
               </p>
               <br />
-              <p className="group-subtitle">
+              <p className="group-subtitle5">
                 <strong>Username:</strong> {homie.username} <br />
                 <strong>Email:</strong> {homie.email}
               </p>
