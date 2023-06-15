@@ -1,0 +1,73 @@
+@font-face {
+    font-family: 'Retro';
+    src: local('PressStart2P-Regular'),
+        url('../fonts/PressStart2P-Regular.ttf') format('truetype');
+}
+
+.content {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.black-button {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease;
+  font-family: "Retro";
+}
+
+.black-button:hover {
+  background-color: grey;
+}
+
+.cancel-button {
+  background-color: rgb(177, 57, 57);
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease;
+  font-family: "Retro";
+}
+
+.cancel-button:hover {
+  background-color: rgb(213, 121, 121);
+}
+
+.delete-button {
+  background-color: rgb(177, 57, 57);
+  color: #ffffff;
+  font-weight: bold;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+  font-family: "Retro";
+}
+
+.delete-button:hover {
+  background-color: rgb(213, 121, 121);
+}
+
+.text-lg {
+    font-family: "Retro";
+}
+
+.text-sm {
+    font-family: "Retro";
+}
+
+.text-xs {
+    font-family: "Retro";
+}
+
+.text-gray-800 {
+    font-family: "Retro";
+}
