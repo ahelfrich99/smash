@@ -1,3 +1,5 @@
+import "./comments.css";
+
 export default function Comment({ commentData }) {
   return (
     <div className="card">
